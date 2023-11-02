@@ -1,0 +1,32 @@
+ion-card > ion-card-content {
+    font-size: 0.9em !important;
+}
+
+
+ion-card > ion-card-content > i {
+    font-size: 0.6em !important;
+}
+
+ion-card-title {
+    color: black !important;
+}
+
+
+ion-card{
+    margin: auto !important;
+    display: block !important;
+    box-shadow: none !important;
+    margin-left: 50px !important;
+    margin-right: 50px !important;
+    overflow: unset !important;
+    background-color: #ffffff !important;
+    text-align: center !important;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}

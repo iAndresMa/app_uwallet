@@ -1,0 +1,6 @@
+<div class="horizontal-cards-container">
+  <ion-card class="horizontal-card no-shadow-card custom-background-card" *ngFor="let item of arrayMenu" (click)="servicios(item.nombre, item.descripcion)">
+    <ion-img [src]="item.icon"></ion-img>
+    <label class="textoButton">{{item.descripcion}}</label>
+  </ion-card>
+</div>

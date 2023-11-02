@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="amarilloW">
+    <ion-buttons slot="start" (click)="volver()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>Bicicletero</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card-content *ngIf=" boton === 2 ">
+    <ion-label>Cupo(s) aprobado(s)</ion-label>
+    <ion-item *ngFor="let cupo of dataCupos">
+      <ion-label class="ion-text-wrap">
+        <ion-text color="primary">
+          <h3>Cupo {{cupo.cupo}}</h3>
+        </ion-text>
+        <p>
+          <b>Día</b> {{cupo.dia}}<br>
+          <b>Jornada</b> {{cupo.jornada}}<br>
+          <b>Espacio</b> {{cupo.lugar}}
+        </p>
+      </ion-label>
+      <ion-icon name="bicycle-outline" slot="end"></ion-icon>
+    </ion-item>
+  </ion-card-content>
+
+  <ion-card-content *ngIf="formulario">
+    <form #formulario="ngForm" (ngSubmit)="enviarSolicitud()">
+
+      <ion-item>
+        <ion-label position="stacked">Id</ion-label>
+        <ion-input [(ngModel)]="id" name="id" type="text" required disabled>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label position="stacked">Correo</ion-label>
+          <ion-input [(ngModel)]="correo" name="correo" type="text" required disabled>
+          </ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label position="stacked">Documento</ion-label>
+          <ion-input [(ngModel)]="pager" name="documento" type="text" required disabled>
+          </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Tipo</ion-label>
+        <ion-input [(ngModel)]="descripcion" name="tipo" type="text" required disabled>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Rectoría</ion-label>
+        <ion-select [(ngModel)]="rectoria" name="rectoria" required value="rectoria" placeholder="Seleccione su rectoría" (ionChange)="verSede($event)">
+          <ion-select-option *ngFor="let rect of rectorias" [value]="rect.nombre">{{rect.nombre}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Sede</ion-label>
+        <ion-select [(ngModel)]="sede" name="sede" required value="sede" placeholder="Seleccione su rectoría">
+          <ion-select-option *ngFor="let sed of sedes" [value]="sed.nombre">{{sed.nombre}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item (click)="openModal()" detail="true">
+        <ion-label>Términos y condiciones</ion-label>
+        <ion-badge slot="end">{{textoTerminos}}</ion-badge>
+      </ion-item>
+
+      <ion-button expand="full" type="submit" shape="round" color="azulW" [disabled]="formulario.invalid" class="color-boton">
+          Solicitar
+      </ion-button> 
+
+      <ion-button expand="full" shape="round" color="danger" class="color-boton" (click)="cancelarCupo()">
+        Cancelar
+      </ion-button> 
+
+    </form>
+  </ion-card-content>
+
+</ion-content>
+
+<ion-footer *ngIf="boton === 1">
+  <ion-toolbar>
+    <ion-button (click)="cuposAbiertos()" expand="block" fill="clear" shape="round">
+      Solicitar cupo
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-footer *ngIf="boton === 2">
+  <ion-toolbar>
+    <ion-button (click)="eliminarCupo()" expand="block" fill="clear" shape="round">
+      Eliminar cupo
+    </ion-button>
+  </ion-toolbar>
+</ion-footer> 

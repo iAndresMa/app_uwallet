@@ -1,0 +1,125 @@
+<ion-content>
+
+  <div class="container">
+
+      <ion-card>
+
+          <ion-card-header>
+              <ion-card-subtitle>
+                  <ion-img src='./assets/wallet/logo_b.png' class="animateImage"></ion-img>
+              </ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+          
+          <form #formulario="ngForm" (ngSubmit)="loginUniminuto()" *ngIf="logUniminuto">
+              <ion-item>
+                  <ion-label position="floating">Usuario (correo) <ion-text color="danger">*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="usuario.correoInstitucional" name="correoInstitucional" type="text" required></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="usuario.password" name="password" type="password" required></ion-input>
+              </ion-item>
+              <ion-button expand="full" type="submit" shape="round" color="azulW" [disabled]="formulario.invalid" class="color-boton">
+                  Ingresar
+              </ion-button>
+          </form>
+
+          <form #formulario="ngForm" (ngSubmit)="loginEgresado()" *ngIf="logEgresado">
+              <ion-item>
+                  <ion-label position="floating">Documento <ion-text color="danger">*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="documento" name="documento" type="text" required></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating">Fecha de nacimiento <ion-text color="danger">*</ion-text></ion-label>
+                  <ion-input displayFormat="DD/MM/YYYY" calceltext="Cancelar" (ngModelChange)="nacimiento" (ionChange)="fechaNacimiento($event)" type="date"></ion-input>
+              </ion-item>
+              <ion-button expand="full" type="submit" shape="round" color="azulW" [disabled]="formulario.invalid" class="color-boton">
+                  Ingresar
+              </ion-button>
+          </form>
+
+          <form #formulario="ngForm" (ngSubmit)="loginProveedor()" *ngIf="logProveedor">
+              <ion-item>
+                  <ion-label position="floating">Usuario (correo) <ion-text color="danger">*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="proveedor.correoInstitucional" name="proveedor.correoInstitucional" type="text" required></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating">Password (documento) <ion-text color="danger">*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="proveedor.documento" name="proveedor.documento" type="password" required></ion-input>
+              </ion-item>
+              <ion-button expand="full" type="submit" shape="round" color="azulW" [disabled]="formulario.invalid" class="color-boton">
+                  Ingresar
+              </ion-button>
+          </form>
+
+          <!-- <ion-button class="button" expand="full" shape="round" routerLink="/registro-invitado" >
+              Registrarme como invitado
+          </ion-button> -->
+
+          <ion-button class="button" expand="full" shape="round" href="https://tuclave.uniminuto.edu" fill="clear">
+              Cambiar contraseña
+          </ion-button>
+          <ion-button class="button" expand="full" shape="round" href="http://umd.uniminuto.edu/documents/10181/0/Resolución+No+1484+Pol%C3%ADtica+Tratamiento+de+Información.pdf/3fc7028e-1530-4c0d-9391-d12c8faef17c" fill="clear">
+              Política de tratamiento
+          </ion-button>
+
+          </ion-card-content>
+      </ion-card>
+
+  </div>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+<ion-toolbar color="amarilloW">
+    <ion-grid fixed>
+
+        <ion-row *ngIf="logUniminuto">
+            <ion-col size="6">
+                <ion-button (click)="formLogin('egresado')" expand="block" fill="clear" shape="round">
+                    <ion-icon name="school"></ion-icon>
+                    <!-- <p class="nombreRol">Egresados</p> -->
+                </ion-button>
+            </ion-col>
+            <ion-col size="6">
+                <ion-button (click)="formLogin('tercero')" expand="block" fill="clear" shape="round">
+                    <ion-icon name="man"></ion-icon>
+                    <!-- <p class="nombreRol">Proveedores</p> -->
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="logEgresado">
+            <ion-col size="6">
+                <ion-button (click)="formLogin('uniminuto')" expand="block" fill="clear" shape="round">
+                    <ion-icon name="person"></ion-icon>
+                    <!-- <p class="nombreRol">Estudiantes<br>Administrativos</p> -->
+                </ion-button>
+            </ion-col>
+            <ion-col size="6">
+                <ion-button (click)="formLogin('tercero')" expand="block" fill="clear" shape="round">
+                    <ion-icon name="man"></ion-icon>
+                    <!-- <p class="nombreRol">Proveedores</p> -->
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="logProveedor">
+            <ion-col size="6">
+                <ion-button (click)="formLogin('uniminuto')" expand="block" fill="clear" shape="round">
+                    <ion-icon name="person"></ion-icon>
+                    <!-- <p class="nombreRol">Estudiantes<br>Administrativos</p> -->
+                </ion-button>
+            </ion-col>
+            <ion-col size="6">
+                <ion-button (click)="formLogin('egresado')" expand="block" fill="clear" shape="round">
+                    <ion-icon name="school"></ion-icon>
+                    <!-- <p class="nombreRol">Egresados</p> -->
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-toolbar>
+</ion-footer>

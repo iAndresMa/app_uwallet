@@ -1,0 +1,56 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="amarilloW">
+    <ion-img src="/assets/wallet/wallet_b.png" class="logo"></ion-img>
+    
+    <ion-card>
+      <ion-card-content>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="4">
+              <ion-avatar>
+                <ion-img [src]='srcImage'></ion-img> 
+              </ion-avatar>
+            </ion-col>
+            
+            <ion-col size="8">
+              <ion-text>
+                <h6>
+                  {{ datosCarnet[0] }}<br><span>{{ datosCarnet[1] }}</span><br>
+                  Documento: <span>{{ datosCarnet[2] }}</span>
+                  <div *ngIf="academico">
+                    <br>ID: <span>{{ datosCarnet[3] }}</span>
+                  </div>
+                  <br>
+                  Rol: <span>{{ datosCarnet[4] }}</span>
+                  <div *ngIf="academico">
+                    Programa: <span>{{ datosCarnet[5] }}</span>
+                  </div>
+                  <div *ngIf="!academico">
+                    Cargo: <span>{{ datosCarnet[6] }}</span>
+                  </div>
+                </h6>
+              </ion-text>
+    
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <ion-note>Accesos</ion-note>
+  <app-card [imageUrl]="accesos"></app-card>
+  <ion-note>Servicios</ion-note>
+  <app-card [imageUrl]="serviciosApp"></app-card>
+  <!-- <ion-note>Lector</ion-note>
+  <app-card [imageUrl]="lector"></app-card> -->
+  <ion-note>Soporte</ion-note>
+  <app-card [imageUrl]="componentes"></app-card>
+
+</ion-content>
+
+<app-footer></app-footer>

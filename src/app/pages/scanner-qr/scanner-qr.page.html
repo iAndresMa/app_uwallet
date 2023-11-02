@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="amarilloW">
+    <ion-buttons slot="start" (click)="volver()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>Scanner</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!-- <div class="scan-box" [hidden]="!scanActive"></div> -->
+
+    <div class="container" [hidden]="activeCertificado">
+        <ion-card>
+            <ion-card-header>
+                <div class="container">
+                    <ion-img [src]='srcImage'></ion-img>
+                </div>
+                <div class="container">
+                    <ion-card-subtitle>{{dataUsuario.LastName}}</ion-card-subtitle>
+                </div>
+                <div class="container">
+                    <ion-card-title>{{dataUsuario.FirstName}}</ion-card-title>
+                </div>
+            </ion-card-header>
+            <ion-card-content [hidden]="activeCertificado">
+                <ion-item>
+                    <ion-label class="ion-text-wrap">
+                        <h1>{{dataUsuario.Descripcion}}</h1>
+                        <p>Documento: {{dataUsuario.Pager}}</p>
+                        <p>Correo: {{dataUsuario.Mail}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label class="ion-text-wrap"><b>{{dataUsuario.Title}}</b></ion-label>
+                </ion-item>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+</ion-content>
+
+<!-- <ion-footer class="ion-no-border">
+    <ion-toolbar color="amarilloW">
+        <ion-buttons>
+            <ion-button slot="icon-only" (click)="startScanner()" [hidden]="scanActive">
+                <ion-icon name="scan-circle-outline"></ion-icon> Escanear código
+            </ion-button>
+            <ion-button expand="full" (click)="stopScanner()" [hidden]="!scanActive">
+                <ion-icon name="close-circle-outline"></ion-icon>  Cancelar
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer> -->
+
+<!-- <ion-content>
+  <ion-list>
+    <ion-item *ngFor="let barcode of barcodes">
+      <ion-label position="stacked">{{ barcode.format }}</ion-label>
+      <ion-input type="text" [value]="barcode.rawValue"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>-->
+
+<ion-footer class="ion-no-border">
+    <ion-toolbar color="amarilloW">
+        <ion-buttons>
+            <ion-button slot="icon-only" (click)="scan()" [disabled]="!isSupported">
+                <ion-icon name="scan-circle-outline"></ion-icon> Escanear código
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

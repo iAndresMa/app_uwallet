@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="amarilloW">
+    <ion-buttons slot="start" (click)="volver()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>Configuración</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item-group>
+    <ion-item-divider color="azulClaroUW" mode="ios">
+      <ion-label>Perfil</ion-label>
+    </ion-item-divider>
+
+    <ion-item mode="ios" (click)="openWebPage()">
+      <ion-icon name="image" color="azulClaroUW"></ion-icon>
+      <ion-label>Actualizar Fotografía</ion-label>
+      <ion-badge slot="end" mode="ios">subir</ion-badge>
+    </ion-item>
+    <!-- <ion-item mode="ios">
+      <ion-icon name="phone-portrait" color="azulClaroUW"></ion-icon>
+      <ion-label>Eliminar dispositivo</ion-label>
+    </ion-item> -->
+
+    <ion-item-divider mode="ios" color="azulClaroUW">
+      <ion-label>Aplicación</ion-label>
+    </ion-item-divider>
+
+    <ion-item mode="ios" routerLink="/mesa">
+      <ion-icon name="information-circle-outline" color="azulClaroUW"></ion-icon>
+      <ion-label>Ayuda</ion-label>
+    </ion-item>
+
+    <ion-item mode="ios" (click)="cerrarSesion()">
+      <ion-icon name="exit" color="azulClaroUW"></ion-icon>
+      <ion-label>Cerrar sesión</ion-label>
+    </ion-item>
+
+  </ion-item-group>
+
+</ion-content>

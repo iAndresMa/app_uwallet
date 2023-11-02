@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="amarilloW">
+    <ion-buttons slot="start" (click)="volver()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>{{prestamo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-card mode="ios">
+        <ion-card-content>
+          <svg class="barcode"
+            jsbarcode-format="upc"
+            jsbarcode-value="123456789012"
+            jsbarcode-textmargin="0"
+            jsbarcode-fontoptions="bold"
+            id="barcode">
+          </svg>
+          <!-- <svg id="barcode"></svg> -->
+        </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

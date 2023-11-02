@@ -1,0 +1,32 @@
+.horizontal-cards-container {
+    display: flex;
+    overflow-x: auto; /* Habilita el scroll horizontal */
+    overflow-y: inherit;
+    white-space: nowrap; /* Evita que las tarjetas se envuelvan en múltiples líneas */
+    margin-bottom: -10px !important;
+    margin-top: -10px !important;
+}
+  
+/* Estilo para cada tarjeta */
+.horizontal-card {
+    flex: 0 0 auto; /* Evita que las tarjetas se estiren y mantienen su tamaño original */
+    margin-right: 8px; /* Espacio entre tarjetas (ajusta según tus preferencias) */
+    width: 60px; /* Ancho fijo para cada tarjeta (ajusta según tus preferencias) */
+}
+
+/* Estilo para quitar la sombra de la tarjeta */
+.no-shadow-card {
+    box-shadow: none !important; /* Establece la sombra en "none" */
+}
+
+/* Estilo para cambiar el color de fondo de la tarjeta */
+.custom-background-card {
+    background-color: none !important; /* Cambia el color de fondo a amarillo (#ff9900) */
+}
+
+.textoButton {
+    font-size: 0.5em !important;
+    text-align: center !important;
+    display:block;
+    margin:auto;
+}

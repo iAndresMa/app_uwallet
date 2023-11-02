@@ -1,0 +1,55 @@
+
+.scan-box {
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 100vmax rgb(0, 0, 0, 0.5);
+    content: "";
+    display: block;
+    left: 50%;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+}
+
+.scan-button {
+    margin: 0px;
+    position: absolute;
+    bottom: 100px;
+    width: 100vw;
+    height: 50px;
+    z-index: 11;
+}
+
+ion-footer > ion-toolbar > ion-buttons > ion-button {  
+    display: block;
+    margin: auto;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 1px !important;
+}
+
+ion-card{
+    box-shadow: none !important;
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+}
+
+ion-img{
+    width: 50% !important;
+    margin-bottom: 10px !important;
+}
+
+ion-item{
+    text-align: center !important;
+}
+
+.md body > * {
+    --ion-background-color: #121212;
+    --ion-background-color-rgb: 18,18,18;
+}

@@ -1,0 +1,76 @@
+.container {
+  background-color: #FBD342 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.nombreRol {
+  font-size: 0.4em !important;
+  color: #2A352F !important;
+}
+
+.button {
+  font-size: 0.8em !important;
+  color: black;
+}
+
+.tituloLogin{
+  text-align: center  !important;
+  font-size: 0.5em !important;
+}
+
+ion-img {
+  display: block !important;
+  margin: auto !important;
+  width: 40% !important;
+}
+
+ion-card{
+  margin: auto !important;
+  display: block !important;
+  box-shadow: none !important;
+  background-color: #FBD342 !important;
+  margin-left: 50px !important;
+  margin-right: 50px !important;
+}
+
+ion-item,
+ion-button {
+  margin-top: 5px !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
+
+.color-boton {
+  color: white !important;
+}
+
+a {
+  color: #2a352f;
+  font-size: small;
+  text-decoration: none;
+}
+
+.transparente {
+  position: fixed;
+  bottom: 1em;
+}
+
+.animateImage {
+  animation-duration: 0.5s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+      margin-left: 70%;
+      width: 200%
+  }
+  to {
+      margin-left: 0%;
+      width: 80%;
+  }
+}
