@@ -1,8 +1,8 @@
 {
-  "name": "app_uwallet",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "name": "UWallet",
+  "version": "4.1.2",
+  "author": "Andres Lopez",
+  "homepage": "https://uwallet.uniminuto.edu",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "@capacitor-community/barcode-scanner": "^4.0.1",
     "@capacitor-community/privacy-screen": "^4.2.0",
     "@capacitor-mlkit/barcode-scanning": "^5.3.0",
     "@capacitor/android": "5.4.2",
@@ -33,7 +34,12 @@
     "@capacitor/preferences": "^5.0.6",
     "@capacitor/status-bar": "5.0.6",
     "@ionic/angular": "^7.0.0",
+    "@techiediaries/ngx-qrcode": "^9.1.0",
+    "@zxing/browser": "^0.1.4",
+    "@zxing/library": "^0.20.0",
+    "@zxing/ngx-scanner": "^17.0.0",
     "ionicons": "^7.0.0",
+    "ngx-scanner": "^0.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

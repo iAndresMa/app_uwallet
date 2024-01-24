@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'app_uwallet',
+  appId: 'edu.uniminuto.uwallet',
+  appName: 'UWallet',
   webDir: 'www',
   server: {
     androidScheme: 'https'
