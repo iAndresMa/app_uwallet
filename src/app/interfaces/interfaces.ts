@@ -182,6 +182,22 @@ export interface eventoInsrito{
     qr              : string
 }
 
+export interface RespEventoSoftExpert{
+    recordKey      : string,
+    participantes  : Array<any>,
+    datosError     : Array<any>
+}
+
+export interface RespEventoInscripcion{
+    "0"           : {
+        evento     : string,
+        id         : string,
+        idRecord   : string,
+        nombre     : string,
+        resp       : boolean
+    }
+}
+
 export interface RespEvento{
     resp        : boolean,
     msg         : string
@@ -191,4 +207,29 @@ export interface validarAdmin{
     resp        : boolean,
     correo      : string,
     sistema     : string
+}
+
+export interface qr {
+    ok          : boolean,
+    tokenQr     : string
+}
+
+export interface eventos{
+    "0"        : eventoGeneal
+}
+
+export interface evento{
+    "0"        : eventoUnico
+}
+
+export interface permiso{
+    id: number,
+    nombre: string
+}
+
+export interface TipoDocumento{
+    resp: boolean,
+    id: number,
+    nombre: string,
+    abreviatura: string
 }
