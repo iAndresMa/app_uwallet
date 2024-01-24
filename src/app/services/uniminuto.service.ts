@@ -16,8 +16,8 @@ export class UniminutoService {
 
   getDA(user: string, password: string) {
     let pass = btoa(password);
-    return this.http.get<userUniminuto>(`https://registros.uniminuto.edu/api_da/select/index.php?fn=da&correo=${user.trim()}`);
-    // return this.http.get<userUniminuto>(`https://comunidad.uniminuto.edu/api/login/index.php/${ user.trim() }/${ pass }`);
+    // return this.http.get<userUniminuto>(`https://registros.uniminuto.edu/api_da/select/index.php?fn=da&correo=${user.trim()}`);
+    return this.http.get<userUniminuto>(`https://comunidad.uniminuto.edu/api/login/index.php/${ user.trim() }/${ pass }`);
   }
 
   getDARectificacion(correo: string) {
