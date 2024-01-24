@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="naranjaE">
+    <ion-buttons slot="start" (click)="volver()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>Eventos inscritos</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngIf="!eventoInscrito" class="ion-text-center">
+    <ion-progress-bar type="indeterminate" color="naranjaE"></ion-progress-bar>
+    <ion-label>Se estan cargando sus eventos.</ion-label>
+  </ion-list>
+  
+  <ion-list *ngIf="eventoInscrito && arrayEventos.length == 0" class="ion-text-center">
+    <p>No se ha inscrito a ningun evento.</p>
+  </ion-list>
+  <ion-list *ngIf="tiempoSkel">
+    <ion-item *ngFor="let evento of arrayEventos"
+      routerLink="../evento/{{evento.evento}}/general/eventos/0" [state]="{forceReload: true}">
+      <ion-thumbnail slot="start">
+        <img alt="Silhouette of mountains" [src]="evento.image" />
+      </ion-thumbnail>
+      <ion-label>
+        {{evento.actividad}}
+        <p>
+          <ion-icon aria-hidden="true" name="calendar-outline" slot="start"></ion-icon>
+          {{evento.fechainicio}}
+        </p>
+        <p>
+          <ion-icon aria-hidden="true" name="walk-outline" slot="start"></ion-icon>
+          {{evento.tpresovir}}
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="!tiempoSkel">
+    <ion-item *ngFor="let evento of arrayEventos">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 30%;"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
