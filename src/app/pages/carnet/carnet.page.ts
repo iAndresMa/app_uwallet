@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalService } from '../../services/local.service';
 import { UwalletService } from '../../services/uwallet.service';
 import { MessageService } from 'src/app/services/message.service';
+import { UniminutoService } from 'src/app/services/uniminuto.service';
 
 @Component({
   selector: 'app-carnet',
@@ -15,6 +16,7 @@ export class CarnetPage implements OnInit {
   sede            : string   = '';
   cargo           : string   = '';
   datosCarnet     : any[]    = [];
+  permisos        : any[]    = [];
   
   //datos de usuario
   srcImage       : any;
@@ -55,13 +57,13 @@ export class CarnetPage implements OnInit {
     //   zona: 1,
     //   abierto: 'GENERAL'
     // },
-    // {
-    //   nombre: 'tabs',
-    //   descripcion: 'Eventos',
-    //   icon: '/assets/icon/eventos.png',
-    //   zona: 1,
-    //   abierto: 'GENERAL'
-    // },
+    {
+      nombre: 'tabs',
+      descripcion: 'Eventos',
+      icon: '/assets/icon/eventos.png',
+      zona: 1,
+      abierto: 'GENERAL'
+    },
     {
       nombre: 'prestamos',
       descripcion: 'Biblioteca',
@@ -79,13 +81,13 @@ export class CarnetPage implements OnInit {
   ];
 
   lector: { nombre: string, descripcion: string, icon: string, zona: number, abierto: string }[] = [
-    {
-      nombre: 'scanner-qr',
-      descripcion: 'Carnet',
-      icon: '/assets/icon/scanner.png',
-      zona: 1,
-      abierto: 'GENERAL'
-    }
+    // {
+    //   nombre: 'scanner-qr',
+    //   descripcion: 'Carnet',
+    //   icon: '/assets/icon/scanner.png',
+    //   zona: 1,
+    //   abierto: 'GENERAL'
+    // },
   ];
 
   componentes: { nombre: string, descripcion: string, icon: string, zona: number, abierto: string }[] = [
@@ -101,10 +103,28 @@ export class CarnetPage implements OnInit {
   constructor(
     private local               : LocalService,
     private uwService           : UwalletService,
-    private msgService          : MessageService
+    private msgService          : MessageService,
+    private uniminutoSerive     : UniminutoService
   ) {
     this.msgService.cargarLoading(2000);
-    this.extraerDatos();
+    this.extraerDatos().finally(() => {
+      // se obtiene los permisos
+      this.uniminutoSerive.getPermisos(this.datosCarnet[2]).subscribe((permisos:any) => {
+        if (permisos){
+          permisos.forEach(({ nombre }: any) => {
+            if (nombre == 'LECTOR'){
+              this.lector.push({
+                nombre: 'lector-evento',
+                descripcion: 'Lector',
+                icon: '/assets/icon/scanner.png',
+                zona: 1,
+                abierto: 'GENERAL'
+              });
+            }
+          });
+        }
+      });
+    });
     this.verComponentes = true;
   }
 
@@ -171,7 +191,7 @@ export class CarnetPage implements OnInit {
     for(let i = 0; i < arrayDatos.length; i++){
       await this.local.extraerLlave(arrayDatos[i]).then( dato => {
         this.datosCarnet[i] = dato.value;
-      });
+      })
     }
     return this.datosCarnet;
   }

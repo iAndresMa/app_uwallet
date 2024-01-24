@@ -30,7 +30,6 @@
                   </div>
                 </h6>
               </ion-text>
-    
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -46,8 +45,8 @@
   <app-card [imageUrl]="accesos"></app-card>
   <ion-note>Servicios</ion-note>
   <app-card [imageUrl]="serviciosApp"></app-card>
-  <!-- <ion-note>Lector</ion-note>
-  <app-card [imageUrl]="lector"></app-card> -->
+  <ion-note *ngIf="lector.length">Lector</ion-note>
+  <app-card *ngIf="lector.length" [imageUrl]="lector"></app-card>
   <ion-note>Soporte</ion-note>
   <app-card [imageUrl]="componentes"></app-card>
 
