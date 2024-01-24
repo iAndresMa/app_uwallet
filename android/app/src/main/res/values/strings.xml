@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">app_uwallet</string>
-    <string name="title_activity_main">app_uwallet</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">UWallet</string>
+    <string name="title_activity_main">UWallet</string>
+    <string name="package_name">edu.uniminuto.uwallet</string>
+    <string name="custom_url_scheme">edu.uniminuto.uwallet</string>
 </resources>

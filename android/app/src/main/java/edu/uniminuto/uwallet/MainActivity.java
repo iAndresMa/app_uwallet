@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package edu.uniminuto.uwallet;
 
 import com.getcapacitor.BridgeActivity;
 
