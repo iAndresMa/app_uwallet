@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.info-card-content {
+    padding: 10px;
+}
+
+.info-item {
+    margin-bottom: 8px;
+}
+
+.small-font {
+    font-size: 14px;
+}

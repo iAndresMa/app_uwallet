@@ -1,0 +1,193 @@
+<ion-header>
+  <ion-toolbar color="naranjaE">
+    <ion-buttons slot="start" (click)="goBack()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>Evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <img alt="Silhouette of mountains" [src]="imagenAleatoria" />
+    <ion-card-header>
+      <ion-card-title>{{arrayEvento.actividad}}</ion-card-title>
+      <ion-card-subtitle>{{arrayEvento.nmproyecto}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <!-- Skeleton -->
+    <ion-card-content class="info-card-content" *ngIf="cargandoEvento">
+      <ion-row>
+        <ion-col size="12" class="info-item">
+          <b>Rectoría:</b>
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="12" class="info-item">
+          <b>Modalidad:</b>
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="12" class="info-item">
+          <b>Fecha Actividad:</b>
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="12">
+          <b>Hora:</b> <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="12" class="info-item">
+          <b>Fecha Inscripciones:</b>
+          <ion-row class="small-font">
+            <ion-col size="6">
+              <b>Desde: </b> <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <b>Hasta:</b> <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="12" class="info-item">
+          <b>Objetivo:</b>
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+    <ion-card-content class="info-card-content" *ngIf="!cargandoEvento">
+      <ion-row>
+        <ion-col size="12" class="info-item">
+          <b>Rectoría:</b>
+          {{arrayEvento.rectoria}}
+        </ion-col>
+        <ion-col size="12" class="info-item">
+          <b>Modalidad:</b>
+          {{arrayEvento.modalidad}}
+        </ion-col>
+        <ion-col size="12" class="info-item">
+          <b>Fecha Actividad:</b>
+          {{arrayEvento.fechaactividad}}
+        </ion-col>
+        <ion-col size="12">
+          <b>Hora:</b> {{arrayEvento.horaactividad | date:'HH:mm a'}}
+        </ion-col>
+        <ion-col size="12" class="info-item" *ngIf="arrayEvento.finicioins && arrayEvento.ffinins">
+          <b>Fecha Inscripciones:</b>
+          <ion-row class="small-font">
+            <ion-col size="6">
+              <b>Desde: </b> {{arrayEvento.finicioins | date:'MMM d, y'}}
+            </ion-col>
+            <ion-col size="6">
+              <b>Hasta:</b> {{arrayEvento.ffinins | date:'MMM d, y'}}
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="12" class="info-item" *ngIf="arrayEvento.objetivo">
+          <b>Objetivo:</b>
+          {{arrayEvento.objetivo}}
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+    <div class="container" transition-style="in:circle:center" *ngIf="inscripcion && !cargandoEvento">
+      <ion-card mode="ios">
+        <ion-card-content>
+          <img alt="Cargando..." id="codigo">
+        </ion-card-content>
+      </ion-card>
+      <ion-button expand="full" type="submit" shape="round" color="danger" (click)="cancelarEvento()"
+        class="color-boton">
+        <ng-container *ngIf="!cargando; else cargandoTemplate">
+          Cancelar
+        </ng-container>
+        <ng-template #cargandoTemplate>
+          <ion-spinner></ion-spinner>
+        </ng-template>
+      </ion-button>
+    </div>
+
+    <ion-accordion-group *ngIf="!cargandoEvento">
+      <ion-accordion value="first" *ngIf="!inscripcion && !asistencia">
+        <ion-item slot="header" color="warning">
+          <ion-label><b>Asistir</b></ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <form #formulario="ngForm" (ngSubmit)="registrar()"
+            *ngIf="descripcion == 'ADMINISTRATIVO' || descripcion =='DOCENTE'">
+            <ion-item>
+              <ion-label position="floating">Tipo de documento <ion-text color="danger">*</ion-text></ion-label>
+              <ion-select name="tipoDocumento" [(ngModel)]="tipoDocumento" placeholder="Seleccione el tipo de documento"
+                required>
+                <ion-select-option *ngFor="let tipoDocumento of arrayTipoDocumento" [value]="tipoDocumento.abreviatura">{{tipoDocumento.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Documento <ion-text color="danger">*</ion-text></ion-label>
+              <ion-input [(ngModel)]="pager" name="pager" type="text" disabled></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Edad<ion-text color="danger">*</ion-text></ion-label>
+              <ion-input name="edad" [(ngModel)]="edad" type="number" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Dependencia<ion-text color="danger">*</ion-text></ion-label>
+              <ion-input name="dependencia" [(ngModel)]="dependencia" type="text" required></ion-input>
+            </ion-item>
+            <ion-button expand="full" type="submit" shape="round" color="azulW"
+              [disabled]="formulario.invalid || cargando">
+              <ng-container *ngIf="!cargando; else cargandoTemplate">
+                Registrarme
+              </ng-container>
+              <ng-template #cargandoTemplate>
+                <ion-spinner></ion-spinner>
+              </ng-template>
+            </ion-button>
+          </form>
+          <form #formulario="ngForm" (ngSubmit)="registrar()"
+            *ngIf="descripcion != 'ADMINISTRATIVO' && descripcion!='DOCENTE'">
+            <ion-item>
+              <ion-label position="floating">Tipo de documento <ion-text color="danger">*</ion-text></ion-label>
+              <ion-select name="tipoDocumento" [(ngModel)]="tipoDocumento" placeholder="Seleccione el tipo de documento"
+                required>
+                <ion-select-option *ngFor="let tipoDocumento of arrayTipoDocumento" [value]="tipoDocumento.abreviatura">{{tipoDocumento.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Documento <ion-text color="danger">*</ion-text></ion-label>
+              <ion-input [(ngModel)]="pager" name="pager" type="text" disabled></ion-input>
+            </ion-item>
+            <!-- <ion-item>
+              <ion-label position="floating">Tipo de Participante<ion-text color="danger">*</ion-text></ion-label>
+              <ion-select name="tipoParticipante" placeholder="Seleccione" [(ngModel)]="tipoParticipante" required>
+                <ion-select-option value="ESTUDIANTE">Estudiante</ion-select-option>
+                <ion-select-option value="EGRESADO">Egresado</ion-select-option>
+              </ion-select>
+            </ion-item> -->
+            <ion-button expand="full" type="submit" shape="round" color="azulW"
+              [disabled]="formulario.invalid || cargando">
+              <ng-container *ngIf="!cargando; else cargandoTemplate">
+                Registrarme
+              </ng-container>
+              <ng-template #cargandoTemplate>
+                <ion-spinner></ion-spinner>
+              </ng-template>
+            </ion-button>
+          </form>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <ion-card *ngIf="asistencia && !cargandoEvento">
+      <ion-card-content>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="2">
+            <ion-icon name="checkmark-circle" color="success" size="large"></ion-icon>
+          </ion-col>
+          <ion-col size="10">
+            <ion-label>
+              ¡Gracias por asistir a este evento!
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-card>
+</ion-content>
