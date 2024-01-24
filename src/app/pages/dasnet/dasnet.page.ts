@@ -5,6 +5,7 @@ import { MessageService } from '../../services/message.service';
 import { BytteService } from '../../services/bytte.service';
 import { DasnetService } from 'src/app/services/dasnet.service';
 import { PrivacyScreen } from '@capacitor-community/privacy-screen';
+import { catchError, of, tap } from 'rxjs';
 
 declare var QRious: any;
 
@@ -15,7 +16,7 @@ declare var QRious: any;
 })
 export class DasnetPage implements OnInit {
 
-  qrCode            : string = '';
+  qrCode            : any = '';
   hoy               : Date    = new Date();
   fechaFinal        : any | undefined;
   qrBytte           : any | undefined;
@@ -61,8 +62,26 @@ export class DasnetPage implements OnInit {
   ionViewDidEnter(){}
 
   async crearQr(){
-    let codigo = this.dasnet.getQr(this.pager, this.fechaQR);
-    await this.generarQr(codigo);
+    this.dasnet.getQr(this.pager, this.fechaQR)
+    .pipe(
+      catchError((error) => {
+        const { mensaje } = error.error;
+        return of({ ok: false, tokenQr: null, mensaje });
+      }),
+      tap((response) => {
+        const { tokenQr } = response;
+        if (response.ok) {
+          this.qrCode = tokenQr;
+        }
+      })
+    ).subscribe((rest:any) => {
+      if (rest.ok =! undefined && rest.ok == false){
+        this.msgService.presentToastMsg(rest.mensaje, 'danger');
+        return;
+      }
+      this.generarQr();
+      
+    });
       
   }
 
@@ -101,10 +120,9 @@ export class DasnetPage implements OnInit {
     });
   }
 
-  async generarQr(codigo: any){
-    this.dasnet.getQr(this.pager, this.fechaQR);
-    this.pintarQR(codigo);
-    this.local.crearLlave('dasnet', codigo);
+  generarQr(){
+    this.pintarQR(this.qrCode);
+    this.local.crearLlave('dasnet', this.qrCode);
     this.msgService.presentToastMsg('Qr generado con éxito', 'success');
   }
 
