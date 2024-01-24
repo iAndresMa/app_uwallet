@@ -39,6 +39,12 @@ export class CardComponent  implements OnInit {
       case 'dasnet':
         this.navCtrl.navigateRoot(`/${servicio}`);
         break;
+      case 'lector-evento':
+        this.navCtrl.navigateRoot(`/${servicio}`);
+        break;
+      case 'tabs':
+        this.navCtrl.navigateRoot(`/${servicio}/eventos`);
+        break;
     }
   }
 
