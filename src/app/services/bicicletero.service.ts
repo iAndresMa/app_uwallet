@@ -8,6 +8,7 @@ import { cupoBici, cupoUsuario, solicitudBici } from '../interfaces/interfaces';
 export class BicicleteroService {
 
   url = "https://bicicletero.uniminuto.edu/api";
+  // url = "http://localhost/BicicleteroV2/api";
   constructor(
     private http: HttpClient
   ) { }
