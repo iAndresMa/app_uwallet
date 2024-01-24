@@ -47,6 +47,30 @@ const routes: Routes = [
     path: 'dasnet',
     loadChildren: () => import('./pages/dasnet/dasnet.module').then( m => m.DasnetPageModule)
   },
+  {
+    path: 'eventos',
+    loadChildren: () => import('./pages/eventos/eventos.module').then( m => m.EventosPageModule)
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'inscritos',
+    loadChildren: () => import('./pages/inscritos/inscritos.module').then( m => m.InscritosPageModule)
+  },
+  {
+    path: 'favoritos',
+    loadChildren: () => import('./pages/favoritos/favoritos.module').then( m => m.FavoritosPageModule)
+  },
+  {
+    path: 'evento',
+    loadChildren: () => import('./pages/evento/evento.module').then( m => m.EventoPageModule)
+  },
+  {
+    path: 'lector-evento',
+    loadChildren: () => import('./pages/lector-evento/lector-evento.module').then( m => m.LectorEventoPageModule)
+  }
 ];
 
 @NgModule({
