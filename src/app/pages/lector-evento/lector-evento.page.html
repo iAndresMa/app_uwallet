@@ -1,0 +1,23 @@
+<ion-header class="amarilloW">
+  <ion-toolbar color="naranjaE">
+    <ion-buttons slot="start" (click)="goBack()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>Lector Evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="scanner-container">
+    <div class="scan-box">
+      <div class="scan-icon">
+        <ion-icon name="scan-circle-outline"></ion-icon>
+      </div>
+      <p>Coloca el código QR dentro del área de escaneo</p>
+    </div>
+    <zxing-scanner class="scanner" (scanSuccess)="onCodeResult($event)"></zxing-scanner>
+    <div *ngIf="scanningCode" class="scanning-overlay">
+      <p>Escaneando...</p>
+    </div>
+  </div>
+</ion-content>

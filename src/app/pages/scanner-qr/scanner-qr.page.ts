@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { LocalService } from 'src/app/services/local.service';
+//import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { UniminutoService } from '../../services/uniminuto.service';
 import { UwalletService } from '../../services/uwallet.service';
 import { MessageService } from '../../services/message.service';
-import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 
 @Component({
   selector: 'app-scanner-qr',
@@ -13,15 +15,20 @@ import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 })
 export class ScannerQrPage implements OnInit {
 
-  isSupported         : boolean = false;
-  //barcodes: Barcode[] = [];
+  scannerActive       : boolean = false;
+  scanActive          : boolean = false;
   activeCertificado   : boolean = false;
-  correo              : any | undefined;
-  cn                  : any | undefined;
-  pager               : any | undefined;
-  firstname           : any | undefined;
-  descripcion         : any | undefined;
-  srcImage            : any;
+  formSoporte         : boolean = false;
+
+  correo         : any | undefined;
+  cn             : any | undefined;
+  pager          : any | undefined;
+  firstname      : any | undefined;
+  descripcion    : any | undefined;
+  srcImage       : any;
+
+  //ejemploQr : string = "$@4IoHBlAD50sTTBiwWf4QZYiyzrqnv3s5ahPxd5zELwo6+toUTWLxPw0ck5yqXVvLGRNdOx9CsLFR7NsHTzQImD/KvcsWVRb712wwurwO2DFrcEd/IUzEvf+9ylLI70ib|6;1075659619;rmarentes@uniminuto.edu@$";
+  //ejemplo soporte : $@4143fd401295c20bfd8360a7886e3dde|Soporte@$
 
   dataUsuario = {
     FirstName         : '',
@@ -33,25 +40,35 @@ export class ScannerQrPage implements OnInit {
     Cn                : ''
   }
 
+  
+  //formSoporte
+  descripcionSoporte   : any = '';
+  // seleccion   : string;
+  // sedef       : string;
+  // rectoria    : string;
+  // correo      : string;
+  // datos       : any = [];
+  // soporteComm : string;
+  // sitio       : string;
+  // salon       : string;
+
   constructor(
+    private route           : ActivatedRoute,
     private navCtrl         : NavController,
     private local           : LocalService,
     private uwalletSrv      : UwalletService,
     private msgServ         : MessageService,
-    private umdService      : UniminutoService,
-    private alertController : AlertController
+    private umdService      : UniminutoService
   ) {
     this.extraerDatos();
   }
 
   ngOnInit() {
-    BarcodeScanner.isSupported().then((result) => {
-      this.isSupported = result.supported;
-    });
+    this.correo = this.route.snapshot.paramMap.get('data');
   }
 
   volver(){
-    this.navCtrl.navigateForward(`/carnet`);
+    this.navCtrl.navigateForward(`/carnet/${this.correo}`);
   }
 
   extraerDatos(){
@@ -74,13 +91,38 @@ export class ScannerQrPage implements OnInit {
     });
   }
 
-  async certificado(textoQr: string){
-    if (textoQr !== null || textoQr !== undefined) {
-      let datosQR = textoQr.split("|");
-      let datoQRUser = datosQR[1].split(";");
-      let correoQR = datoQRUser[2].split("@$");
-      if(correoQR[0] !== null || correoQR[0] !== undefined){
-        this.umdService.getDARectificacion(correoQR[0])
+  async checkPermission() {
+    return new Promise(async (resolve, reject) => {
+      const status = await BarcodeScanner.checkPermission({ force: true });
+      if (status.granted) {
+        resolve(true);
+      } else if (status.denied) {
+        BarcodeScanner.openAppSettings();
+        resolve(false);
+      }
+    });
+  }
+
+  async startScanner() {
+    const allowed = await this.checkPermission();
+
+    if (allowed) {
+      this.activeCertificado = false;
+      this.scanActive = true;
+      this.formSoporte = false;
+      BarcodeScanner.hideBackground();
+      
+      const result = await BarcodeScanner.startScan();
+
+      if (result.hasContent) {
+        this.scanActive = false;
+        let datosQR = result.content.split("|");
+        let datoQRUser = datosQR[1].split(";");
+        let correoQR = datoQRUser[2].split("@$");
+
+        if(correoQR[0] !== null || correoQR[0] !== undefined){
+          //leer datos del usuario
+          this.umdService.getDARectificacion(correoQR[0])
           .subscribe(data => {
             if(data.useraccountcontrol === "512"){
               this.activeCertificado = true;
@@ -91,50 +133,45 @@ export class ScannerQrPage implements OnInit {
               this.dataUsuario.Pager = data.Pager;
               this.dataUsuario.Descripcion = data.Descripcion;
               this.dataUsuario.Cn = data.Cn;
-              this.fotografia(data.Pager,data.Descripcion,data.Cn);
-              this.activeCertificado = true;
+              // this.fotografia(data.Pager,data.Descripcion,data.Cn);
             }else{
               this.msgServ.presentToastMsg(`El usuario ${correoQR[0]} no esta activo en los registros de UNIMINUTO`, "danger");
+              this.stopScanner();
             }
           });
-      }else{
+        }else{
           this.msgServ.presentToastMsg("Usuario no encontrado", "danger");
+          this.stopScanner();
+        }
+        
+      } else {
+        this.msgServ.presentToastMsg(`Lectura errada`, "danger");
       }
-    }else {
+    } else {
       this.msgServ.presentToastMsg(`No es posible leer el QR`, "danger");
     }
   }
 
-  fotografia(documento: string, rol: string, id: string){
-    this.uwalletSrv.consultarFotografia(documento, rol, id).subscribe(fotoServ => {
-      this.srcImage = fotoServ;
-    });
-    return;
+  stopScanner() {
+    BarcodeScanner.stopScan();
+    this.scanActive = false;
   }
 
-  async scan(){
-    this.activeCertificado = false;
-    const granted = await this.requestPermissions();
-    if (!granted) {
-      this.presentAlert();
-      return;
-    }
-    const { barcodes } = await BarcodeScanner.scan();
-    //this.barcodes.push(...barcodes);
-    this.certificado(barcodes[0].rawValue);
-  }
+  // ionViewWillLeave() {
+  //   BarcodeScanner.stopScan();
+  //   this.scanActive = false;
+  // }
 
-  async requestPermissions(): Promise<boolean> {
-    const { camera } = await BarcodeScanner.requestPermissions();
-    return camera === 'granted' || camera === 'limited';
-  }
+  // fotografia(documento: string, rol: string, id: string){
+  //   this.uwalletSrv.consultarFotografia(documento, rol, id)
+  //     .subscribe( data => {
+  //       this.srcImage = data.fotografia;
+  //     });
+  //   return;
+  // }
 
-  async presentAlert(): Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'Permission denied',
-      message: 'Please grant camera permission to use the barcode scanner.',
-      buttons: ['OK'],
-    });
-    await alert.present();
+  soporte(){
+    console.log(this.descripcionSoporte);
+    this.msgServ.presentToastMsg(`${this.firstname} gracias por comunicarte con la mesa de servicio, te apoyaremos lo más pronto posible.`, "success");
   }
 }
