@@ -107,6 +107,21 @@ export class CarnetPage implements OnInit {
     private uniminutoSerive     : UniminutoService
   ) {
     this.msgService.cargarLoading(2000);
+    this.verComponentes = true;
+  }
+
+  ngOnInit() {
+    // this.extraerDatos();
+    // if(this.srcImage === null || this.srcImage === undefined){
+    //   console.log(this.srcImage);
+    //   this.fotografia(this.pager, this.descripcion, this.cn);
+    //   setTimeout(() => { 
+    //     this.ngOnInit();
+    //   }, 1500);
+    // }
+  }
+
+  ionViewWillEnter(){
     this.extraerDatos().finally(() => {
       // se obtiene los permisos
       this.uniminutoSerive.getPermisos(this.datosCarnet[2]).subscribe((permisos:any) => {
@@ -124,23 +139,9 @@ export class CarnetPage implements OnInit {
           });
         }
       });
+      this.fotografia(this.datosCarnet[2], this.datosCarnet[4], this.datosCarnet[3]);
     });
-    this.verComponentes = true;
-  }
-
-  ngOnInit() {
-    // this.extraerDatos();
-    // if(this.srcImage === null || this.srcImage === undefined){
-    //   console.log(this.srcImage);
-    //   this.fotografia(this.pager, this.descripcion, this.cn);
-    //   setTimeout(() => { 
-    //     this.ngOnInit();
-    //   }, 1500);
-    // }
-  }
-
-  ionViewWillEnter(){
-    this.fotografia(this.datosCarnet[2], this.datosCarnet[4], this.datosCarnet[3]);
+    
     
     // let objetoSoporte = {
     //   nombre: 'soporte',
