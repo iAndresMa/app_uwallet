@@ -41,20 +41,13 @@ export class DasnetPage implements OnInit {
     this.fechaQR = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}`;
 
     this.msgService.cargarLoading(4000);
-    setTimeout( () => {
-      this.extraerDatos();
-      setTimeout( () => {
-        this.crearQr();
-      }, 2000);
-    }, 3000);
+    this.extraerDatos().then(() => {
+      this.crearQr();
+    });
 
     this.hoy.setDate(this.hoy.getDate()+1);
     this.fechaFinal = this.hoy.toLocaleDateString();
 
-
-    const enable = async () => {
-      await PrivacyScreen.enable();
-    };
   }
 
   ngOnInit() {}
@@ -62,62 +55,46 @@ export class DasnetPage implements OnInit {
   ionViewDidEnter(){}
 
   async crearQr(){
-    this.dasnet.getQr(this.pager, this.fechaQR)
-    .pipe(
-      catchError((error) => {
-        const { mensaje } = error.error;
-        return of({ ok: false, tokenQr: null, mensaje });
-      }),
-      tap((response) => {
-        const { tokenQr } = response;
-        if (response.ok) {
-          this.qrCode = tokenQr;
+    if (this.pager) {
+      this.dasnet.getQr(this.pager)
+      .pipe(
+        catchError((error) => {
+          const { mensaje } = error.error;
+          return of({ ok: false, tokenQr: null, mensaje });
+        }),
+        tap((response) => {
+          const { tokenQr } = response;
+          if (response.ok) {
+            this.qrCode = tokenQr;
+          }
+        })
+      ).subscribe((rest:any) => {
+        if (rest.ok =! undefined && rest.ok == false){
+          this.msgService.presentToastMsg(rest.mensaje, 'danger');
+          return;
         }
-      })
-    ).subscribe((rest:any) => {
-      if (rest.ok =! undefined && rest.ok == false){
-        this.msgService.presentToastMsg(rest.mensaje, 'danger');
-        return;
-      }
-      this.generarQr();
-      
-    });
-      
+        this.generarQr();
+      });
+    } else{ 
+      this.msgService.presentToastMsg('¡Ups! Tu cedula no se ha cargado con exito, por favor vuelva a intentar', 'danger');
+    }
   }
 
   volver(){
     this.navCtrl.navigateForward(`/carnet`);
   }
 
-  extraerDatos(){
-    //nombre
-    this.local.extraerLlave('firstname').then( dato => {
-      this.firstname = dato.value;
-    });
-    //apellido
-    this.local.extraerLlave('lastname').then( dato => {
-      this.lastname = dato.value;
-    }); 
-    //pager
-    this.local.extraerLlave('pager').then( dato => {
-      this.pager = dato.value;
-    });
-    //cn
-    this.local.extraerLlave('cn').then( dato => {
-      this.cn = dato.value;
-    });
-    //descripcion
-    this.local.extraerLlave('descripcion').then( dato => {
-      this.descripcion = dato.value;
-    });
-    //qr
-    this.local.extraerLlave('bytte').then( dato => {
-      this.qrBytte = dato.value;
-    });
-    //correo
-    this.local.extraerLlave('correo').then( dato => {
-      this.correo = dato.value;
-    });
+  extraerDatos(): Promise<void> {
+    const promises: Promise<any>[] = [
+      this.local.extraerLlave('firstname').then(dato => this.firstname = dato.value),
+      this.local.extraerLlave('lastname').then(dato => this.lastname = dato.value),
+      this.local.extraerLlave('pager').then(dato => this.pager = dato.value),
+      this.local.extraerLlave('cn').then(dato => this.cn = dato.value),
+      this.local.extraerLlave('descripcion').then(dato => this.descripcion = dato.value),
+      this.local.extraerLlave('bytte').then(dato => this.qrBytte = dato.value),
+      this.local.extraerLlave('correo').then(dato => this.correo = dato.value)
+    ];
+    return Promise.all(promises).then(() => { });
   }
 
   generarQr(){
