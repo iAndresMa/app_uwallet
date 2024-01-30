@@ -58,25 +58,28 @@ export class BicicleteroPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    if(this.descripcion === 'ADMINISTRATIVO' || this.descripcion === 'TERCEROS'){
-      this.id = this.pager;
-    }else{
-      this.id = this.cn;
-    }
-
-    this.biciService.getConsultaCupoUsuario(this.pager)
-      .subscribe(data => {
-        if (data.message === "No hay registros asociados a la consulta"){
-          this.boton = 1;
-        }else{
-          this.boton = 2;
-          this.dataCupos = data;
-        }
-      });
+    this.extraerDatos().then(() => {
+      if(this.descripcion === 'ADMINISTRATIVO' || this.descripcion === 'TERCEROS'){
+        this.id = this.pager;
+      }else{
+        this.id = this.cn;
+      }
+  
+      this.biciService.getConsultaCupoUsuario(this.pager)
+        .subscribe(data => {
+          if (data.message === "No hay registros asociados a la consulta"){
+            this.boton = 1;
+          }else{
+            this.boton = 2;
+            this.dataCupos = data;
+          }
+        });
+    });
     
   }
 
   volver(){
+    this.formulario = false;
     this.navCtrl.navigateForward(`/carnet`);
   }
 
@@ -132,35 +135,17 @@ export class BicicleteroPage implements OnInit {
       });
   }
 
-  extraerDatos(){
-    //nombre
-    this.local.extraerLlave('firstname').then( dato => {
-      this.firstname = dato.value;
-    });
-    //apellido
-    this.local.extraerLlave('lastname').then( dato => {
-      this.lastname = dato.value;
-    });
-    //pager
-    this.local.extraerLlave('pager').then( dato => {
-      this.pager = dato.value;
-    });
-    //cn
-    this.local.extraerLlave('cn').then( dato => {
-      this.cn = dato.value;
-    });
-    //descripcion
-    this.local.extraerLlave('descripcion').then( dato => {
-      this.descripcion = dato.value;
-    });
-    //title
-    this.local.extraerLlave('title').then( dato => {
-      this.title = dato.value;
-    });
-    //correo
-    this.local.extraerLlave('correo').then( dato => {
-      this.correo = dato.value;
-    });
+  extraerDatos(): Promise<void> {
+    const promises: Promise<any>[] = [
+      this.local.extraerLlave('firstname').then(dato => this.firstname = dato.value),
+      this.local.extraerLlave('lastname').then(dato => this.lastname = dato.value),
+      this.local.extraerLlave('pager').then(dato => this.pager = dato.value),
+      this.local.extraerLlave('cn').then(dato => this.cn = dato.value),
+      this.local.extraerLlave('descripcion').then(dato => this.descripcion = dato.value),
+      this.local.extraerLlave('title').then(dato => this.title = dato.value),
+      this.local.extraerLlave('correo').then(dato => this.correo = dato.value)
+    ];
+    return Promise.all(promises).then(() => { });
   }
 
   rectoriasDatos(){
