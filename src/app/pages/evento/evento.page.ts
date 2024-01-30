@@ -75,9 +75,7 @@ export class EventoPage implements OnInit {
     private msgService: MessageService,
     private uwService: UwalletService,
     private softService: SoftexpertService,
-    private zone: NgZone,
     private location: Location,
-    private platform: Platform,
   ) {
     this.evento = this.route.snapshot.paramMap.get('data');
     this.pagina = this.route.snapshot.paramMap.get('pagina');
@@ -245,5 +243,13 @@ export class EventoPage implements OnInit {
         this.arrayTipoDocumento = data;
       })
   }
+
+  isLink(lugar: string): boolean {
+    if (!lugar) {
+      return false
+    }
+    return lugar.startsWith("http")
+  }
+
 }
 
