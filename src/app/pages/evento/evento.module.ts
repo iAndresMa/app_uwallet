@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EventoPageRoutingModule } from './evento-routing.module';
 
 import { EventoPage } from './evento.page';
+import { TransformDatePipe } from 'src/app/pipes/transformDate.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { EventoPage } from './evento.page';
     IonicModule,
     EventoPageRoutingModule
   ],
-  declarations: [EventoPage]
+  declarations: [EventoPage, TransformDatePipe]
 })
 export class EventoPageModule {}
