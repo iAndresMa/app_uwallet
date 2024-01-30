@@ -13,10 +13,8 @@ export class DasnetService {
     private http: HttpClient
   ) { }
 
-  getQr(documento: any, fecha: any) {
-    const username = 'TokenQrUniminuto';
-    const password = 'MTIzNDU2$%';
-    const authString = `${username}:${password}`;
+  getQr(documento: any) {
+    const authString = `${environment.username}:${environment.password}`;
     const base64AuthHeader = btoa(authString);
 
     const headers = new HttpHeaders({
@@ -24,6 +22,5 @@ export class DasnetService {
       'Authorization': `Basic ${base64AuthHeader}`
     });
     return this.http.get<qr>(`https://perdomoqrdorlet.uniminuto.edu/TokenQr/obtenerTokenQR?cedula=${documento}`, { headers });
-    // return this.http.get<qr>(`https://registros.uniminuto.edu/api_qr/index.php?fn=qr&cedula=${documento}`);
   }
 }
