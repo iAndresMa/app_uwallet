@@ -31,6 +31,10 @@
           <b>Fecha Actividad:</b>
           <ion-skeleton-text [animated]="true"></ion-skeleton-text>
         </ion-col>
+        <ion-col size="12" class="info-item">
+          <b>Lugar:</b>
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-col>
         <ion-col size="12">
           <b>Hora:</b> <ion-skeleton-text [animated]="true"></ion-skeleton-text>
         </ion-col>
@@ -64,19 +68,28 @@
         </ion-col>
         <ion-col size="12" class="info-item">
           <b>Fecha Actividad:</b>
-          {{arrayEvento.fechaactividad}}
+          {{arrayEvento.fechaactividad | transformDate }}
+        </ion-col>
+        <ion-col size="12" class="info-item">
+          <b>Lugar: </b>
+          <ng-container *ngIf="arrayEvento.lugarCanal && isLink(arrayEvento.lugarCanal)">
+            <a [href]="arrayEvento.lugarCanal" target="_blank">{{ arrayEvento.lugarCanal }}</a>
+          </ng-container>
+          <ng-container *ngIf="arrayEvento.lugarCanal && !isLink(arrayEvento.lugarCanal)">
+            {{ arrayEvento.lugarCanal }}
+          </ng-container>
         </ion-col>
         <ion-col size="12">
-          <b>Hora:</b> {{arrayEvento.horaactividad | date:'HH:mm a'}}
+          <b>Hora:</b> {{arrayEvento.horaactividad * 1000 | date:'h:mm a'}}
         </ion-col>
         <ion-col size="12" class="info-item" *ngIf="arrayEvento.finicioins && arrayEvento.ffinins">
           <b>Fecha Inscripciones:</b>
           <ion-row class="small-font">
             <ion-col size="6">
-              <b>Desde: </b> {{arrayEvento.finicioins | date:'MMM d, y'}}
+              <b>Desde: </b> {{arrayEvento.finicioins | transformDate }}
             </ion-col>
             <ion-col size="6">
-              <b>Hasta:</b> {{arrayEvento.ffinins | date:'MMM d, y'}}
+              <b>Hasta:</b> {{arrayEvento.ffinins | transformDate }}
             </ion-col>
           </ion-row>
         </ion-col>
