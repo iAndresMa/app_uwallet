@@ -36,8 +36,8 @@ export interface fotografia{
 }
 
 export interface bytte{
-    qrData          :string,
-    imagenBase64    : string
+    code    :string,
+    body    : string
 }
 
 export interface cupoUsuario{
@@ -114,7 +114,7 @@ export interface evento{
 }
 
 interface eventoUnico{
-    idejeactividad      :  string,
+    idejeactividad      : string,
     nmproyecto          : string,
     codproyecto         : string,
     nmactividad         : string,
@@ -128,7 +128,7 @@ interface eventoUnico{
     tpresovir           : string,
     inscripcionprev     : string,
     encuesta            : string,
-    lugarcanal          : string,
+    lugarCanal          : string,
     respoblacion        : string,
     respresupuesto      : string,
     estudiante          : string,
