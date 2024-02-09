@@ -103,7 +103,8 @@ export class QrPage implements OnInit {
   async generarQr(documento: any, rol: any, correo: any){
     this.bytte.getQrBytte(documento, rol, correo)
       .subscribe(data => {
-        this.qrCode = data.qrData;
+        const response = JSON.parse(data.body)
+        this.qrCode = response.qrData;
         this.local.crearLlave('bytte', this.qrCode);
         this.pintarQR(this.qrCode);
         this.msgService.presentToastMsg('Qr generado con éxito', 'success');
