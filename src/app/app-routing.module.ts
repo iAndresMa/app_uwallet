@@ -70,6 +70,14 @@ const routes: Routes = [
   {
     path: 'lector-evento',
     loadChildren: () => import('./pages/lector-evento/lector-evento.module').then( m => m.LectorEventoPageModule)
+  },
+  {
+    path: 'bluetooth',
+    loadChildren: () => import('./pages/bluetooth/bluetooth.module').then( m => m.BluetoothPageModule)
+  },
+  {
+    path: 'qr-perdomo',
+    loadChildren: () => import('./pages/qr-perdomo/qr-perdomo.module').then( m => m.QrPerdomoPageModule)
   }
 ];
 

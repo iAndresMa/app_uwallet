@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { menuPrincipal, permiso, userUniminuto } from '../interfaces/interfaces';
+import { arrayAreas, menuPrincipal, permisos, userInfo, userUniminuto } from '../interfaces/interfaces';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UniminutoService {
-
-  // urlApiWallet: string = 'http://localhost/api_wallet';
-  urlApiWallet: string = 'https://comunidad.uniminuto.edu/api_wallet';
 
   constructor(
     private http: HttpClient
@@ -50,6 +48,14 @@ export class UniminutoService {
   }
 
   getPermisos(documento: string) {
-    return this.http.get(`${this.urlApiWallet}/modules/permisos.php?fn=obtenerPermisos&documento=${documento}`);
+    return this.http.get<permisos>(`${environment.urlapiwallet}/modules/permisos.php?fn=obtenerPermisos&documento=${documento}`);
+  }
+
+  getInfoUser(documento: string) {
+    return this.http.get<userInfo>(`${environment.urlapieventos}/select/index.php?fn=infoUser&documento=${documento}`);
+  }
+
+  getAreas() {
+    return this.http.get<arrayAreas>(`${environment.urlapieventos}/select/index.php?fn=consultarArea`);
   }
 }

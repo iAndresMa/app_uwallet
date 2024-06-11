@@ -1,17 +1,17 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="amarilloW">
     <ion-img src="/assets/wallet/wallet_b.png" class="logo"></ion-img>
-    
+
     <ion-card>
       <ion-card-content>
         <ion-grid fixed>
           <ion-row>
             <ion-col size="4">
               <ion-avatar>
-                <ion-img [src]='srcImage'></ion-img> 
+                <ion-img [src]='srcImage'></ion-img>
               </ion-avatar>
             </ion-col>
-            
+
             <ion-col size="8">
               <ion-text>
                 <h6>
@@ -40,7 +40,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
+  <app-datos [openModal]="openModal" [banneId]="banneId" [tipoUsuario]="tipoUsuario" [documento]="documento" ></app-datos>
   <ion-note>Accesos</ion-note>
   <app-card [imageUrl]="accesos"></app-card>
   <ion-note>Servicios</ion-note>

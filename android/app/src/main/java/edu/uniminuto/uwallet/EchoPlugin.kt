@@ -7,7 +7,7 @@ import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
 
 @CapacitorPlugin(name = "Echo")
-class EchoPluginCopy : Plugin() {
+class EchoPlugin : Plugin() {
     @PluginMethod
     fun echo(call: PluginCall) {
         val value = call.getString("value")

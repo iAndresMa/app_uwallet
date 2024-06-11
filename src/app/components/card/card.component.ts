@@ -45,6 +45,9 @@ export class CardComponent  implements OnInit {
       case 'tabs':
         this.navCtrl.navigateRoot(`/${servicio}/eventos`);
         break;
+      case 'qr-perdomo':
+        this.navCtrl.navigateRoot('/qr-perdomo');
+        break;
     }
   }
 

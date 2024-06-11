@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, Inject, OnInit, inject } from '@angular/core';
+import { NavController, Platform } from '@ionic/angular';
 import { LocalService } from 'src/app/services/local.service';
 import { MessageService } from '../../services/message.service';
-import { BytteService } from '../../services/bytte.service';
 import { DasnetService } from 'src/app/services/dasnet.service';
-import { PrivacyScreen } from '@capacitor-community/privacy-screen';
 import { catchError, of, tap } from 'rxjs';
+import { BluetoothLe, BleClient } from '@capacitor-community/bluetooth-le';
+import { UwalletService } from 'src/app/services/uwallet.service';
 
 declare var QRious: any;
 
@@ -16,71 +16,84 @@ declare var QRious: any;
 })
 export class DasnetPage implements OnInit {
 
-  qrCode            : any = '';
-  hoy               : Date    = new Date();
-  fechaFinal        : any | undefined;
-  qrBytte           : any | undefined;
-  firstname         : any | undefined;
-  lastname          : any | undefined;
-  pager             : any | undefined;
-  cn                : any | undefined;
-  correo            : any | undefined;
-  descripcion       : any | undefined;
-  codeQR            : any | undefined;
-  fechaQR           : any | undefined;
+  qrCode: any = '';
+  hoy: Date = new Date();
+  fechaFinal: any | undefined;
+  qrBytte: any | undefined;
+  firstname: any | undefined;
+  lastname: any | undefined;
+  pager: any | undefined;
+  cn: any | undefined;
+  correo: any | undefined;
+  descripcion: any | undefined;
+  codeQR: any | undefined;
+  fechaQR: any | undefined;
+  disabled: boolean = true;
 
   constructor(
-    private navCtrl         : NavController,
-    private local           : LocalService,
-    private msgService      : MessageService,
-    private bytte           : BytteService,
-    private dasnet          : DasnetService
+    private navCtrl: NavController,
+    private local: LocalService,
+    private msgService: MessageService,
+    private dasnet: DasnetService,
+    private uwalletSerive: UwalletService
   ) {
 
     let date: Date = new Date();
     this.fechaQR = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}`;
 
-    this.msgService.cargarLoading(4000);
     this.extraerDatos().then(() => {
-      this.crearQr();
+      this.uwalletSerive.obternerAcreditacionDorlet(this.pager).subscribe((data) => {
+        // this.local.crearLlave('AcreditationId', "F0000011")
+        if (data.ok != undefined && !data.ok) {
+          if (data.error.status == '404') {
+            this.disabled = true
+          } else {
+            this.disabled = false
+            this.msgService.presentToastMsg('¡Ups! Hubo un error al obtener la credencial', 'danger')
+          }
+        } else {
+          this.local.crearLlave('AcreditationId', data[0].AcreditationId)
+          this.disabled = false
+        }
+      })
     });
 
-    this.hoy.setDate(this.hoy.getDate()+1);
+    this.hoy.setDate(this.hoy.getDate() + 1);
     this.fechaFinal = this.hoy.toLocaleDateString();
 
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  ionViewDidEnter(){}
+  ionViewDidEnter() { }
 
-  async crearQr(){
+  async crearQr() {
     if (this.pager) {
       this.dasnet.getQr(this.pager)
-      .pipe(
-        catchError((error) => {
-          const { mensaje } = error.error;
-          return of({ ok: false, tokenQr: null, mensaje });
-        }),
-        tap((response) => {
-          const { tokenQr } = response;
-          if (response.ok) {
-            this.qrCode = tokenQr;
+        .pipe(
+          catchError((error) => {
+            const { mensaje } = error.error;
+            return of({ ok: false, tokenQr: null, mensaje });
+          }),
+          tap((response) => {
+            const { tokenQr } = response;
+            if (response.ok) {
+              this.qrCode = tokenQr;
+            }
+          })
+        ).subscribe((rest: any) => {
+          if (rest.ok = !undefined && rest.ok == false) {
+            this.msgService.presentToastMsg(rest.mensaje, 'danger');
+            return;
           }
-        })
-      ).subscribe((rest:any) => {
-        if (rest.ok =! undefined && rest.ok == false){
-          this.msgService.presentToastMsg(rest.mensaje, 'danger');
-          return;
-        }
-        this.generarQr();
-      });
-    } else{ 
+          this.generarQr();
+        });
+    } else {
       this.msgService.presentToastMsg('¡Ups! Tu cedula no se ha cargado con exito, por favor vuelva a intentar', 'danger');
     }
   }
 
-  volver(){
+  volver() {
     this.navCtrl.navigateForward(`/carnet`);
   }
 
@@ -97,13 +110,13 @@ export class DasnetPage implements OnInit {
     return Promise.all(promises).then(() => { });
   }
 
-  generarQr(){
+  generarQr() {
     this.pintarQR(this.qrCode);
     this.local.crearLlave('dasnet', this.qrCode);
     this.msgService.presentToastMsg('Qr generado con éxito', 'success');
   }
 
-  regenerarQR(){
+  regenerarQR() {
     this.local.eliminarLlave('dasnet');
     this.msgService.presentLoading(2000);
     this.crearQr();
@@ -111,7 +124,7 @@ export class DasnetPage implements OnInit {
     this.ngOnInit();
   }
 
-  async pintarQR(qr: any){
+  async pintarQR(qr: any) {
     new QRious({
       element: document.querySelector("#codigo"),
       value: qr, // La URL o el texto
@@ -121,5 +134,5 @@ export class DasnetPage implements OnInit {
       level: "L", // Puede ser L,M,Q y H (L es el de menor nivel, H el mayor)
     });
   }
-  
+
 }

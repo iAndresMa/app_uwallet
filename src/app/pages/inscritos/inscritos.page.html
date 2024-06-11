@@ -7,6 +7,9 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="verEventos(pager,descripcion,$event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list *ngIf="!eventoInscrito" class="ion-text-center">
     <ion-progress-bar type="indeterminate" color="naranjaE"></ion-progress-bar>
     <ion-label>Se estan cargando sus eventos.</ion-label>

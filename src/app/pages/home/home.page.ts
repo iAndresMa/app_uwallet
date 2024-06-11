@@ -3,14 +3,23 @@ import { NavController, Platform } from '@ionic/angular';
 import { MessageService } from '../../services/message.service';
 import { LocalService } from '../../services/local.service';
 import { UniminutoService } from '../../services/uniminuto.service';
+import { registerPlugin } from '@capacitor/core';
+
+interface EchoPlugin {
+  echo(options: { value: string }): Promise<{ value: string }>;
+  checkPermissions(): Promise<PermissionStatus>;
+  requestPermissions(): Promise<PermissionStatus>;
+}
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
 
+export class HomePage implements OnInit{
+ 
+  echo: EchoPlugin = registerPlugin("Echo")
   usuario = {
     correoInstitucional: '',
     // correoInstitucional: 'rmarentes@uniminuto.edu',
@@ -43,7 +52,14 @@ export class HomePage implements OnInit{
     private local               : LocalService,
   ) {}
 
-  ngOnInit(){}
+  ngOnInit(){
+    this.plugin()
+  }
+
+  async plugin() {
+    const { value } = await this.echo.echo({value: "Valor de prueba"})
+    console.log("FORM NATIVE: " + value)
+  }
 
   formLogin(login: any ){
     if(login === 'uniminuto'){
@@ -75,6 +91,10 @@ export class HomePage implements OnInit{
           if(dataUser.id == '999'){
             this.msgToast.presentToastMsg('Contraseña incorrecta', 'danger');
           }else{
+            this.uniminutoService.getInfoUser(dataUser.Pager).subscribe(({ sede, rectoria, idUniminuto }) => {
+              this.local.crearLlave('sede', sede);
+              this.local.crearLlave('rectoria', rectoria);
+            });
             this.local.crearLlave('correo', this.usuario.correoInstitucional);
             this.local.crearLlave('firstname', dataUser.FirstName);
             this.local.crearLlave('lastname', dataUser.LastName);

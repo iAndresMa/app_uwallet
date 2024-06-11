@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, Platform } from '@ionic/angular';
 import { tap } from 'rxjs';
-// import { error } from 'console';
 import { LocalService } from 'src/app/services/local.service';
 import { MessageService } from 'src/app/services/message.service';
 import { UwalletService } from 'src/app/services/uwallet.service';
@@ -84,12 +83,13 @@ export class InscritosPage implements OnInit {
     return Promise.all(promises).then(() => { });
   }
 
-  verEventos(documento: string, rol: string) {
+  verEventos(documento: string, rol: string, event?:any) {
     this.eventoInscrito = false;
     this.arrayEventos = [];
     this.uwService.consultaEventos(documento, rol)
       .pipe(
         tap((response: any) => {
+          event ? event.target.complete() : null;
           this.eventoInscrito = true;
           if (Object.keys(response).length != 0) {
             this.arrayEventos = Object.keys(response).map((element) => {

@@ -1,0 +1,52 @@
+<ion-modal #modal [isOpen]="openModal">
+  <form [formGroup]="formInfo" (submit)="guardar()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Informacion</ion-title>
+          <ion-buttons slot="start">
+            <ion-button type="submit" (click)="guardar()" *ngIf="!isSaveingInfo">Guardar</ion-button>
+            <ion-button *ngIf="isSaveingInfo" disabled="true">Guardando <ion-spinner
+                name="lines-sharp"></ion-spinner></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-align-items-center">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-skeleton-text *ngIf="formInfo.get('rectoria')?.disabled" [animated]="true"></ion-skeleton-text>
+              <ion-select 
+                *ngIf="!formInfo.get('rectoria')?.disabled"
+                formControlName="rectoria" placeholder="Seleccione su rectoría"
+                (ionChange)="verSede($event)">
+                <ion-select-option *ngFor="let rect of rectorias"
+                  [value]="rect.CODIGO">{{rect.DESCRIPCION}}</ion-select-option>
+              </ion-select>
+              <div *ngIf="formInfo.get('rectoria')?.errors && formInfo.get('rectoria')?.dirty">
+                <ion-label color="danger" *ngIf="formInfo.get('rectoria')?.hasError('required')">
+                  Este campo es requerido
+                </ion-label>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-skeleton-text *ngIf="formInfo.get('rectoria')?.disabled" [animated]="true"></ion-skeleton-text>
+              <ion-select *ngIf="!formInfo.get('rectoria')?.disabled" formControlName="sede" value="sede" placeholder="Seleccione su sede" aria-label="Sede">
+                <ion-select-option *ngFor="let sed of sedes"
+                  [value]="sed.DESCRIPCION">{{sed.DESCRIPCION}}</ion-select-option>
+              </ion-select>
+              <div *ngIf="formInfo.get('sede')?.errors && formInfo.get('sede')?.dirty">
+                <ion-label color="danger" *ngIf="formInfo.get('sede')?.hasError('required')">Este campo es
+                  requerido</ion-label>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+    </ng-template>
+  </form>
+</ion-modal>

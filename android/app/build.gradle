@@ -1,11 +1,13 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     namespace "edu.uniminuto.uwallet"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "edu.uniminuto.uwallet"
-        minSdkVersion rootProject.ext.minSdkVersion
+        minSdkVersion 24
+        // minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 16
         versionName "4.1.9"
@@ -40,6 +42,21 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+
+    implementation fileTree(dir: "libs", include: ["*.?ar"])
+    // dependencias transitivas SDK DMA
+    //HTTP -> Volley
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'androidx.preference:preference:1.2.0'
+    def work_version = "2.8.1"
+    api "androidx.work:work-runtime:$work_version"
+    //Nordic ble
+    implementation 'no.nordicsemi.android.support.v18:scanner:1.4.3'
+    implementation 'no.nordicsemi.android:ble-common:2.2.4'
+    //FIN de dependencias transitivas SDK DM
+
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation 'org.json:json:20210307'
 }
 
 apply from: 'capacitor.build.gradle'

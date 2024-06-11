@@ -5,7 +5,14 @@
 export const environment = {
   production: false,
   password: 'MTIzNDU2$%',
-  username: 'TokenQrUniminuto'
+  username: 'TokenQrUniminuto',
+  // urlapiwallet: 'http://localhost/api_wallet',
+  // urlapieventos: 'http://localhost/api_eventos',
+  urlDigibee: 'https://uniminuto.test.digibee.io/pipeline/uniminuto/v1',
+  urlEstudiantes: 'https://comunidad.uniminuto.edu/estudiantes',
+  urlDorlet: 'http://10.0.26.189:8081/DASS',
+  urlapieventos: 'https://registros.uniminuto.edu/api_eventos_test',
+  urlapiwallet: 'https://comunidad.uniminuto.edu/api_wallet_test'
 };
 
 /*

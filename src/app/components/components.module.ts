@@ -5,23 +5,28 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { PoliticasComponent } from './politicas/politicas.component';
 import { CardComponent } from './card/card.component'
+import { DatosComponent } from './datos/datos.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     FooterComponent,
     PoliticasComponent,
-    CardComponent
+    CardComponent,
+    DatosComponent
   ],
   exports:[
     FooterComponent,
     PoliticasComponent,
-    CardComponent
+    CardComponent,
+    DatosComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class ComponentsModule { }

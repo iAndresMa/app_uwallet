@@ -3,6 +3,7 @@ import { LocalService } from '../../services/local.service';
 import { UwalletService } from '../../services/uwallet.service';
 import { MessageService } from 'src/app/services/message.service';
 import { UniminutoService } from 'src/app/services/uniminuto.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-carnet',
@@ -12,31 +13,35 @@ import { UniminutoService } from 'src/app/services/uniminuto.service';
 export class CarnetPage implements OnInit {
 
   //variables extra
-  programa        : string   = '';
-  sede            : string   = '';
-  cargo           : string   = '';
-  datosCarnet     : any[]    = [];
-  permisos        : any[]    = [];
-  
+  programa: string = '';
+  sede: string = '';
+  cargo: string = '';
+  datosCarnet: any[] = [];
+  permisos: any[] = [];
+
+  rectorias: any = [];
+  sedes: any = [];
+  rectoria: any;
+  openModal: boolean = false;
+  disabledRectorias: boolean = true;
+  disabledSedes: boolean = true;
+  isSaveingInfo: boolean = false;
+  banneId: string = ""
+  documento: string = ""
+  tipoUsuario: string = ""
+
   //datos de usuario
-  srcImage       : any;
-  
-  verComponentes  : boolean   = false;
-  academico       : boolean   = false;
-  cargoTercero    : boolean   = false;
+  srcImage: any;
+
+  verComponentes: boolean = false;
+  academico: boolean = false;
+  cargoTercero: boolean = false;
 
   accesos: { nombre: string, descripcion: string, icon: string, zona: number, abierto: string }[] = [
     {
       nombre: 'qr',
       descripcion: 'UNIMINUTO',
       icon: '/assets/icon/qr.png',
-      zona: 1, 
-      abierto: 'GENERAL'
-    },
-    {
-      nombre: 'dasnet',
-      descripcion: 'Perdomo',
-      icon: '/assets/icon/perdomo.png',
       zona: 1,
       abierto: 'GENERAL'
     }
@@ -50,13 +55,6 @@ export class CarnetPage implements OnInit {
       zona: 1,
       abierto: 'GENERAL'
     },
-    // {
-    //   nombre: 'elecciones',
-    //   descripcion: 'Elecciones',
-    //   icon: '/assets/icon/elecciones.png',
-    //   zona: 1,
-    //   abierto: 'GENERAL'
-    // },
     {
       nombre: 'tabs',
       descripcion: 'Eventos',
@@ -80,15 +78,7 @@ export class CarnetPage implements OnInit {
     }
   ];
 
-  lector: { nombre: string, descripcion: string, icon: string, zona: number, abierto: string }[] = [
-    // {
-    //   nombre: 'scanner-qr',
-    //   descripcion: 'Carnet',
-    //   icon: '/assets/icon/scanner.png',
-    //   zona: 1,
-    //   abierto: 'GENERAL'
-    // },
-  ];
+  lector: { nombre: string, descripcion: string, icon: string, zona: number, abierto: string }[] = [];
 
   componentes: { nombre: string, descripcion: string, icon: string, zona: number, abierto: string }[] = [
     {
@@ -100,34 +90,42 @@ export class CarnetPage implements OnInit {
     }
   ];
 
+  formInfo: FormGroup;
+
   constructor(
-    private local               : LocalService,
-    private uwService           : UwalletService,
-    private msgService          : MessageService,
-    private uniminutoSerive     : UniminutoService
+    private local: LocalService,
+    private uwService: UwalletService,
+    private msgService: MessageService,
+    private uniminutoSerive: UniminutoService,
+    private fb: FormBuilder
   ) {
     this.msgService.cargarLoading(2000);
     this.verComponentes = true;
+    this.formInfo = this.fb.group({
+      'rectoria': ['', Validators.required],
+      'sede': ['', Validators.required]
+    });
+    this.formInfo.get('sede')?.disable();
+    this.formInfo.get('rectoria')?.disable();
   }
 
-  ngOnInit() {
-    // this.extraerDatos();
-    // if(this.srcImage === null || this.srcImage === undefined){
-    //   console.log(this.srcImage);
-    //   this.fotografia(this.pager, this.descripcion, this.cn);
-    //   setTimeout(() => { 
-    //     this.ngOnInit();
-    //   }, 1500);
-    // }
-  }
+  ngOnInit() { }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.extraerDatos().finally(() => {
+      console.log(this.datosCarnet[4])
+      this.accesos.push({
+        nombre: this.datosCarnet[4] == 'DOCENTE' ? 'dasnet' : 'qr-perdomo',
+        descripcion: 'Perdomo',
+        icon: '/assets/icon/perdomo.png',
+        zona: 1,
+        abierto: 'GENERAL'
+      })
       // se obtiene los permisos
-      this.uniminutoSerive.getPermisos(this.datosCarnet[2]).subscribe((permisos:any) => {
-        if (permisos){
-          permisos.forEach(({ nombre }: any) => {
-            if (nombre == 'LECTOR'){
+      this.uniminutoSerive.getPermisos(this.datosCarnet[2]).subscribe(({ modulos, infoCompleta }) => {
+        if (modulos && modulos.length) {
+          modulos.forEach(({ nombre }) => {
+            if (nombre == 'LECTOR') {
               this.lector.push({
                 nombre: 'lector-evento',
                 descripcion: 'Lector',
@@ -138,59 +136,26 @@ export class CarnetPage implements OnInit {
             }
           });
         }
+        // this.openModal = !infoCompleta;
+        this.banneId = this.datosCarnet[3]
+        this.documento = this.datosCarnet[2]
+        this.tipoUsuario = this.datosCarnet[4]
       });
       this.fotografia(this.datosCarnet[2], this.datosCarnet[4], this.datosCarnet[3]);
     });
-    
-    
-    // let objetoSoporte = {
-    //   nombre: 'soporte',
-    //   descripcion: 'Soporte Técnico',
-    //   icon: '/assets/icon/soporte.png',
-    //   zona: 1,
-    //   abierto: 'ADMINISTRATIVO'
-    // }
-
-    // let objetoEvento = {
-    //   nombre: 'eventoIngreso',
-    //   descripcion: 'Ingreso evento',
-    //   icon: '/assets/icon/scanner.png',
-    //   zona: 1,
-    //   abierto: 'ADMINISTRATIVO'
-    // }
-    
-    // this.uwService.permisosUsuario(this.correoExtraer, "eventos")
-    //   .subscribe(data => {
-    //     if(data.resp == true){      
-    //       let valorEncontrado = this.componentes.find(objeto => objeto.nombre === 'soporte');
-    //       if (!valorEncontrado) {
-    //         this.componentes.push(objetoSoporte);
-    //       }
-    //     }
-    //   });
-
-    //   this.uwService.permisosUsuario(this.correoExtraer, "soporte")
-    //   .subscribe(data => {
-    //     if(data.resp == true){      
-    //       let valorEncontrado = this.componentes.find(objeto => objeto.nombre === 'eventoIngreso');
-    //       if (!valorEncontrado) {
-    //         this.componentes.push(objetoEvento);
-    //       }
-    //     }
-    //   });
   }
 
-  fotografia(documento: string, rol: string, id: string){
+  fotografia(documento: string, rol: string, id: string) {
     this.uwService.consultarFotografia(documento, rol, id).subscribe(fotoServ => {
       this.srcImage = fotoServ;
       this.local.crearLlave("fotografia", fotoServ);
     });
   }
 
-  async extraerDatos(){
-    let arrayDatos = ['firstname', 'lastname', 'pager', 'cn', 'descripcion', 'correo', 'title', 'fotografia'];
-    for(let i = 0; i < arrayDatos.length; i++){
-      await this.local.extraerLlave(arrayDatos[i]).then( dato => {
+  async extraerDatos() {
+    let arrayDatos = ['firstname', 'lastname', 'pager', 'cn', 'descripcion', 'correo', 'title', 'fotografia', 'sede', 'rectoria', 'idEstudiantes'];
+    for (let i = 0; i < arrayDatos.length; i++) {
+      await this.local.extraerLlave(arrayDatos[i]).then(dato => {
         this.datosCarnet[i] = dato.value;
       })
     }
