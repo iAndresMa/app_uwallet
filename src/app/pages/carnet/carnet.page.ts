@@ -55,13 +55,13 @@ export class CarnetPage implements OnInit {
       zona: 1,
       abierto: 'GENERAL'
     },
-    {
-      nombre: 'tabs',
-      descripcion: 'Eventos',
-      icon: '/assets/icon/eventos.png',
-      zona: 1,
-      abierto: 'GENERAL'
-    },
+    // {
+    //   nombre: 'tabs',
+    //   descripcion: 'Eventos',
+    //   icon: '/assets/icon/eventos.png',
+    //   zona: 1,
+    //   abierto: 'GENERAL'
+    // },
     {
       nombre: 'prestamos',
       descripcion: 'Biblioteca',
@@ -113,34 +113,34 @@ export class CarnetPage implements OnInit {
 
   ionViewWillEnter() {
     this.extraerDatos().finally(() => {
-      console.log(this.datosCarnet[4])
       this.accesos.push({
-        nombre: this.datosCarnet[4] == 'DOCENTE' ? 'dasnet' : 'qr-perdomo',
+        // nombre: this.datosCarnet[4] == 'DOCENTE' ? 'dasnet' : 'qr-perdomo',
+        nombre: 'qr-perdomo',
         descripcion: 'Perdomo',
         icon: '/assets/icon/perdomo.png',
         zona: 1,
         abierto: 'GENERAL'
       })
       // se obtiene los permisos
-      this.uniminutoSerive.getPermisos(this.datosCarnet[2]).subscribe(({ modulos, infoCompleta }) => {
-        if (modulos && modulos.length) {
-          modulos.forEach(({ nombre }) => {
-            if (nombre == 'LECTOR') {
-              this.lector.push({
-                nombre: 'lector-evento',
-                descripcion: 'Lector',
-                icon: '/assets/icon/scanner.png',
-                zona: 1,
-                abierto: 'GENERAL'
-              });
-            }
-          });
-        }
-        // this.openModal = !infoCompleta;
-        this.banneId = this.datosCarnet[3]
-        this.documento = this.datosCarnet[2]
-        this.tipoUsuario = this.datosCarnet[4]
-      });
+      // this.uniminutoSerive.getPermisos(this.datosCarnet[2]).subscribe(({ modulos, infoCompleta }) => {
+      //   if (modulos && modulos.length) {
+      //     modulos.forEach(({ nombre }) => {
+      //       if (nombre == 'LECTOR') {
+      //         this.lector.push({
+      //           nombre: 'lector-evento',
+      //           descripcion: 'Lector',
+      //           icon: '/assets/icon/scanner.png',
+      //           zona: 1,
+      //           abierto: 'GENERAL'
+      //         });
+      //       }
+      //     });
+      //   }
+      //   // this.openModal = !infoCompleta;
+      //   this.banneId = this.datosCarnet[3]
+      //   this.documento = this.datosCarnet[2]
+      //   this.tipoUsuario = this.datosCarnet[4]
+      // });
       this.fotografia(this.datosCarnet[2], this.datosCarnet[4], this.datosCarnet[3]);
     });
   }
