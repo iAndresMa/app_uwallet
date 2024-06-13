@@ -66,7 +66,7 @@ export class QrPage implements OnInit {
   }
 
   volver(){
-    this.navCtrl.navigateForward(`/dasnet`);
+    this.navCtrl.navigateBack('/carnet')
   }
 
   extraerDatos(){
