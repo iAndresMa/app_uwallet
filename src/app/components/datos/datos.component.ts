@@ -57,7 +57,6 @@ export class DatosComponent implements OnInit {
       this.isSaveingInfo = true;
       const arrRectoria = this.rectorias.filter(({ CODIGO }: any) => CODIGO == rectoria);
       this.uwService.guardarSedeRectoria(arrRectoria[0].DESCRIPCION, sede, this.banneId).subscribe(data => {
-        console.log('im here')
         this.isSaveingInfo = false;
         if (data.resp) {
           this.local.crearLlave('rectoria', arrRectoria[0].DESCRIPCION);
@@ -73,15 +72,15 @@ export class DatosComponent implements OnInit {
 
 
   verSede({ detail }: any) {
-    const { value } = detail;
-    this.digibeeSerivce.getCampus(value).subscribe((data) => {
-      if (data.ok != undefined && !data.ok) {
-        this.msgService.presentToastMsg('¡Ups! Hubo un error al obtener las sedes', 'danger');
-      } else {
-        this.formInfo.get('sede')?.enable();
-        this.sedes = JSON.parse(data.body);
-      }
-    })
+    // const { value } = detail;
+    // this.digibeeSerivce.getCampus(value).subscribe((data) => {
+    //   if (data.ok != undefined && !data.ok) {
+    //     this.msgService.presentToastMsg('¡Ups! Hubo un error al obtener las sedes', 'danger');
+    //   } else {
+    //     this.formInfo.get('sede')?.enable();
+    //     this.sedes = JSON.parse(data.body);
+    //   }
+    // })
   }
 
   verRectorias() {
