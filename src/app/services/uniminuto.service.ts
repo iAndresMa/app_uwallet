@@ -15,7 +15,7 @@ export class UniminutoService {
   getDA(user: string, password: string) {
     let pass = btoa(password);
     // return this.http.get<userUniminuto>(`https://registros.uniminuto.edu/api_da/select/index.php?fn=da&correo=${user.trim()}`);
-    return this.http.get<userUniminuto>(`https://comunidad.uniminuto.edu/api/login/index.php/${ user.trim() }/${ pass }`);
+    return this.http.get<userUniminuto>(`https://comunidad.uniminuto.edu/api/login/index.php/${user.trim()}/${pass}`);
   }
 
   getDARectificacion(correo: string) {
@@ -51,11 +51,23 @@ export class UniminutoService {
     return this.http.get<permisos>(`${environment.urlapiwallet}/modules/permisos.php?fn=obtenerPermisos&documento=${documento}`);
   }
 
+  getActiveModules() {
+    return this.http.get(`${environment.urlapieventos}/select/index.php?fn=getActiveModules`);
+  }
+
   getInfoUser(documento: string) {
     return this.http.get<userInfo>(`${environment.urlapieventos}/select/index.php?fn=infoUser&documento=${documento}`);
   }
 
   getAreas() {
     return this.http.get<arrayAreas>(`${environment.urlapieventos}/select/index.php?fn=consultarArea`);
+  }
+
+  infoUserQR(email: string) {
+    return this.http.post(`${environment.urlapieventos}/select/index.php?fn=infoUserQR`, { data: email });
+  }
+
+  checkIn(infoUserToRegister: any) {
+    return this.http.post(`${environment.urlapieventos}/select/index.php?fn=checkIn`, infoUserToRegister);
   }
 }
