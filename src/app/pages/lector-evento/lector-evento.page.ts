@@ -24,11 +24,6 @@ export class LectorEventoPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
-    // this.platform.backButton.subscribeWithPriority(10, () => {
-    //   this.goBack();
-    // });
-  }
 
   goBack() {
     this.location.back();
