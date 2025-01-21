@@ -37,15 +37,7 @@ export class CarnetPage implements OnInit {
   academico: boolean = false;
   cargoTercero: boolean = false;
 
-  accesos: { nombre: string, descripcion: string, icon: string, zona: number, abierto: string }[] = [
-    {
-      nombre: 'qr',
-      descripcion: 'UNIMINUTO',
-      icon: '/assets/icon/qr.png',
-      zona: 1,
-      abierto: 'GENERAL'
-    }
-  ];
+  accesos: { nombre: string, descripcion: string, icon: string, zona: number, abierto: string }[] = [];
 
   serviciosApp: { nombre: string, descripcion: string, icon: string, zona: number, abierto: string }[] = [
     {
@@ -55,13 +47,6 @@ export class CarnetPage implements OnInit {
       zona: 1,
       abierto: 'GENERAL'
     },
-    // {
-    //   nombre: 'tabs',
-    //   descripcion: 'Eventos',
-    //   icon: '/assets/icon/eventos.png',
-    //   zona: 1,
-    //   abierto: 'GENERAL'
-    // },
     {
       nombre: 'prestamos',
       descripcion: 'Biblioteca',
@@ -90,8 +75,6 @@ export class CarnetPage implements OnInit {
     }
   ];
 
-  formInfo: FormGroup;
-
   constructor(
     private local: LocalService,
     private uwService: UwalletService,
@@ -101,46 +84,87 @@ export class CarnetPage implements OnInit {
   ) {
     this.msgService.cargarLoading(2000);
     this.verComponentes = true;
-    this.formInfo = this.fb.group({
-      'rectoria': ['', Validators.required],
-      'sede': ['', Validators.required]
-    });
-    this.formInfo.get('sede')?.disable();
-    this.formInfo.get('rectoria')?.disable();
   }
 
   ngOnInit() { }
 
   ionViewWillEnter() {
     this.extraerDatos().finally(() => {
-      this.accesos.push({
-        // nombre: this.datosCarnet[4] == 'DOCENTE' ? 'dasnet' : 'qr-perdomo',
-        nombre: 'qr-perdomo',
-        descripcion: 'Perdomo',
-        icon: '/assets/icon/perdomo.png',
-        zona: 1,
-        abierto: 'GENERAL'
+      this.uniminutoSerive.getActiveModules().subscribe(({ process, data }: any) => {
+        if (process) {
+          data.forEach(({ nombre }: any) => {
+            if (nombre == 'qr_provisional') {
+              this.accesos.push({
+                nombre: 'qr-provisional',
+                descripcion: 'UNIMINUTO',
+                icon: '/assets/icon/qr.png',
+                zona: 1,
+                abierto: 'GENERAL'
+              })
+            }
+            if (nombre == 'tabs') {
+              this.serviciosApp.push({
+                nombre: 'tabs',
+                descripcion: 'Eventos',
+                icon: '/assets/icon/eventos.png',
+                zona: 1,
+                abierto: 'GENERAL'
+              });
+            }
+          });
+          if (this.accesos.length == 0) {
+            this.accesos.push({
+              nombre: 'qr',
+              descripcion: 'UNIMINUTO',
+              icon: '/assets/icon/qr.png',
+              zona: 1,
+              abierto: 'GENERAL'
+            })
+          }
+        } else {
+          this.accesos.push({
+            nombre: 'qr',
+            descripcion: 'UNIMINUTO',
+            icon: '/assets/icon/qr.png',
+            zona: 1,
+            abierto: 'GENERAL'
+          })
+        }
+        this.accesos.push({
+          // nombre: this.datosCarnet[4] == 'DOCENTE' ? 'dasnet' : 'qr-perdomo',
+          nombre: 'qr-perdomo',
+          descripcion: 'Perdomo',
+          icon: '/assets/icon/perdomo.png',
+          zona: 1,
+          abierto: 'GENERAL'
+        })
       })
+
       // se obtiene los permisos
-      // this.uniminutoSerive.getPermisos(this.datosCarnet[2]).subscribe(({ modulos, infoCompleta }) => {
-      //   if (modulos && modulos.length) {
-      //     modulos.forEach(({ nombre }) => {
-      //       if (nombre == 'LECTOR') {
-      //         this.lector.push({
-      //           nombre: 'lector-evento',
-      //           descripcion: 'Lector',
-      //           icon: '/assets/icon/scanner.png',
-      //           zona: 1,
-      //           abierto: 'GENERAL'
-      //         });
-      //       }
-      //     });
-      //   }
-      //   // this.openModal = !infoCompleta;
-      //   this.banneId = this.datosCarnet[3]
-      //   this.documento = this.datosCarnet[2]
-      //   this.tipoUsuario = this.datosCarnet[4]
-      // });
+      this.uniminutoSerive.getPermisos(this.datosCarnet[2]).subscribe((permisos: any) => {
+        if (permisos.modulos && permisos.modulos.length) {
+          permisos.modulos.forEach(({ nombre }: any) => {
+            if (nombre == 'LECTOR') {
+              this.lector.push({
+                nombre: 'lector-evento',
+                descripcion: 'Lector',
+                icon: '/assets/icon/scanner.png',
+                zona: 1,
+                abierto: 'GENERAL'
+              });
+            }
+            if (nombre == 'VERIFICACION QR') {
+              this.lector.push({
+                nombre: 'lector-qr',
+                descripcion: 'Lector QR',
+                icon: '/assets/icon/scanner.png',
+                zona: 1,
+                abierto: 'GENERAL'
+              });
+            }
+          });
+        }
+      });
       this.fotografia(this.datosCarnet[2], this.datosCarnet[4], this.datosCarnet[3]);
     });
   }
