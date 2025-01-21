@@ -171,7 +171,6 @@ export class ScannerQrPage implements OnInit {
   // }
 
   soporte(){
-    console.log(this.descripcionSoporte);
     this.msgServ.presentToastMsg(`${this.firstname} gracias por comunicarte con la mesa de servicio, te apoyaremos lo más pronto posible.`, "success");
   }
 }
