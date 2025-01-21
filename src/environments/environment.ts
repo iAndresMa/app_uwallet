@@ -6,13 +6,16 @@ export const environment = {
   production: false,
   password: 'MTIzNDU2$%',
   username: 'TokenQrUniminuto',
-  // urlapiwallet: 'http://localhost/api_wallet',
-  // urlapieventos: 'http://localhost/api_eventos',
+  urlapiwallet: 'http://localhost/api_wallet',
+  urlapieventos: 'http://localhost/api_eventos',
   urlDigibee: 'https://uniminuto.test.digibee.io/pipeline/uniminuto/v1',
   urlEstudiantes: 'https://comunidad.uniminuto.edu/estudiantes',
   urlDorlet: 'http://10.0.26.189:8081/DASS',
-  urlapieventos: 'https://registros.uniminuto.edu/api_eventos_test',
-  urlapiwallet: 'https://comunidad.uniminuto.edu/api_wallet_test'
+  urlFotografia: 'https://fotografias.uniminuto.edu',
+  apiKeyDigibeeRectorias: '5H9CcvkLZJTgPDDCXTXTI7KC90k6prl0'
+  // apiKeyDigibeeRectorias: 'ITnjVcrLWfYpY2B246EcrWO6Hln3LD7a'
+  // urlapieventos: 'https://registros.uniminuto.edu/api_eventos_test',
+  // urlapiwallet: 'https://comunidad.uniminuto.edu/api_wallet_test'
 };
 
 /*
