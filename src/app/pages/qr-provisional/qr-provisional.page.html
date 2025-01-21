@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="azulA">
+    <ion-buttons slot="start" (click)="volver()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>QR Acceso</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="regenerarQR()">
+        <ion-icon name="reload-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container" transition-style="in:circle:center">
+    <ion-card mode="ios">
+      <ion-card-content class="container" *ngIf="!cargando">
+
+        <img alt="QR" id="codigo">
+
+        <h3>{{firstname}}</h3>
+        <p>
+          <span>{{lastname}}</span><br>
+          <span><b>{{pager}}</b></span>
+        </p>
+
+      </ion-card-content>
+
+      <ion-card-content class="container-loading" *ngIf="cargando">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+        <h3><ion-skeleton-text [animated]="true" style="width: 150%;"></ion-skeleton-text></h3>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 150%;"></ion-skeleton-text>
+          <ion-skeleton-text [animated]="true" style="width: 150%;"></ion-skeleton-text>
+        </p>
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+</ion-content>
