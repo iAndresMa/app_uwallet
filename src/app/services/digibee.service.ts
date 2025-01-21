@@ -14,7 +14,7 @@ export class DigibeeService {
         private http: HttpClient
     ) {
         this.headers = new HttpHeaders({
-            'apikey': '5H9CcvkLZJTgPDDCXTXTI7KC90k6prl0',
+            'apikey': environment.apiKeyDigibeeRectorias,
             'Content-Type': 'application/json'
         });
     }
