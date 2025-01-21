@@ -1,0 +1,44 @@
+<ion-header class="amarilloW">
+  <ion-toolbar color="naranjaE">
+    <ion-buttons slot="start" (click)="volver()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>Lector de entrada</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="scanner-container" *ngIf="isScanning" transition-style="in:circle:center">
+    <div class="scan-box">
+      <div class="scan-icon">
+        <ion-icon name="scan-circle-outline"></ion-icon>
+      </div>
+      <p>Coloca el código QR dentro del área de escaneo</p>
+    </div>
+    <zxing-scanner class="scanner" (scanSuccess)="onCodeResult($event)"></zxing-scanner>
+    <div *ngIf="scanningCode" class="scanning-overlay">
+      <p>Escaneando...</p>
+    </div>
+  </div>
+  <div *ngIf="!isScanning">
+    <div class="container" transition-style="in:circle:center">
+      <ion-card>
+        <ion-card-content class="container">
+          
+          <h2>{{ userData.description }}</h2>
+          <img alt="Imagen usuario" src="data:image/png;base64,{{ userData.fotografia }}">
+  
+          <h3>{{ userData.givenName }}</h3>
+          <p>
+            <span>{{ userData.title }}</span><br>
+            <span><b>{{ userData.pager }}</b></span>
+          </p>
+          <ion-button shape="round" (click)="userRegister()" *ngIf="!isRegisterUser">Siguiente</ion-button>
+          <ion-button shape="round" (click)="userRegister()" *ngIf="isRegisterUser" [disabled]="true">Un momento</ion-button>
+  
+        </ion-card-content>
+  
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

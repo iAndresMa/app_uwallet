@@ -1,0 +1,85 @@
+.scanner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.scan-box {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.scan-icon {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.scanner {
+    width: 80vw;
+    max-width: 400px;
+    max-height: 80vh;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.scanning-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+ion-card > ion-card-content {
+    font-size: 0.9em !important;
+}
+
+
+ion-card > ion-card-content > i {
+    font-size: 0.6em !important;
+}
+
+ion-card-title {
+    color: black !important;
+}
+
+
+ion-card{
+    margin: auto !important;
+    display: block !important;
+    box-shadow: none !important;
+    margin-left: 50px !important;
+    margin-right: 50px !important;
+    overflow: unset !important;
+    background-color: #ffffff !important;
+    text-align: center !important;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+#qrcode{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p > span {
+    font-size:xx-small !important;
+}
