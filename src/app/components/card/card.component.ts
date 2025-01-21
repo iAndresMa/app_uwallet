@@ -6,20 +6,20 @@ import { NavController } from '@ionic/angular';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
-export class CardComponent  implements OnInit {
+export class CardComponent implements OnInit {
 
-  @Input() imageUrl : any = [];
-  arrayMenu         : any = [];
+  @Input() imageUrl: any = [];
+  arrayMenu: any = [];
 
   constructor(
-    private navCtrl             : NavController,
-  ) {}
+    private navCtrl: NavController,
+  ) { }
 
   ngOnInit() {
     this.arrayMenu = this.imageUrl;
   }
 
-  servicios(servicio: any, descripcion: any){
+  servicios(servicio: any, descripcion: any) {
     switch (servicio) {
       case 'qr':
         this.navCtrl.navigateRoot(`/${servicio}`);
@@ -47,6 +47,12 @@ export class CardComponent  implements OnInit {
         break;
       case 'qr-perdomo':
         this.navCtrl.navigateRoot('/qr-perdomo');
+        break;
+      case 'qr-provisional':
+        this.navCtrl.navigateRoot('/qr-provisional');
+        break;
+      case 'lector-qr':
+        this.navCtrl.navigateRoot('/lector-qr');
         break;
     }
   }
