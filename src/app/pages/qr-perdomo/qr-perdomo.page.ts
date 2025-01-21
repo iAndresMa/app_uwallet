@@ -68,7 +68,7 @@ export class QrPerdomoPage implements OnInit {
             }
           })
         ).subscribe((rest: any) => {
-          if (rest.ok = !undefined && rest.ok == false) {
+          if (rest.ok != undefined && rest.ok == false) {
             this.msgService.presentToastMsg(rest.mensaje, 'danger');
             return;
           }
