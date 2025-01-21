@@ -9,28 +9,48 @@
 
 <ion-content>
   <ion-item>
-    <ion-input [(ngModel)]="terminoBusqueda" (input)="buscar()" name="terminoBusqueda" type="text"
-      placeholder="Ingrese el evento" aria-label="Buscar"></ion-input>
-    <ion-icon name="search" slot="start"></ion-icon>
+    <ion-select name="rectoria" [placeholder]="getPlaceholderRectory()" aria-label="Rectoria"
+      (ionChange)="setRectory($event)" [disabled]="disabledRectory">
+      <ion-select-option value="" *ngIf="rectorias.length == 0">Se estan cargando las rectorias</ion-select-option>
+      <ion-select-option *ngFor="let rectoria of rectorias"
+        [value]="rectoria.CODIGO">{{rectoria.DESCRIPCION}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-select name="sede" [placeholder]="getPLaceholderCampus()" aria-label="Sede" (ionChange)="changeSede($event)" [disabled]="disabledSede">
+      <ion-select-option value="" *ngIf="sedes.length == 0">Se estan cargando las sedes</ion-select-option>
+      <ion-select-option *ngFor="let sede of sedes" [value]="sede.CODIGO">{{sede.DESCRIPCION}}</ion-select-option>
+    </ion-select>
   </ion-item>
   <ion-item>
     <ion-select name="area" placeholder="Seleccione el area" aria-label="Area" (ionChange)="setArea($event)">
       <ion-select-option value=""></ion-select-option>
-      <ion-select-option *ngFor="let area of areas" [value]="area.id" >{{area.descripcion}}</ion-select-option>
+      <ion-select-option *ngFor="let area of areas" [value]="area.id">{{area.descripcion}}</ion-select-option>
     </ion-select>
   </ion-item>
+  <ion-item>
+    <ion-input [(ngModel)]="terminoBusqueda" (input)="buscar()" name="terminoBusqueda" type="text"
+      placeholder="Ingrese el evento" aria-label="Buscar"></ion-input>
+    <ion-icon name="search" slot="start"></ion-icon>
+  </ion-item>
 
-  <ion-refresher slot="fixed" (ionRefresh)="llamarEventos($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  <ion-list *ngIf="!tiempoSkel" class="ion-text-center">
-    <ion-progress-bar type="indeterminate" color="naranjaE"></ion-progress-bar>
-    <ion-label>Se estan cargando los eventos.</ion-label>
+  <ion-list *ngIf="selectedRectory == '' || selectedSede == ''; else eventContent" class="ion-text-center">
+    <p>Tienes que seleccionar una rectoría y una sede</p>
   </ion-list>
 
-  <ion-list *ngIf="tiempoSkel && eventos.length == 0" class="ion-text-center">
-    <p>No hay eventos para inscribirse</p>
-  </ion-list>
+  <ng-template #eventContent>
+    <ion-refresher slot="fixed" (ionRefresh)="obtenerEventos($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-list *ngIf="!tiempoSkel" class="ion-text-center">
+      <ion-progress-bar type="indeterminate" color="naranjaE"></ion-progress-bar>
+      <ion-label>Se estan cargando los eventos.</ion-label>
+    </ion-list>
+
+    <ion-list *ngIf="tiempoSkel && eventos.length == 0" class="ion-text-center">
+      <p>No hay eventos para inscribirse</p>
+    </ion-list>
+  </ng-template>
 
   <ion-list ion-list *ngIf="tiempoSkel && eventos.length != 0">
     <ion-item *ngFor="let eventos of eventos" button routerLink="../evento/{{eventos.idinstancia}}/general/eventos/0">

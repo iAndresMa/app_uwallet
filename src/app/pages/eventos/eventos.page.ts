@@ -7,6 +7,7 @@ import { MessageService } from 'src/app/services/message.service';
 import { tap } from 'rxjs';
 import { Location } from '@angular/common';
 import { UniminutoService } from 'src/app/services/uniminuto.service';
+import { DigibeeService } from 'src/app/services/digibee.service';
 
 @Component({
   selector: 'app-eventos',
@@ -25,11 +26,17 @@ export class EventosPage implements OnInit {
   cn: any;
   title: any | undefined;
   srcImage: any;
-  tiempoSkel: boolean = false;
+  tiempoSkel: boolean = true;
   sede: string | null = null;
   rectoria: string | null = null;
   areas: any = [];
   area: string = "";
+  rectorias: any = [];
+  selectedRectory: string = "";
+  sedes: any = [];
+  selectedSede: string = "";
+  disabledRectory = true;
+  disabledSede = true;
 
   arrayEventos: any = [];
   terminoBusqueda: string = "";
@@ -42,20 +49,23 @@ export class EventosPage implements OnInit {
   ];
 
   constructor(
-    private route: ActivatedRoute,
     private navCtrl: NavController,
     private local: LocalService,
     private srSoftExpert: SoftexpertService,
     private msgService: MessageService,
-    private location: Location,
-    private uniminutoService: UniminutoService
+    private uniminutoService: UniminutoService,
+    private digibeeService: DigibeeService
   ) {
     this.msgService.presentLoading(3000);
   }
 
   ngOnInit() {
-    this.extraerDatos().then(() => this.llamarEventos())
+    this.extraerDatos();
     this.uniminutoService.getAreas().subscribe((areas) => this.areas = areas);
+    this.digibeeService.getRectory().subscribe((rectorias) => {
+      this.rectorias = JSON.parse(rectorias.body)
+      this.disabledRectory = false;
+    });
   }
 
   volver() {
@@ -83,27 +93,29 @@ export class EventosPage implements OnInit {
     return Promise.all(promises).then(() => { });
   }
 
-  llamarEventos(e?: any) {
-    this.tiempoSkel = false;
-    this.srSoftExpert.getEventos('consultaEventosDisponibles', this.descripcion, null, this.area)
-      .pipe(
-        tap((response) => {
-          this.arrayEventos = response;
-          this.tiempoSkel = true;
-          e ? e.target.complete() : null;
-          if (response) {
-            this.arrayEventos = this.arrayEventos.map((evento: any) => {
-              return {
-                ...evento,
-                imagen: this.cargarImagenAleatoria()
-              }
-            });
-            this.eventos = this.arrayEventos
-          } else {
-            this.eventos = []
-          }
-        })
-      ).subscribe();
+  obtenerEventos(e?: any) {
+    if (this.selectedRectory != "" && this.selectedSede != "") {
+      this.tiempoSkel = false;
+      this.srSoftExpert.getEventos('consultaEventosDisponibles', this.descripcion, this.area, this.selectedRectory, this.selectedSede)
+        .pipe(
+          tap((response) => {
+            this.arrayEventos = response;
+            this.tiempoSkel = true;
+            e ? e.target.complete() : null;
+            if (response) {
+              this.arrayEventos = this.arrayEventos.map((evento: any) => {
+                return {
+                  ...evento,
+                  imagen: this.cargarImagenAleatoria()
+                }
+              });
+              this.eventos = this.arrayEventos
+            } else {
+              this.eventos = []
+            }
+          })
+        ).subscribe();
+    }
   }
 
   buscar() {
@@ -116,6 +128,40 @@ export class EventosPage implements OnInit {
   setArea({ detail }: any) {
     const { value } = detail;
     this.area = value ? value : "";
-    this.llamarEventos();
+    this.obtenerEventos();
+  }
+
+  setRectory({ detail }: any) {
+    const { value } = detail;
+    this.selectedRectory = this.rectorias.filter(({ CODIGO }: any) => value == CODIGO)[0].DESCRIPCION;
+    this.disabledSede = true;
+    this.digibeeService.getCampus(value).subscribe((sede) => {
+      this.sedes = JSON.parse(sede.body);
+      this.disabledSede = false;
+    })
+  }
+
+  changeSede({ detail }: any) {
+    const { value } = detail;
+    this.selectedSede = this.sedes.filter(({ CODIGO }: any) => value == CODIGO)[0].DESCRIPCION;
+    this.obtenerEventos();
+  }
+
+  getPlaceholderRectory(): string {
+    if (this.rectorias.length == 0) {
+      return "Cargando rectorías...";
+    } else {
+      return "Selecciona la rectoría";
+    }
+  }
+
+  getPLaceholderCampus(): string {
+    if (this.rectorias.length == 0 && this.sedes.length == 0) {
+      return "Cargando sedes...";
+    } else if (this.rectorias.length > 0 && this.sedes.length == 0) {
+      return "Seleccione una sede";
+    } else {
+      return "Seleccione una sede";
+    }
   }
 }

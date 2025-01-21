@@ -57,6 +57,7 @@ export class EventoPage implements OnInit {
   asistencia: any = false;
   cargando: any = false;
   cargandoEvento: boolean = false;
+  vistaAsistencia: boolean = false;
 
   ultimaRuta: string = '';
 
@@ -95,10 +96,6 @@ export class EventoPage implements OnInit {
     });
     this.consultarTipoDocumento();
 
-    // se suscribe a los botones nativos de android
-    // this.platform.backButton.subscribeWithPriority(10, () => {
-    //   this.goBack();
-    // });
   }
 
   goBack() {
@@ -193,7 +190,7 @@ export class EventoPage implements OnInit {
     this.softService.postEventoSoftExpert(infoParticipante)
       .subscribe(data => {
         const { recordKey } = data;
-        if (recordKey) {
+        // if (recordKey) {
           // se registra el evento dentro bd de uwallet
           this.softService.postEvento(data)
             .subscribe(resultado => {
@@ -207,10 +204,10 @@ export class EventoPage implements OnInit {
                 this.msgService.presentToastMsg('No se ha podido registrar el evento en uwallet', 'danger');
               }
             });
-        } else {
-          this.cargando = false;
-          this.msgService.presentToastMsg('No se ha podido registrar el evento', 'danger');
-        }
+        // // } else {
+        //   this.cargando = false;
+        //   this.msgService.presentToastMsg('No se ha podido registrar el evento', 'danger');
+        // }
       });
 
   }
