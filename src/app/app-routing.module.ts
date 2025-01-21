@@ -78,7 +78,15 @@ const routes: Routes = [
   {
     path: 'qr-perdomo',
     loadChildren: () => import('./pages/qr-perdomo/qr-perdomo.module').then( m => m.QrPerdomoPageModule)
+  },  {
+    path: 'qr-provisional',
+    loadChildren: () => import('./pages/qr-provisional/qr-provisional.module').then( m => m.QrProvisionalPageModule)
+  },
+  {
+    path: 'lector-qr',
+    loadChildren: () => import('./pages/lector-qr/lector-qr.module').then( m => m.LectorQrPageModule)
   }
+
 ];
 
 @NgModule({
