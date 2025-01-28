@@ -3,7 +3,7 @@ import { LocalService } from '../../services/local.service';
 import { UwalletService } from '../../services/uwallet.service';
 import { MessageService } from 'src/app/services/message.service';
 import { UniminutoService } from 'src/app/services/uniminuto.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-carnet',
@@ -131,7 +131,6 @@ export class CarnetPage implements OnInit {
           })
         }
         this.accesos.push({
-          // nombre: this.datosCarnet[4] == 'DOCENTE' ? 'dasnet' : 'qr-perdomo',
           nombre: 'qr-perdomo',
           descripcion: 'Perdomo',
           icon: '/assets/icon/perdomo.png',
@@ -140,10 +139,20 @@ export class CarnetPage implements OnInit {
         })
       })
 
+      // this.accesos.push({
+      //   // nombre: this.datosCarnet[4] == 'DOCENTE' ? 'dasnet' : 'qr-perdomo',
+      //   // nombre: 'qr-perdomo',
+      //   nombre: 'dasnet',
+      //   descripcion: 'Perdomo',
+      //   icon: '/assets/icon/perdomo.png',
+      //   zona: 1,
+      //   abierto: 'GENERAL'
+      // })
+
       // se obtiene los permisos
       this.uniminutoSerive.getPermisos(this.datosCarnet[2]).subscribe((permisos: any) => {
-        if (permisos.modulos && permisos.modulos.length) {
-          permisos.modulos.forEach(({ nombre }: any) => {
+        if (permisos.length) {
+          permisos.forEach(({ nombre }: any) => {
             if (nombre == 'LECTOR') {
               this.lector.push({
                 nombre: 'lector-evento',
