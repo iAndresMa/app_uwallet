@@ -66,14 +66,15 @@ export class HomePage implements OnInit {
   loginUniminuto() {
     let verificarCorreo = this.usuario.correoInstitucional.split("@");
 
-    if (verificarCorreo[1] == undefined) {
+    if (verificarCorreo[1].trim() == undefined) {
       return this.msgToast.presentToastMsg('No es un correo valido', 'danger');
-    } else if (verificarCorreo[1] != 'uniminuto.edu' && verificarCorreo[1] != 'uniminuto.edu.co') {
+    } else if (verificarCorreo[1].trim() != 'uniminuto.edu' && verificarCorreo[1].trim() != 'uniminuto.edu.co') {
       return this.msgToast.presentToastMsg('No es un correo valido', 'danger');
     } else {
       this.uniminutoService.getDA(this.usuario.correoInstitucional, this.usuario.password)
-        //this.uniminutoService.getDARectificacion(this.usuario.correoInstitucional)
+        // this.uniminutoService.getDARectificacion(this.usuario.correoInstitucional)
         .subscribe(dataUser => {
+          console.log(dataUser);
           if (dataUser.id == '999') {
             this.msgToast.presentToastMsg('Contraseña incorrecta', 'danger');
           } else {
