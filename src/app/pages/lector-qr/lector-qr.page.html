@@ -28,13 +28,13 @@
           <h2>{{ userData.description }}</h2>
           <img alt="Imagen usuario" src="data:image/png;base64,{{ userData.fotografia }}">
   
-          <h3>{{ userData.givenName }}</h3>
+          <h3>{{ userData.displayName.toUpperCase() }}</h3>
           <p>
             <span>{{ userData.title }}</span><br>
             <span><b>{{ userData.pager }}</b></span>
           </p>
           <ion-button shape="round" (click)="userRegister()" *ngIf="!isRegisterUser">Siguiente</ion-button>
-          <ion-button shape="round" (click)="userRegister()" *ngIf="isRegisterUser" [disabled]="true">Un momento</ion-button>
+          <ion-button shape="round" *ngIf="isRegisterUser" [disabled]="true">Un momento</ion-button>
   
         </ion-card-content>
   
