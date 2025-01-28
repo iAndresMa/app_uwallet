@@ -12,8 +12,8 @@ export class SoftexpertService {
     private http: HttpClient
   ) { }
 
-  getEventos(accion: string, rol: string, rectoria: string | null, area: string) {
-    return this.http.get<eventos>(`${environment.urlapieventos}/select/index.php?fn=${accion}&rol=${rol}&rectoria=${rectoria}&area=${area}`);
+  getEventos(accion: string, rol: string, area: string, rectoria: string | null, sede: string | null) {
+    return this.http.get<eventos>(`${environment.urlapieventos}/select/index.php?fn=${accion}&rol=${rol}&rectoria=${rectoria}&area=${area}&sede=${sede}`);
   }
 
   getEvento(accion: string, evento: string, documento: string) {
