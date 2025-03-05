@@ -8,19 +8,21 @@
           <ion-row>
             <ion-col size="4">
               <ion-avatar>
-                <ion-img [src]='srcImage'></ion-img>
+                <ion-img *ngIf="!loading" [src]="srcImage"></ion-img>
+                <ion-img *ngIf="loading" src="../../../assets/loadprofile.gif"></ion-img>
               </ion-avatar>
             </ion-col>
 
             <ion-col size="8">
               <ion-text>
                 <h6>
-                  {{ datosCarnet[0] }}<br><span>{{ datosCarnet[1] }}</span><br>
+                  {{ datosCarnet[0] }}<br /><span>{{ datosCarnet[1] }}</span
+                  ><br />
                   Documento: <span>{{ datosCarnet[2] }}</span>
                   <div *ngIf="academico">
-                    <br>ID: <span>{{ datosCarnet[3] }}</span>
+                    <br />ID: <span>{{ datosCarnet[3] }}</span>
                   </div>
-                  <br>
+                  <br />
                   Rol: <span>{{ datosCarnet[4] }}</span>
                   <div *ngIf="academico">
                     Programa: <span>{{ datosCarnet[5] }}</span>
@@ -35,20 +37,46 @@
         </ion-grid>
       </ion-card-content>
     </ion-card>
-
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-note>Accesos</ion-note>
-  <app-card [imageUrl]="accesos"></app-card>
-  <ion-note>Servicios</ion-note>
-  <app-card [imageUrl]="serviciosApp"></app-card>
-  <ion-note *ngIf="lector.length">Lector</ion-note>
-  <app-card *ngIf="lector.length" [imageUrl]="lector"></app-card>
-  <ion-note>Soporte</ion-note>
-  <app-card [imageUrl]="componentes"></app-card>
+<ion-content>
+  <ion-list *ngIf="loading" class="ion-text-center">
+    <ion-progress-bar type="indeterminate" color="amarilloW"></ion-progress-bar>
+    <ion-label>Estamos cargando tu configuración</ion-label>
+  </ion-list>
 
+  <div *ngIf="!loading" class="horizontal-cards-container">
+    <ion-card
+      class="notification-card"
+      color="amarilloW"
+      *ngIf="showNotification && headquarters !== ''"
+    >
+      <ion-card-content class="notification-content">
+        <div class="notification-wrapper">
+          <span class="notification-text">
+            El botón <strong>Acceso</strong> permite el ingreso a las sedes: <strong>{{ headquarters }}</strong>
+          </span>
+          <ion-button
+            fill="clear"
+            color="dark"
+            class="close-button"
+            (click)="closeNotification()"
+          >
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <ion-note>Accesos</ion-note>
+    <app-card [imageUrl]="accesos"></app-card>
+    <ion-note>Servicios</ion-note>
+    <app-card [imageUrl]="serviciosApp"></app-card>
+    <ion-note *ngIf="lector.length">Lector</ion-note>
+    <app-card *ngIf="lector.length" [imageUrl]="lector"></app-card>
+    <ion-note>Soporte</ion-note>
+    <app-card [imageUrl]="componentes"></app-card>
+  </div>
 </ion-content>
 
 <app-footer></app-footer>

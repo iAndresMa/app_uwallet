@@ -6,6 +6,7 @@ export interface menuPrincipal {
 
 export interface userUniminuto {
     id: string,
+    Id: string,
     Cn: string,
     DeparmetNumber: string,
     Descripcion: string,

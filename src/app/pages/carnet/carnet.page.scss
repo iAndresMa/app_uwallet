@@ -26,7 +26,7 @@ ion-item {
 
 span{
     font-size: 0.8em !important;
-    font-weight: bolder !important;
+    // font-weight: bolder !important;
 }
 
 ion-label{
@@ -47,8 +47,8 @@ ion-icon{
     margin-top: 10px !important;
 }
 
-ion-list > ion-list{
-    margin: 1px !important;
+ion-list {
+    margin-top: 5px;
 }
 
 ion-avatar{
@@ -78,4 +78,42 @@ ion-note {
 ion-grid{
     margin-top: -10px !important;
     margin-bottom: -20px !important;
+}
+
+.notification-card {
+  box-shadow: none !important;
+  animation: slideIn 0.9s ease-out;
+}
+.notification-content {
+  padding: 10px;
+}
+
+.notification-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.notification-text {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.close-button {
+  margin: 0;
+  padding: 0;
+  min-height: auto;
+  height: auto;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
