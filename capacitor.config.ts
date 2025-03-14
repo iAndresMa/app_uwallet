@@ -5,13 +5,23 @@ const config: CapacitorConfig = {
   appName: 'UWallet',
   webDir: 'www',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'https',
+    iosScheme: 'https',
+    hostname: "127.0.0.1",
+		cleartext: true,
+		allowNavigation: ["*"]
   },
   plugins: {
     PrivacyScreen: {
-      enable: true,
+      enable: false,
       imageName: "Splashscreen"
+    },
+    StatusBar: {
+      backgroundColor: "#FBD342",
     }
+  },
+  ios: {
+    contentInset: "always",
   }
 };
 
