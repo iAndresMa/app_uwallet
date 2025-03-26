@@ -134,7 +134,7 @@ export class CarnetPage implements OnInit {
               if (nombre == 'qr_provisional') {
                 this.accesos.push({
                   nombre: 'qr-provisional',
-                  descripcion: 'UNIMINUTO',
+                  descripcion: '',
                   icon: '/assets/icon/qr.png',
                   zona: 1,
                   abierto: 'GENERAL',
@@ -154,7 +154,7 @@ export class CarnetPage implements OnInit {
             if (this.accesos.length == 0) {
               this.accesos.push({
                 nombre: 'qr',
-                descripcion: 'UNIMINUTO',
+                descripcion: '',
                 icon: '/assets/icon/qr.png',
                 zona: 1,
                 abierto: 'GENERAL',
@@ -163,7 +163,7 @@ export class CarnetPage implements OnInit {
           } else {
             this.accesos.push({
               nombre: 'qr',
-              descripcion: 'UNIMINUTO',
+              descripcion: '',
               icon: '/assets/icon/qr.png',
               zona: 1,
               abierto: 'GENERAL',
@@ -172,7 +172,7 @@ export class CarnetPage implements OnInit {
 
           this.accesos.push({
             nombre: 'qr-perdomo',
-            descripcion: 'Acceso',
+            descripcion: '',
             icon: '/assets/icon/perdomo.png',
             zona: 1,
             abierto: 'GENERAL',
@@ -211,7 +211,7 @@ export class CarnetPage implements OnInit {
           console.error('Error al obtener datos', error);
           this.accesos.push({
             nombre: 'qr-perdomo',
-            descripcion: 'Acceso',
+            descripcion: '',
             icon: '/assets/icon/perdomo.png',
             zona: 1,
             abierto: 'GENERAL',
