@@ -179,9 +179,9 @@ export class CarnetPage implements OnInit {
           });
 
           if (headquartersResponse.process) {
-            this.headquarters = headquartersResponse.data.map(
-              ({ sede }: any) => sede
-            ).join();
+            this.headquarters = headquartersResponse.data
+              .map(({ sede }: any) => sede)
+              .join();
           }
 
           if (permisosResponse.length) {
@@ -208,14 +208,24 @@ export class CarnetPage implements OnInit {
           }
         },
         error: (error: any) => {
+          this.loading = false;
           console.error('Error al obtener datos', error);
-          this.accesos.push({
-            nombre: 'qr-perdomo',
-            descripcion: '',
-            icon: '/assets/icon/perdomo.png',
-            zona: 1,
-            abierto: 'GENERAL',
-          });
+          this.accesos.push(
+            {
+              nombre: 'qr-perdomo',
+              descripcion: '',
+              icon: '/assets/icon/perdomo.png',
+              zona: 1,
+              abierto: 'GENERAL',
+            },
+            {
+              nombre: 'qr',
+              descripcion: '',
+              icon: '/assets/icon/qr.png',
+              zona: 1,
+              abierto: 'GENERAL',
+            }
+          );
         },
         complete: () => {
           this.loading = false;

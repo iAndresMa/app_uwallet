@@ -9,7 +9,10 @@
             <ion-col size="4">
               <ion-avatar>
                 <ion-img *ngIf="!loading" [src]="srcImage"></ion-img>
-                <ion-img *ngIf="loading" src="../../../assets/loadprofile.gif"></ion-img>
+                <ion-img
+                  *ngIf="loading"
+                  src="../../../assets/loadprofile.gif"
+                ></ion-img>
               </ion-avatar>
             </ion-col>
 
@@ -50,12 +53,13 @@
     <ion-card
       class="notification-card"
       color="amarilloW"
-      *ngIf="showNotification && headquarters !== ''"
+      *ngIf="showNotification && headquarters.length > 0"
     >
       <ion-card-content class="notification-content">
         <div class="notification-wrapper">
           <span class="notification-text">
-            El botón <strong>Verde</strong> permite el ingreso a las sedes: <strong>{{ headquarters }}</strong>
+            El botón <strong>Verde</strong> permite el ingreso a las sedes:
+            <strong>{{ headquarters }}</strong>
           </span>
           <ion-button
             fill="clear"
