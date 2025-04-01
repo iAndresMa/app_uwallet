@@ -39,7 +39,7 @@ export class QrPerdomoPage implements OnInit {
     let date: Date = new Date();
     this.fechaQR = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}`;
 
-    this.msgService.cargarLoading(4000);
+    this.msgService.cargarLoading(2000);
     this.extraerDatos().then(() => {
       this.crearQr();
     });
