@@ -11,7 +11,7 @@
           </ion-card-header>
 
           <ion-card-content>
-          
+
           <form #formulario="ngForm" (ngSubmit)="loginUniminuto()" *ngIf="logUniminuto">
               <ion-item>
                   <ion-label position="floating">Usuario (correo) <ion-text color="danger">*</ion-text></ion-label>
@@ -78,22 +78,15 @@
 
         <ion-row *ngIf="logUniminuto">
             <ion-col size="4">
-                <ion-button (click)="formLogin('egresado')" expand="block" fill="clear" shape="round">
+                <ion-button (click)="formLogin('uniminuto')" expand="block" fill="clear" shape="round">
                     <ion-icon name="school"></ion-icon>
-                    <!-- <p class="nombreRol">Egresados</p> -->
                 </ion-button>
             </ion-col>
             <ion-col size="4">
-                <!-- <ion-button href="https://uwallet.uniminuto.edu/" expand="block" fill="clear" shape="round"> -->
-                <!-- <ion-button href="https://pruebas.uniminuto.edu/u-wallet/accesoinvitado" expand="block" fill="clear" shape="round">
-                    <ion-icon name="school" slot="end"></ion-icon>
-                    Invitado
-                </ion-button> -->
             </ion-col>
             <ion-col size="4">
-                <ion-button (click)="formLogin('tercero')" expand="block" fill="clear" shape="round">
+                <ion-button (click)="formLogin('egresado')" expand="block" fill="clear" shape="round">
                     <ion-icon name="man"></ion-icon>
-                    <!-- <p class="nombreRol">Proveedores</p> -->
                 </ion-button>
             </ion-col>
         </ion-row>
@@ -101,20 +94,19 @@
         <ion-row *ngIf="logEgresado">
             <ion-col size="4">
                 <ion-button (click)="formLogin('uniminuto')" expand="block" fill="clear" shape="round">
-                    <ion-icon name="person"></ion-icon>
-                    <!-- <p class="nombreRol">Estudiantes<br>Administrativos</p> -->
+                    <ion-icon name="school"></ion-icon>
                 </ion-button>
             </ion-col>
             <ion-col size="4">
-                <ion-button href="https://uwallet.uniminuto.edu/" expand="block" fill="clear" shape="round">
-                    <ion-icon name="school" slot="end"></ion-icon>
-                    Invitado
+            </ion-col>
+            <ion-col size="4" *ngIf="!showProveedor">
+                <ion-button (click)="formLogin('egresado')" expand="block" fill="clear" shape="round">
+                    <ion-icon name="man"></ion-icon>
                 </ion-button>
             </ion-col>
-            <ion-col size="4">
+            <ion-col size="4" *ngIf="showProveedor">
                 <ion-button (click)="formLogin('tercero')" expand="block" fill="clear" shape="round">
                     <ion-icon name="man"></ion-icon>
-                    <!-- <p class="nombreRol">Proveedores</p> -->
                 </ion-button>
             </ion-col>
         </ion-row>
@@ -123,19 +115,18 @@
             <ion-col size="4">
                 <ion-button (click)="formLogin('uniminuto')" expand="block" fill="clear" shape="round">
                     <ion-icon name="person"></ion-icon>
-                    <!-- <p class="nombreRol">Estudiantes<br>Administrativos</p> -->
                 </ion-button>
             </ion-col>
-            <ion-col size="4">
+            <ion-col size="4"></ion-col>
+            <!-- <ion-col size="4">
                 <ion-button href="https://uwallet.uniminuto.edu/" expand="block" fill="clear" shape="round">
                     <ion-icon name="school" slot="end"></ion-icon>
                     Invitado
                 </ion-button>
-            </ion-col>
+            </ion-col> -->
             <ion-col size="4">
                 <ion-button (click)="formLogin('egresado')" expand="block" fill="clear" shape="round">
                     <ion-icon name="school"></ion-icon>
-                    <!-- <p class="nombreRol">Egresados</p> -->
                 </ion-button>
             </ion-col>
         </ion-row>

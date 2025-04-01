@@ -9,24 +9,22 @@ import { UniminutoService } from '../../services/uniminuto.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-
 export class HomePage implements OnInit {
-
   usuario = {
     correoInstitucional: '',
     // correoInstitucional: 'rmarentes@uniminuto.edu',
     //correoInstitucional: 'esthefanya.canon@uniminuto.edu.co',
-    password: ''
+    password: '',
     // password: 'i@nDr3sM0209*'
     //password: 'Es625591'
   };
 
   proveedor = {
     correoInstitucional: '',
-    documento: ''
+    documento: '',
     //correoInstitucional: 'proveedor.czambrano@uniminuto.edu',
     //documento: '1075658468'
-  }
+  };
 
   nacimiento: Date = new Date();
   documento: String | undefined;
@@ -35,17 +33,34 @@ export class HomePage implements OnInit {
   logEgresado: boolean = false;
   logProveedor: boolean = false;
   logUniminuto: boolean = true;
+  showProveedor: boolean = false;
 
   constructor(
     public plt: Platform,
     private uniminutoService: UniminutoService,
     private msgToast: MessageService,
     private navCtrl: NavController,
-    private local: LocalService,
-  ) { }
+    private local: LocalService
+  ) {}
 
-  ngOnInit() { }
-
+  ngOnInit() {
+    this.uniminutoService.getPermisos('1024580021').subscribe({
+      next: (resp: any) => {
+        if (resp.length > 0) {
+          const permisoProveedor = resp.filter(
+            ({ nombre }: any) => nombre === 'PROVEEDOR'
+          );
+          if (permisoProveedor.length > 0) {
+            this.showProveedor = true;
+          }
+        }
+      },
+      error: (e) => {
+        console.log('error' + e);
+      },
+      complete: () => {},
+    });
+  }
 
   formLogin(login: any) {
     if (login === 'uniminuto') {
@@ -60,27 +75,33 @@ export class HomePage implements OnInit {
       this.logEgresado = false;
       this.logProveedor = true;
       this.logUniminuto = false;
-    };
+    }
   }
 
   loginUniminuto() {
-    let verificarCorreo = this.usuario.correoInstitucional.split("@");
+    let verificarCorreo = this.usuario.correoInstitucional.split('@');
 
     if (verificarCorreo[1] == undefined) {
       return this.msgToast.presentToastMsg('No es un correo valido', 'danger');
-    } else if (verificarCorreo[1].trim() != 'uniminuto.edu' && verificarCorreo[1].trim() != 'uniminuto.edu.co') {
+    } else if (
+      verificarCorreo[1].trim() != 'uniminuto.edu' &&
+      verificarCorreo[1].trim() != 'uniminuto.edu.co'
+    ) {
       return this.msgToast.presentToastMsg('No es un correo valido', 'danger');
     } else {
-      this.uniminutoService.getDA(this.usuario.correoInstitucional, this.usuario.password)
+      this.uniminutoService
+        .getDA(this.usuario.correoInstitucional, this.usuario.password)
         // this.uniminutoService.getDARectificacion(this.usuario.correoInstitucional)
-        .subscribe(dataUser => {
+        .subscribe((dataUser) => {
           if (dataUser.id == '999' || dataUser.Id == '999') {
             this.msgToast.presentToastMsg('Contraseña incorrecta', 'danger');
           } else {
-            this.uniminutoService.getInfoUser(dataUser.Pager).subscribe(({ sede, rectoria, idUniminuto }) => {
-              this.local.crearLlave('sede', sede);
-              this.local.crearLlave('rectoria', rectoria);
-            });
+            this.uniminutoService
+              .getInfoUser(dataUser.Pager)
+              .subscribe(({ sede, rectoria, idUniminuto }) => {
+                this.local.crearLlave('sede', sede);
+                this.local.crearLlave('rectoria', rectoria);
+              });
             this.local.crearLlave('correo', this.usuario.correoInstitucional);
             this.local.crearLlave('firstname', dataUser.FirstName);
             this.local.crearLlave('lastname', dataUser.LastName);
@@ -98,15 +119,17 @@ export class HomePage implements OnInit {
   }
 
   loginEgresado() {
-    this.uniminutoService.getGraduados(this.documento, this.nacimiento)
-      .subscribe(dataUser => {
+    this.uniminutoService
+      .getGraduados(this.documento, this.nacimiento)
+      .subscribe((dataUser) => {
         if (dataUser.Cn == null) {
           this.msgToast.presentToastMsg('Datos incorrectos', 'danger');
         } else {
-          this.uniminutoService.getGraduados(this.documento, this.nacimiento)
-            .subscribe(dataEgresado => {
-              if (dataEgresado.Uid === "" || dataEgresado.Uid === null) {
-                this.local.crearLlave('uid', "noregistra");
+          this.uniminutoService
+            .getGraduados(this.documento, this.nacimiento)
+            .subscribe((dataEgresado) => {
+              if (dataEgresado.Uid === '' || dataEgresado.Uid === null) {
+                this.local.crearLlave('uid', 'noregistra');
               } else {
                 this.local.crearLlave('uid', dataUser.Uid);
               }
@@ -128,15 +151,19 @@ export class HomePage implements OnInit {
   }
 
   loginProveedor() {
-    let verificarCorreo = this.proveedor.correoInstitucional.split("@");
-    let validarProveedor = this.proveedor.correoInstitucional.split(".");
+    let verificarCorreo = this.proveedor.correoInstitucional.split('@');
+    let validarProveedor = this.proveedor.correoInstitucional.split('.');
     if (verificarCorreo[1] == undefined) {
       this.msgToast.presentToastMsg('Ingrese un correo valido', 'danger');
-    } else if (verificarCorreo[1] != 'uniminuto.edu' && verificarCorreo[1] != 'uniminuto.edu.co') {
+    } else if (
+      verificarCorreo[1] != 'uniminuto.edu' &&
+      verificarCorreo[1] != 'uniminuto.edu.co'
+    ) {
       this.msgToast.presentToastMsg('Ingrese un correo valido', 'danger');
     } else {
-      this.uniminutoService.getDARectificacion(this.proveedor.correoInstitucional)
-        .subscribe(dataProv => {
+      this.uniminutoService
+        .getDARectificacion(this.proveedor.correoInstitucional)
+        .subscribe((dataProv) => {
           if (dataProv.id == '999') {
             this.msgToast.presentToastMsg('Datos incorrectos', 'danger');
           } else if (dataProv.Pager !== this.proveedor.documento) {
@@ -161,8 +188,8 @@ export class HomePage implements OnInit {
   }
 
   fechaNacimiento(evento?: any) {
-    let fecha = evento.detail.value.split("T");
-    let nacimiento = fecha[0].split("-");
+    let fecha = evento.detail.value.split('T');
+    let nacimiento = fecha[0].split('-');
     nacimiento = `${nacimiento[2]}${nacimiento[1]}${nacimiento[0]}`;
     // nacimiento = '14111989';
     this.nacimiento = nacimiento;
@@ -172,5 +199,4 @@ export class HomePage implements OnInit {
     this.msgToast.presentToastMsg('Bienvenido', 'amarilloW');
     return this.navCtrl.navigateRoot(`/${page}`);
   }
-
 }
