@@ -20,11 +20,11 @@ export class BytteService {
     }
 
     const headers = new HttpHeaders({
-      'apikey': 'aZnFPndaOb0yD6nk878gP94Vp0u15C2f',
+      'apikey': 'ITnjVcrLWfYpY2B246EcrWO6Hln3LD7a',
       'Content-Type': 'application/json'
     });
     return this.http.post<bytte>(
-      'https://uniminuto.test.digibee.io/pipeline/uniminuto/v1/uwallet/bytte',
+      'https://uniminuto.api.digibee.io/pipeline/uniminuto/v1/uwallet/bytte',
       {
         "qrBytte": {
           "tipoDocumento": tipo,
