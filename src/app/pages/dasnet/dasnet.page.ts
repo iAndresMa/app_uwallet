@@ -4,7 +4,6 @@ import { LocalService } from 'src/app/services/local.service';
 import { MessageService } from '../../services/message.service';
 import { DasnetService } from 'src/app/services/dasnet.service';
 import { catchError, of, tap } from 'rxjs';
-import { BluetoothLe, BleClient } from '@capacitor-community/bluetooth-le';
 import { UwalletService } from 'src/app/services/uwallet.service';
 
 declare var QRious: any;
@@ -41,23 +40,6 @@ export class DasnetPage implements OnInit {
     let date: Date = new Date();
     this.fechaQR = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}`;
 
-    this.extraerDatos().then(() => {
-      this.uwalletSerive.obternerAcreditacionDorlet(this.pager).subscribe((data) => {
-        // this.local.crearLlave('AcreditationId', "F0000011")
-        if (data.ok != undefined && !data.ok) {
-          if (data.error.status == '404') {
-            this.disabled = true
-          } else {
-            this.disabled = false
-            this.msgService.presentToastMsg('¡Ups! Hubo un error al obtener la credencial', 'danger')
-          }
-        } else {
-          this.local.crearLlave('AcreditationId', data[0].AcreditationId)
-          this.disabled = false
-        }
-      })
-    });
-
     this.hoy.setDate(this.hoy.getDate() + 1);
     this.fechaFinal = this.hoy.toLocaleDateString();
 
@@ -82,7 +64,7 @@ export class DasnetPage implements OnInit {
             }
           })
         ).subscribe((rest: any) => {
-          if (rest.ok = !undefined && rest.ok == false) {
+          if (rest.ok != undefined && rest.ok == false) {
             this.msgService.presentToastMsg(rest.mensaje, 'danger');
             return;
           }
