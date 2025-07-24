@@ -124,7 +124,7 @@
         </ion-item>
         <div class="ion-padding" slot="content">
           <form #formulario="ngForm" (ngSubmit)="registrar()"
-            *ngIf="descripcion == 'ADMINISTRATIVO' || descripcion =='DOCENTE'">
+            *ngIf="descripcion === 'ADMINISTRATIVO' || descripcion ==='DOCENTE'">
             <ion-item>
               <ion-label position="floating">Tipo de documento <ion-text color="danger">*</ion-text></ion-label>
               <ion-select name="tipoDocumento" [(ngModel)]="tipoDocumento" placeholder="Seleccione el tipo de documento"
@@ -155,7 +155,7 @@
             </ion-button>
           </form>
           <form #formulario="ngForm" (ngSubmit)="registrar()"
-            *ngIf="descripcion != 'ADMINISTRATIVO' && descripcion!='DOCENTE'">
+            *ngIf="descripcion !== 'ADMINISTRATIVO' && descripcion!=='DOCENTE'">
             <ion-item>
               <ion-label position="floating">Tipo de documento <ion-text color="danger">*</ion-text></ion-label>
               <ion-select name="tipoDocumento" [(ngModel)]="tipoDocumento" placeholder="Seleccione el tipo de documento"
@@ -167,13 +167,13 @@
               <ion-label position="floating">Documento <ion-text color="danger">*</ion-text></ion-label>
               <ion-input [(ngModel)]="pager" name="pager" type="text" disabled></ion-input>
             </ion-item>
-            <!-- <ion-item>
+            <ion-item>
               <ion-label position="floating">Tipo de Participante<ion-text color="danger">*</ion-text></ion-label>
               <ion-select name="tipoParticipante" placeholder="Seleccione" [(ngModel)]="tipoParticipante" required>
                 <ion-select-option value="ESTUDIANTE">Estudiante</ion-select-option>
                 <ion-select-option value="EGRESADO">Egresado</ion-select-option>
               </ion-select>
-            </ion-item> -->
+            </ion-item>
             <ion-button expand="full" type="submit" shape="round" color="azulW"
               [disabled]="formulario.invalid || cargando">
               <ng-container *ngIf="!cargando; else cargandoTemplate">
