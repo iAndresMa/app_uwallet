@@ -150,24 +150,6 @@ export class CarnetPage implements OnInit {
                 });
               }
             });
-
-            if (this.accesos.length == 0) {
-              this.accesos.push({
-                nombre: 'qr',
-                descripcion: '',
-                icon: '/assets/icon/qr.png',
-                zona: 1,
-                abierto: 'GENERAL',
-              });
-            }
-          } else {
-            this.accesos.push({
-              nombre: 'qr',
-              descripcion: '',
-              icon: '/assets/icon/qr.png',
-              zona: 1,
-              abierto: 'GENERAL',
-            });
           }
 
           this.accesos.push({
@@ -218,13 +200,6 @@ export class CarnetPage implements OnInit {
               zona: 1,
               abierto: 'GENERAL',
             },
-            {
-              nombre: 'qr',
-              descripcion: '',
-              icon: '/assets/icon/qr.png',
-              zona: 1,
-              abierto: 'GENERAL',
-            }
           );
         },
         complete: () => {
