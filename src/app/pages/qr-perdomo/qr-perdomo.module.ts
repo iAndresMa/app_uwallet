@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { QrPerdomoPageRoutingModule } from './qr-perdomo-routing.module';
 
 import { QrPerdomoPage } from './qr-perdomo.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    QrPerdomoPageRoutingModule
+    QrPerdomoPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [QrPerdomoPage]
 })

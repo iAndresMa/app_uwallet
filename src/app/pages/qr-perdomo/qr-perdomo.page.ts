@@ -14,11 +14,9 @@ declare var QRious: any;
   styleUrls: ['./qr-perdomo.page.scss'],
 })
 export class QrPerdomoPage implements OnInit {
-
   qrCode: any = '';
   hoy: Date = new Date();
-  fechaFinal: any | undefined;
-  qrBytte: any | undefined;
+  fechaExpiracionQr: any | undefined;
   firstname: any | undefined;
   lastname: any | undefined;
   pager: any | undefined;
@@ -27,35 +25,44 @@ export class QrPerdomoPage implements OnInit {
   descripcion: any | undefined;
   codeQR: any | undefined;
   fechaQR: any | undefined;
+  cargandoQR: boolean;
+  errorGenerandoQR: string;
+  mensajeLento: string;
+  qrError: boolean;
 
   constructor(
     private navCtrl: NavController,
     private local: LocalService,
     private msgService: MessageService,
-    private bytte: BytteService,
     private dasnet: DasnetService
   ) {
-
+    this.cargandoQR = true;
+    this.mensajeLento = '';
+    this.errorGenerandoQR = '';
+    this.qrError = false;
     let date: Date = new Date();
     this.fechaQR = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}`;
-
-    this.msgService.cargarLoading(2000);
+    this.hoy.setDate(this.hoy.getDate() + 1);
     this.extraerDatos().then(() => {
+      this.fechaExpiracionQr = this.hoy.toLocaleDateString();
       this.crearQr();
     });
-
-    this.hoy.setDate(this.hoy.getDate() + 1);
-    this.fechaFinal = this.hoy.toLocaleDateString();
-
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-  ionViewDidEnter() { }
+  ionViewDidEnter() {}
 
   async crearQr() {
     if (this.pager) {
-      this.dasnet.getQr(this.pager)
+      this.qrError = false;
+      this.cargandoQR = true;
+      setTimeout(() => {
+        this.mensajeLento =
+          'Un momento, estamos trabajando en generar tu código de acceso.';
+      }, 5000);
+      this.dasnet
+        .getQr(this.pager)
         .pipe(
           catchError((error) => {
             const { mensaje } = error.error;
@@ -67,33 +74,54 @@ export class QrPerdomoPage implements OnInit {
               this.qrCode = tokenQr;
             }
           })
-        ).subscribe((rest: any) => {
+        )
+        .subscribe((rest: any) => {
+          this.cargandoQR = false;
           if (rest.ok != undefined && rest.ok == false) {
+            this.qrError = true;
             this.msgService.presentToastMsg(rest.mensaje, 'danger');
             return;
           }
-          this.generarQr();
+          setTimeout(() => {
+            this.generarQr();
+          }, 1);
         });
     } else {
-      this.msgService.presentToastMsg('¡Ups! Tu cedula no se ha cargado con exito, por favor vuelva a intentar', 'danger');
+      this.msgService.presentToastMsg(
+        '¡Ups! Tu cedula no se ha cargado con exito, por favor vuelva a intentar',
+        'danger'
+      );
+      this.qrError = true;
     }
   }
 
   volver() {
-    this.navCtrl.back()
+    this.navCtrl.back();
   }
 
   extraerDatos(): Promise<void> {
     const promises: Promise<any>[] = [
-      this.local.extraerLlave('firstname').then(dato => this.firstname = dato.value),
-      this.local.extraerLlave('lastname').then(dato => this.lastname = dato.value),
-      this.local.extraerLlave('pager').then(dato => this.pager = dato.value),
-      this.local.extraerLlave('cn').then(dato => this.cn = dato.value),
-      this.local.extraerLlave('descripcion').then(dato => this.descripcion = dato.value),
-      this.local.extraerLlave('bytte').then(dato => this.qrBytte = dato.value),
-      this.local.extraerLlave('correo').then(dato => this.correo = dato.value)
+      this.local
+        .extraerLlave('firstname')
+        .then((dato) => (this.firstname = dato.value)),
+      this.local
+        .extraerLlave('lastname')
+        .then((dato) => (this.lastname = dato.value)),
+      this.local
+        .extraerLlave('pager')
+        .then((dato) => (this.pager = dato.value)),
+      this.local.extraerLlave('cn').then((dato) => (this.cn = dato.value)),
+      this.local
+        .extraerLlave('descripcion')
+        .then((dato) => (this.descripcion = dato.value)),
+      this.local
+        .extraerLlave('dasnet')
+        .then((dato) => (this.qrCode = dato.value)),
+      this.local
+        .extraerLlave('correo')
+        .then((dato) => (this.correo = dato.value)),
     ];
-    return Promise.all(promises).then(() => { });
+    return Promise.all(promises).then(() => {});
   }
 
   generarQr() {
@@ -104,20 +132,19 @@ export class QrPerdomoPage implements OnInit {
 
   regenerarQR() {
     this.local.eliminarLlave('dasnet');
-    this.msgService.presentLoading(2000);
     this.crearQr();
-    this.fechaFinal = this.hoy.toLocaleDateString();
-    this.ngOnInit();
+    this.fechaExpiracionQr = this.hoy.toLocaleDateString();
+    this.local.crearLlave('fechaExpiracionQr', this.fechaExpiracionQr);
   }
 
   async pintarQR(qr: any) {
     new QRious({
-      element: document.querySelector("#codigo"),
-      value: qr, // La URL o el texto
+      element: document.querySelector('#codigo'),
+      value: qr,
       size: 200,
-      backgroundAlpha: 0, // 0 para fondo transparente
-      foreground: "#000000", // Color del QR
-      level: "L", // Puede ser L,M,Q y H (L es el de menor nivel, H el mayor)
+      backgroundAlpha: 0,
+      foreground: '#000000',
+      level: 'L',
     });
   }
 }

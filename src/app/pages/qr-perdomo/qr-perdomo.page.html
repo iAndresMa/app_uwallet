@@ -16,18 +16,31 @@
   <div class="container" transition-style="in:circle:center">
     <ion-card mode="ios">
       <ion-card-content class="container">
-
-        <img alt="Cargando..." id="codigo">
-
-        <h3>{{firstname}}</h3>
-        <p>
-          <span>{{lastname}}</span><br>
-          <span><b>{{pager}}</b></span>
-          <br><span>Se renueva el: {{fechaFinal}}</span>
-        </p>
-
+        <div class="ball-scale-random" *ngIf="cargandoQR">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div *ngIf="cargandoQR">
+          <br /><span>Estamos generando tu código QR</span> <br /><span
+            >{{ mensajeLento }}</span
+          >
+        </div>
+        <div *ngIf="!cargandoQR">
+          <div *ngIf="qrError">
+            <app-error-qr [reloadFunction]="regenerarQR.bind(this)" ></app-error-qr>
+          </div>
+          <div *ngIf="!qrError">
+            <img alt="Cargando..." id="codigo" />
+            <h3>{{firstname}}</h3>
+            <p>
+              <span>{{lastname}}</span><br />
+              <span><b>{{pager}}</b></span>
+              <br /><span>Se renueva el: {{fechaExpiracionQr}}</span>
+            </p>
+          </div>
+        </div>
       </ion-card-content>
-
     </ion-card>
   </div>
 </ion-content>
