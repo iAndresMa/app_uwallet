@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { LocalService } from 'src/app/services/local.service';
 import { SoftexpertService } from 'src/app/services/softexpert.service';
 import { MessageService } from 'src/app/services/message.service';
 import { tap } from 'rxjs';
-import { Location } from '@angular/common';
 import { UniminutoService } from 'src/app/services/uniminuto.service';
 import { DigibeeService } from 'src/app/services/digibee.service';
 
