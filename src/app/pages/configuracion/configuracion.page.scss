@@ -1,0 +1,237 @@
+/* Header mejorado para configuración */
+ion-toolbar[color="amarilloW"] {
+  --background: linear-gradient(135deg, #ffd700, #ffb700);
+  --color: #2c3e50;
+  --min-height: 70px;
+  --border-width: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+ion-toolbar[color="amarilloW"] ion-title {
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+ion-toolbar[color="amarilloW"] ion-buttons {
+  padding-left: 8px;
+}
+
+ion-toolbar[color="amarilloW"] ion-icon {
+  font-size: 1.6rem;
+  transition: transform 0.2s ease;
+}
+
+ion-toolbar[color="amarilloW"] ion-buttons:active ion-icon {
+  transform: scale(0.9);
+}
+
+/* Contenido mejorado */
+ion-content {
+  --background: #f8f9fa;
+  --padding-top: 16px;
+  --padding-bottom: 20px;
+}
+
+/* Grupos de items mejorados */
+ion-item-group {
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 0 16px 24px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Divisores mejorados */
+ion-item-divider {
+  --background: #e3f2fd;
+  --color: #1565c0;
+  min-height: 44px;
+  border: none;
+}
+
+ion-item-divider ion-label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.3px;
+}
+
+/* Items mejorados */
+ion-item {
+  --background: #ffffff;
+  --padding-start: 20px;
+  --padding-end: 16px;
+  --inner-padding-end: 16px;
+  --min-height: 60px;
+  --border-color: rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+ion-item:last-child {
+  --border-width: 0;
+}
+
+ion-item:hover {
+  --background: #f5f9ff;
+}
+
+ion-item:active {
+  --background: #e8f0fe;
+  transform: translateY(1px);
+}
+
+/* Iconos de items */
+ion-item ion-icon {
+  font-size: 1.4rem;
+  margin-right: 16px;
+  transition: transform 0.2s ease;
+  color: #2196f3 !important;
+}
+
+ion-item:active ion-icon {
+  transform: scale(0.95);
+}
+
+/* Labels de items */
+ion-item ion-label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #2c3e50;
+  letter-spacing: 0.2px;
+}
+
+/* Badge mejorado */
+ion-badge {
+  --background: #2196f3;
+  --color: white;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  border-radius: 12px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(33, 150, 243, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(33, 150, 243, 0);
+  }
+}
+
+/* Efectos de ripple personalizados */
+ion-item {
+  --ripple-color: #bbdefb;
+}
+
+/* Animación de entrada para los items */
+ion-item {
+  animation: fadeInUp 0.4s ease forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+ion-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+ion-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+ion-item:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+ion-item:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efecto para el item de cerrar sesión */
+ion-item:last-child {
+  --background: #fff3e0;
+  margin-top: 8px;
+  border-radius: 0 0 16px 16px;
+}
+
+ion-item:last-child ion-icon {
+  color: #ff9800 !important;
+}
+
+ion-item:last-child ion-label {
+  color: #e65100;
+  font-weight: 600;
+}
+
+ion-item:last-child:active {
+  --background: #ffe0b2;
+}
+
+/* Responsividad */
+@media (max-width: 340px) {
+  ion-item-group {
+    margin: 0 12px 20px 12px;
+  }
+  
+  ion-item {
+    --padding-start: 16px;
+    --min-height: 56px;
+  }
+  
+  ion-item ion-icon {
+    font-size: 1.3rem;
+    margin-right: 14px;
+  }
+  
+  ion-item ion-label {
+    font-size: 0.95rem;
+  }
+}
+
+/* Modo oscuro opcional (si tu app lo soporta) */
+@media (prefers-color-scheme: dark) {
+  ion-content {
+    --background: #121212;
+  }
+  
+  ion-item {
+    --background: #1e1e1e;
+    --color: #e0e0e0;
+    --border-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  ion-item:hover {
+    --background: #252525;
+  }
+  
+  ion-item:active {
+    --background: #2d2d2d;
+  }
+  
+  ion-item-divider {
+    --background: #1a237e;
+    --color: #bbdefb;
+  }
+  
+  ion-item:last-child {
+    --background: #38200c;
+  }
+  
+  ion-item:last-child:active {
+    --background: #4a2b0f;
+  }
+}

@@ -1,119 +1,333 @@
-.logo {
-    width: 50% !important;
-    display:block !important;
-    margin:auto !important;
-    margin-top: 5px !important;
-    margin-bottom: 5px !important;
+/* Diseño Minimalista 2025 - Pantalla Principal */
+:root {
+  --primary-yellow: #FFD845;
+  --dark-text: #1F2937;
+  --medium-text: #6B7280;
+  --light-bg: #FAFAFA;
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --section-spacing: 24px;
 }
 
-.informacion {
-    margin-right: 30px !important;
-    font-size: 0.6em !important;
+/* Header mejorado */
+.header-main {
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
-ion-item {
-    color: #2A352F !important;
-
+.toolbar-main {
+  --background: linear-gradient(135deg, var(--primary-yellow) 0%, #FFC107 100%);
+  --border-width: 0;
+  --min-height: auto;
+  padding: 16px 0;
 }
 
-.skeleton{
-    height: 90px !important;
+.header-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-.skeletonDown{
-    height: 10px !important;
+.logo-main {
+  width: 40% !important;
+  max-width: 180px;
+  display: block !important;
+  margin: 0 auto 16px auto !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
 }
 
-span{
-    font-size: 0.8em !important;
-    // font-weight: bolder !important;
+/* Tarjeta de perfil mejorada */
+.profile-card {
+  margin: 0 auto !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--card-shadow) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  max-width: 500px;
 }
 
-ion-label{
-    font-weight: bold !important;
+.profile-content {
+  padding: 20px !important;
 }
 
-ion-icon{
-    margin-right: 5px !important;
+.profile-row {
+  align-items: center;
 }
 
-.icon-menu{
-    display:block !important;
-    margin: auto !important;
-    width: 80% !important;
+.avatar-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.col-icon{
-    margin-top: 10px !important;
+.profile-avatar {
+  width: 80px !important;
+  height: 80px !important;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
 
-ion-list {
-    margin-top: 5px;
+.profile-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-ion-avatar{
-    width: 100% !important;
-    height: 80% !important;
+.avatar-image, .avatar-loading {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.text-item{
-    font-size: xx-small !important;
+.info-col {
+  padding-left: 20px;
 }
 
-h6{
-    font-size: x-small !important;
+.profile-text {
+  color: var(--dark-text);
 }
 
-.foto-card{
-    width: 30% !important;
+.profile-name {
+  font-size: 1.1rem !important;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  color: var(--dark-text);
+  line-height: 1.3;
 }
 
-ion-note {
-    margin-top: 5px !important;
-    margin-left: 10px !important;
-    font-size:xx-small !important;
-    font-weight:300 !important;
+.profile-detail {
+  font-size: 0.8rem !important;
+  margin: 2px 0;
+  color: var(--medium-text);
+  line-height: 1.4;
 }
 
-ion-grid{
-    margin-top: -10px !important;
-    margin-bottom: -20px !important;
+.detail-value {
+  font-size: 0.8rem !important;
+  font-weight: 600;
+  color: var(--dark-text);
 }
 
+.academic-info, .professional-info {
+  margin-top: 6px;
+}
+
+/* Contenido principal */
+.main-content {
+  --background: var(--light-bg);
+  --padding-top: 20px;
+  --padding-bottom: 100px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.loading-wrapper {
+  text-align: center;
+  width: 80%;
+  max-width: 300px;
+}
+
+.loading-bar {
+  border-radius: 8px;
+  height: 6px;
+}
+
+.loading-text {
+  margin-top: 16px;
+  color: var(--medium-text);
+  font-size: 0.9rem;
+}
+
+.content-wrapper {
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Notificación mejorada */
 .notification-card {
-  box-shadow: none !important;
-  animation: slideIn 0.9s ease-out;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+  color: white !important;
+  border-radius: 16px !important;
+  margin-bottom: 24px;
+  animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: var(--card-shadow) !important;
 }
+
 .notification-content {
-  padding: 10px;
+  padding: 16px !important;
 }
 
 .notification-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  gap: 12px;
+}
+
+.notification-icon {
+  font-size: 1.4rem;
+  color: white;
+  flex-shrink: 0;
 }
 
 .notification-text {
   flex-grow: 1;
-  margin-right: 10px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.highlight-green {
+  color: #D1FAE5;
+  font-weight: 600;
 }
 
 .close-button {
+  --padding-start: 8px;
+  --padding-end: 8px;
   margin: 0;
-  padding: 0;
   min-height: auto;
-  height: auto;
 }
 
+.close-icon {
+  font-size: 1.2rem;
+}
+
+/* Módulos y secciones */
+.modules-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.module-section {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.module-section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.section-label {
+  display: block;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  color: var(--dark-text) !important;
+  margin-bottom: 16px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.module-card {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Animaciones */
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-30px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 16px;
+  }
+  
+  .profile-card {
+    margin: 0 16px !important;
+  }
+  
+  .profile-avatar {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  
+  .content-wrapper {
+    padding: 0 16px;
+  }
+  
+  .modules-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-main {
+    width: 50% !important;
+  }
+  
+  .profile-content {
+    padding: 16px !important;
+  }
+  
+  .profile-avatar {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .info-col {
+    padding-left: 16px;
+  }
+  
+  .profile-name {
+    font-size: 1rem !important;
+  }
+  
+  .profile-detail {
+    font-size: 0.75rem !important;
+  }
+  
+  .detail-value {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Efectos de transición */
+ion-content {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.module-section {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.module-section:nth-child(1) { animation-delay: 0.1s; }
+.module-section:nth-child(2) { animation-delay: 0.2s; }
+.module-section:nth-child(3) { animation-delay: 0.3s; }
+.module-section:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-footer {
+  margin-top: 40px;
 }

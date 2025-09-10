@@ -1,43 +1,86 @@
-<ion-header>
-  <ion-toolbar color="azulA">
-    <ion-buttons slot="start" (click)="volver()">
-      <ion-icon name="chevron-back-outline"></ion-icon>
+<ion-header class="header-improved">
+  <ion-toolbar class="toolbar-custom">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="volver()" class="back-button-custom">
+        <div class="button-content">
+          <ion-icon name="chevron-back-outline" class="button-icon"></ion-icon>
+          <span class="button-text"></span>
+        </div>
+      </ion-button>
     </ion-buttons>
-    <ion-title>QR Acceso</ion-title>
-    <ion-buttons slot="primary">
-      <ion-button (click)="regenerarQR()">
-        <ion-icon name="reload-outline"></ion-icon>
+    
+    <div class="title-container">
+      <ion-title class="title-custom">
+        <ion-icon name="qr-code-outline" class="title-icon"></ion-icon>
+        <span>QR Acceso</span>
+      </ion-title>
+      <div class="title-subtext">Código de identificación</div>
+    </div>
+    
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="regenerarQR()" class="reload-button-custom" id="reload-button">
+        <ion-icon name="refresh-outline" class="reload-icon"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  
+  <div class="progress-bar" *ngIf="cargandoQR">
+    <div class="progress-fill"></div>
+  </div>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div class="container" transition-style="in:circle:center">
-    <ion-card mode="ios">
-      <ion-card-content class="container">
-        <div class="ball-scale-random" *ngIf="cargandoQR">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-        <div *ngIf="cargandoQR">
-          <br /><span>Estamos generando tu código QR</span> <br /><span
-            >{{ mensajeLento }}</span
-          >
-        </div>
-        <div *ngIf="!cargandoQR">
-          <div *ngIf="qrError">
-            <app-error-qr [reloadFunction]="regenerarQR.bind(this)" ></app-error-qr>
+<ion-content [fullscreen]="true" class="improved-content">
+  <div class="container-improved">
+    <ion-card mode="ios" class="card-improved">
+      <div class="card-header-bg"></div>
+      
+      <ion-card-content class="card-content-improved">
+        <!-- Estado de carga -->
+        <div class="loading-state" *ngIf="cargandoQR">
+          <div class="qr-loader">
+            <div class="pulse-container">
+              <div class="pulse-circle"></div>
+              <div class="pulse-circle"></div>
+              <div class="pulse-circle"></div>
+            </div>
           </div>
-          <div *ngIf="!qrError">
-            <img alt="Cargando..." id="codigo" />
-            <h3>{{firstname}}</h3>
-            <p>
-              <span>{{lastname}}</span><br />
-              <span><b>{{pager}}</b></span>
-              <br /><span>Se renueva el: {{fechaExpiracionQr}}</span>
-            </p>
+          <div class="loading-text">
+            <h3>Generando tu código QR</h3>
+            <p>{{ mensajeLento }}</p>
+          </div>
+        </div>
+
+        <!-- Estado de error -->
+        <div class="error-state" *ngIf="!cargandoQR && qrError">
+          <app-error-qr [reloadFunction]="regenerarQR.bind(this)"></app-error-qr>
+        </div>
+
+        <!-- QR generado correctamente -->
+        <div class="success-state" *ngIf="!cargandoQR && !qrError">
+          <div class="qr-container">
+            <br/><br/>
+            <div class="qr-frame">
+              <img alt="Código QR de acceso" id="codigo" class="qr-image"/>
+            </div>
+            <div class="qr-refresh-hint">
+              <ion-icon name="refresh-circle-outline"></ion-icon>
+              <span>Toca el botón de actualizar para regenerar</span>
+            </div>
+          </div>
+          
+          <div class="user-info">
+            <h3 class="user-name">{{firstname}} <span class="lastname">{{lastname}}</span></h3>
+            <div class="user-details">
+              <div class="detail-item">
+                <ion-icon name="id-card-outline" class="detail-icon"></ion-icon>
+                <span class="detail-text">{{pager}}</span>
+              </div>
+              <div class="detail-item">
+                <ion-icon name="time-outline" class="detail-icon"></ion-icon>
+                <span class="detail-text">Válido hasta: {{fechaExpiracionQr}}</span>
+              </div>
+            </div>
           </div>
         </div>
       </ion-card-content>

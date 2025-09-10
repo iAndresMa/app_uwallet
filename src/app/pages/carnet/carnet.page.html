@@ -1,86 +1,106 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="amarilloW">
-    <ion-img src="/assets/wallet/wallet_b.png" class="logo"></ion-img>
+<ion-header class="ion-no-border header-main">
+  <ion-toolbar color="amarilloW" class="toolbar-main">
+    <div class="header-content">
+      <ion-img src="/assets/wallet/wallet_b.png" class="logo-main"></ion-img>
 
-    <ion-card>
-      <ion-card-content>
-        <ion-grid fixed>
-          <ion-row>
-            <ion-col size="4">
-              <ion-avatar>
-                <ion-img *ngIf="!loading" [src]="srcImage"></ion-img>
-                <ion-img
-                  *ngIf="loading"
-                  src="../../../assets/loadprofile.gif"
-                ></ion-img>
-              </ion-avatar>
-            </ion-col>
+      <ion-card class="profile-card">
+        <ion-card-content class="profile-content">
+          <ion-grid fixed>
+            <ion-row class="profile-row">
+              <ion-col size="4" class="avatar-col">
+                <ion-avatar class="profile-avatar">
+                  <ion-img *ngIf="!loading" [src]="srcImage" class="avatar-image"></ion-img>
+                  <ion-img
+                    *ngIf="loading"
+                    src="../../../assets/loadprofile.gif"
+                    class="avatar-loading"
+                  ></ion-img>
+                </ion-avatar>
+              </ion-col>
 
-            <ion-col size="8">
-              <ion-text>
-                <h6>
-                  {{ datosCarnet[0] }}<br /><span>{{ datosCarnet[1] }}</span
-                  ><br />
-                  Documento: <span>{{ datosCarnet[2] }}</span>
-                  <div *ngIf="academico">
-                    <br />ID: <span>{{ datosCarnet[3] }}</span>
+              <ion-col size="8" class="info-col">
+                <ion-text class="profile-text">
+                  <h6 class="profile-name">{{ datosCarnet[0] }}</h6>
+                  <p class="profile-detail">{{ datosCarnet[1] }}</p>
+                  <p class="profile-detail">Documento: <span class="detail-value">{{ datosCarnet[2] }}</span></p>
+                  
+                  <div *ngIf="academico" class="academic-info">
+                    <p class="profile-detail">ID: <span class="detail-value">{{ datosCarnet[3] }}</span></p>
                   </div>
-                  <br />
-                  Rol: <span>{{ datosCarnet[4] }}</span>
-                  <div *ngIf="academico">
-                    Programa: <span>{{ datosCarnet[5] }}</span>
+                  
+                  <p class="profile-detail">Rol: <span class="detail-value">{{ datosCarnet[4] }}</span></p>
+                  
+                  <div *ngIf="academico" class="academic-info">
+                    <p class="profile-detail">Programa: <span class="detail-value">{{ datosCarnet[5] }}</span></p>
                   </div>
-                  <div *ngIf="!academico">
-                    Cargo: <span>{{ datosCarnet[6] }}</span>
+                  
+                  <div *ngIf="!academico" class="professional-info">
+                    <p class="profile-detail">Cargo: <span class="detail-value">{{ datosCarnet[6] }}</span></p>
                   </div>
-                </h6>
-              </ion-text>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-    </ion-card>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list *ngIf="loading" class="ion-text-center">
-    <ion-progress-bar type="indeterminate" color="amarilloW"></ion-progress-bar>
-    <ion-label>Estamos cargando tu configuración</ion-label>
+<ion-content class="main-content">
+  <ion-list *ngIf="loading" class="loading-container">
+    <div class="loading-wrapper">
+      <ion-progress-bar type="indeterminate" color="amarilloW" class="loading-bar"></ion-progress-bar>
+      <ion-label class="loading-text">Cargando tu configuración</ion-label>
+    </div>
   </ion-list>
 
-  <div *ngIf="!loading" class="horizontal-cards-container">
+  <div *ngIf="!loading" class="content-wrapper">
     <ion-card
       class="notification-card"
-      color="amarilloW"
       *ngIf="showNotification && headquarters.length > 0"
     >
       <ion-card-content class="notification-content">
         <div class="notification-wrapper">
+          <ion-icon name="information-circle-outline" class="notification-icon"></ion-icon>
           <span class="notification-text">
-            El botón <strong>Verde</strong> permite el ingreso a las sedes:
+            El botón <strong class="highlight-green">Verde</strong> permite el ingreso a: 
             <strong>{{ headquarters }}</strong>
           </span>
           <ion-button
             fill="clear"
-            color="dark"
+            color="medium"
             class="close-button"
             (click)="closeNotification()"
           >
-            <ion-icon name="close-outline"></ion-icon>
+            <ion-icon name="close-outline" class="close-icon"></ion-icon>
           </ion-button>
         </div>
       </ion-card-content>
     </ion-card>
-    <ion-note>Accesos</ion-note>
-    <app-card [imageUrl]="accesos"></app-card>
-    <ion-note>Servicios</ion-note>
-    <app-card [imageUrl]="serviciosApp"></app-card>
-    <ion-note *ngIf="lector.length">Lector</ion-note>
-    <app-card *ngIf="lector.length" [imageUrl]="lector"></app-card>
-    <ion-note>Soporte</ion-note>
-    <app-card [imageUrl]="componentes"></app-card>
+
+    <div class="modules-container">
+      <div class="module-section">
+        <ion-note class="section-label">Accesos</ion-note>
+        <app-card [imageUrl]="accesos" class="module-card"></app-card>
+      </div>
+
+      <div class="module-section">
+        <ion-note class="section-label">Servicios</ion-note>
+        <app-card [imageUrl]="serviciosApp" class="module-card"></app-card>
+      </div>
+
+      <div class="module-section" *ngIf="lector.length">
+        <ion-note class="section-label">Lector</ion-note>
+        <app-card [imageUrl]="lector" class="module-card"></app-card>
+      </div>
+
+      <div class="module-section">
+        <ion-note class="section-label">Soporte</ion-note>
+        <app-card [imageUrl]="componentes" class="module-card"></app-card>
+      </div>
+    </div>
   </div>
 </ion-content>
 
-<app-footer></app-footer>
+<app-footer class="main-footer"></app-footer>

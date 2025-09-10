@@ -1,7 +1,18 @@
-<ion-footer>
-  <ion-toolbar color="amarilloW">
-      <ion-row class="fechaHoy">
-        <ion-col>{{fechaHoy}} - {{horaHoy}}</ion-col>
-      </ion-row>
+<ion-footer class="custom-footer">
+  <ion-toolbar class="footer-toolbar">
+    <div class="footer-content">
+      <div class="time-display">
+        <ion-icon name="time-outline" class="time-icon"></ion-icon>
+        <span class="date-text">{{fechaHoy}}</span>
+        <span class="time-separator">•</span>
+        <span class="time-text">{{horaHoy}}</span>
+      </div>
+      
+      <div class="footer-decoration">
+        <div class="decoration-dot"></div>
+        <div class="decoration-dot"></div>
+        <div class="decoration-dot"></div>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-footer>

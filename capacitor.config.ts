@@ -12,17 +12,6 @@ const config: CapacitorConfig = {
     allowNavigation: ['*'],
   },
   plugins: {
-    SplashScreen: {
-      launchAutoHide: false,
-      launchShowDuration: 2000, // Opcional: duración en milisegundosandroid
-      SplashResourceName: 'splash', // Nombre del recurso en Androidios
-      SplashIdentifier: 'LaunchScreen', // Storyboard en
-      iOSbackgroundColor: '#ffffff',
-      showSpinner: true, // Opcional: muestra un
-      androidSpinnerStyle: 'large', // Opcional: estilo del spinner en Android
-      iosSpinnerStyle: 'large', // Opcional: estilo del spinner en iOS
-      spinnerColor: '#000000', // Opcional: color del spinner
-    },
     PrivacyScreen: {
       enable: false,
       imageName: 'Splashscreen',
