@@ -90,8 +90,8 @@ export class HomePage implements OnInit {
       return this.msgToast.presentToastMsg('No es un correo valido', 'danger');
     } else {
       this.uniminutoService
-        .getDA(this.usuario.correoInstitucional, this.usuario.password)
-        // this.uniminutoService.getDARectificacion(this.usuario.correoInstitucional)
+        //.getDA(this.usuario.correoInstitucional, this.usuario.password)
+        .getDARectificacion(this.usuario.correoInstitucional)
         .subscribe((dataUser) => {
           if (dataUser.id == '999' || dataUser.Id == '999') {
             this.msgToast.presentToastMsg('Contraseña incorrecta', 'danger');
