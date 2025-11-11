@@ -17,8 +17,8 @@ import com.getcapacitor.BridgeActivity
 
 class MainActivity : BridgeActivity(){
   public override fun onCreate(savedInstanceState: Bundle?) {
-    registerPlugin(SDKDMAPlugin::class.java)
-    registerPlugin(StatusMonitorPlugin::class.java)
+    // registerPlugin(SDKDMAPlugin::class.java)
+    // registerPlugin(StatusMonitorPlugin::class.java)
     super.onCreate(savedInstanceState)
   }
 }

@@ -17,7 +17,7 @@ export class BluetoothPage implements OnInit {
   loadingOpenButton: boolean = false
   StatusMonitor = registerPlugin<StatusMonitorPlugin>('StatusMonitor')
   SDKDMAPlugin = registerPlugin<SDKDMAPlugin>('SDKDMAPlugin')
-  acreditationId: string = ""
+  pager: string = ""
 
   constructor(
     private navCtrl: NavController,
@@ -54,7 +54,8 @@ export class BluetoothPage implements OnInit {
   async getButton() {
     if (this.plarform.is('android')) {
       this.loadingButtonsReaders = true
-      const { buttonReaderIds } = await this.SDKDMAPlugin.getButtonReadersInRange({ codeInvitacion: this.acreditationId })
+      this.buttonReaders = []
+      const { buttonReaderIds } = await this.SDKDMAPlugin.getButtonReadersInRange({ owner: this.pager })
       this.loadingButtonsReaders = false
       this.buttonReaders = buttonReaderIds
     } else if (this.plarform.is('ios')) {
@@ -68,6 +69,22 @@ export class BluetoothPage implements OnInit {
     this.loadingOpenButton = true
     event.target.disabled = true
     event.target.textContent = "Abriendo ..."
+    setTimeout(() => {
+      if (event.target.disabled) {
+        let timeToOpenAgain = 10
+        const timer = setInterval(() => {
+          timeToOpenAgain--
+          event.target.textContent = `Abriendo ... ${timeToOpenAgain}`
+          if (timeToOpenAgain == 0) {
+            event.target.textContent = "Abrir"
+            event.target.disabled = false
+            this.loadingOpenButton = false
+            timeToOpenAgain = 10;
+            clearInterval(timer);
+          }
+        }, 1000);
+      }
+    }, 9000);
 
     const { result } = await this.SDKDMAPlugin.open({ id })
     event.target.disabled = false
@@ -83,7 +100,7 @@ export class BluetoothPage implements OnInit {
 
   extraerDatos(): Promise<void> {
     const promises: Promise<any>[] = [
-      this.local.extraerLlave('AcreditationId').then(dato => this.acreditationId = dato.value ? dato.value : "")
+      this.local.extraerLlave('pager').then(dato => this.pager = dato.value ? dato.value : "")
     ];
     return Promise.all(promises).then(() => { });
   }

@@ -11,47 +11,64 @@ import { UwalletService } from 'src/app/services/uwallet.service';
   styleUrls: ['./lector-evento.page.scss'],
 })
 export class LectorEventoPage implements OnInit {
-
-  scanningCode: boolean = false;
+  scanningCode: boolean;
+  enableScanner: boolean;
 
   constructor(
     private location: Location,
     private uwService: UwalletService,
     private msgService: MessageService,
     private platform: Platform
-  ) { }
-
-  ngOnInit() {
+  ) {
+    this.enableScanner = false;
+    this.scanningCode = false;
   }
 
+  ngOnInit() {}
 
   goBack() {
     this.location.back();
   }
 
   onCodeResult(resultScaned: string) {
+    if (!this.enableScanner) {
+      return;
+    }
     if (!this.scanningCode) {
       this.scanningCode = true;
       setTimeout(() => {
-        this.uwService.asistirEvento(atob(resultScaned))
+        this.uwService
+          .asistirEvento(atob(resultScaned))
           .pipe(
-            catchError(error => {
+            catchError((error) => {
               this.scanningCode = false;
-              this.msgService.presentToastMsg('Hubo un error en la solicitud, comunicate con el administrado', 'danger');
+              this.msgService.presentToastMsg(
+                'Hubo un error en la solicitud, comunicate con el administrado',
+                'danger'
+              );
               return [];
             }),
             finalize(() => {
               this.scanningCode = false;
             })
-          ).subscribe(({ msg, resp }) => {
+          )
+          .subscribe(({ process, message }) => {
             this.scanningCode = false;
-            if (resp) {
-              this.msgService.presentToastMsg('Bienvenido al evento', 'success');
+            this.enableScanner = false;
+            if (process) {
+              this.msgService.presentToastMsg(
+                'Bienvenido al evento',
+                'success'
+              );
             } else {
-              this.msgService.presentToastMsg('Hubo un error al escanear el codigo', 'danger');
+              this.msgService.presentToastMsg(message, 'danger');
             }
-          })
+          });
       }, 1000);
     }
+  }
+
+  enableToScanner(): void {
+    this.enableScanner = true;
   }
 }

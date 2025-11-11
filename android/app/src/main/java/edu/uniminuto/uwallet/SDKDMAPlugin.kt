@@ -12,16 +12,42 @@ import com.dorlet.mobileaccess.sdk.domain.BindResultInfo
 import com.dorlet.mobileaccess.sdk.domain.ButtonReaderInfo
 import com.dorlet.mobileaccess.sdk.interfaces.DmaEventListener
 import com.getcapacitor.annotation.CapacitorPlugin
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import okhttp3.Call
 import okhttp3.Callback
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.CompletableFuture
+
+data class PhysicalInfo(
+  val CSN: String,
+  val LogicalCode: String
+)
+
+data class Item(
+  val Id: Int,
+  val AcreditationId: String,
+  val InitialDate: String,
+  val ExpirationDate: String?,
+  val State: Int,
+  val Schedule: String,
+  val Temporal: Boolean,
+  val OwnerType: Int,
+  val Owner: String,
+  val AccessMode: Int,
+  val PhysicalInfo: PhysicalInfo,
+  val DmaTech: Int,
+  val DmaDeploymentState: Int,
+  val AssignOwnerVehicles: Any?
+)
 
 @CapacitorPlugin(name = "SDKDMAPlugin")
 class SDKDMAPlugin : Plugin() {
@@ -63,8 +89,9 @@ class SDKDMAPlugin : Plugin() {
 
   @PluginMethod
   fun getButtonReadersInRange(call: PluginCall) {
-    val codeInvitacion = call.getString("codeInvitacion")
-    if (codeInvitacion != ""){
+    val owner = call.getString("owner")
+    val codeInvitacion = getCodeInvitacion(owner.toString())
+    if (codeInvitacion != "" || codeInvitacion != null){
       val url = this.url.replace("CODEINVITACION", codeInvitacion.toString())
       val client = OkHttpClient()
       val request = Request.Builder()
@@ -120,7 +147,6 @@ class SDKDMAPlugin : Plugin() {
               }
             }
             result.put("buttonReaderIds", array)
-            println(result)
             call.resolve(result)
           } else {
             call.reject("Error con el token")
@@ -135,10 +161,59 @@ class SDKDMAPlugin : Plugin() {
         println("Error al obtener el token: ${e.message}")
         call.reject("Error al obtener el token: ${e.message}")
       }
-    } else {
+    }else {
       call.reject("Error con el codigo de invitacion")
     }
 
+  }
+
+  fun getCodeInvitacion(owner: String): String? {
+    try {
+      val jsonMediaType = "application/json; charset=utf-8".toMediaType()
+      val requestBody = """
+        {
+            "Owner": "${owner}",
+            "DmaTech": 1
+        }
+      """.trimIndent().toRequestBody(jsonMediaType)
+      val client = OkHttpClient()
+      val request = Request.Builder()
+        .url("http://10.0.26.189:8081/DASS/AccessControl/Acreditations/Search")
+        .addHeader(name = this.key, value = this.baseValue)
+        .post(requestBody)
+        .build()
+
+      val completableFuture = CompletableFuture<String>()
+
+      client.newCall(request).enqueue(object : Callback {
+        override fun onResponse(call: Call, response: Response) {
+          response.use {
+            if (!it.isSuccessful) {
+              completableFuture.completeExceptionally(IOException("Unexpected code ${it.code}"))
+              return
+            }
+            val body = it.body?.string()
+            if (body != null) {
+              val listType = object : TypeToken<List<Item>>() {}.type
+              val json = Gson().fromJson<List<Item>>(body, listType)
+              val acreditationId = json[0].AcreditationId
+              println(acreditationId)
+              completableFuture.complete(acreditationId)
+            } else {
+              completableFuture.completeExceptionally(IOException("Response body is null"))
+            }
+          }
+        }
+
+        override fun onFailure(call: Call, e: IOException) {
+          completableFuture.completeExceptionally(e)
+        }
+      })
+      return completableFuture.get()
+    } catch (e: Exception){
+      println(e.message)
+      return null
+    }
   }
 
 

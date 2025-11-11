@@ -123,12 +123,9 @@ export class EventoPage implements OnInit {
           this.arrayEvento = response;
           switch (this.arrayEvento.estado) {
             case '1':
+            case '2':
               this.inscripcion = true;
               this.asistencia = false;
-              break;
-            case '2':
-              this.inscripcion = false;
-              this.asistencia = true;
               break;
             default:
               this.inscripcion = false;
@@ -209,37 +206,22 @@ export class EventoPage implements OnInit {
     }
     // se envia la informacion para el registro
     this.cargando = true;
-    this.softService
-      .postEventoSoftExpert(infoParticipante)
-      .subscribe((data) => {
-        const { recordKey } = data;
-        if (recordKey) {
-          // se registra el evento dentro bd de uwallet
-          this.softService.postEvento(data).subscribe((resultado) => {
-            this.cargando = false;
-            const { resp } = resultado[0];
-
-            if (resp) {
-              this.msgService.presentToastMsg(
-                `Se ha registrado con éxito al evento: ${this.arrayEvento.actividad}`,
-                'success'
-              );
-              this.navCtrl.navigateForward(`/tabs/eventos`);
-            } else {
-              this.msgService.presentToastMsg(
-                'No se ha podido registrar el evento en uwallet',
-                'danger'
-              );
-            }
-          });
-        } else {
-          this.cargando = false;
-          this.msgService.presentToastMsg(
-            'No se ha podido registrar el evento',
-            'danger'
-          );
-        }
-      });
+    this.softService.postEvento(infoParticipante).subscribe((resultado) => {
+      this.cargando = false;
+      const { resp } = resultado[0];
+      if (resp) {
+        this.msgService.presentToastMsg(
+          `Se ha registrado con éxito al evento: ${this.arrayEvento.actividad}`,
+          'success'
+        );
+        this.navCtrl.navigateForward(`/tabs/eventos`);
+      } else {
+        this.msgService.presentToastMsg(
+          'No se ha podido registrar el evento en uwallet',
+          'danger'
+        );
+      }
+    });
   }
 
   verEventoQr(fn: string, documento: string, rol: string, id: string) {

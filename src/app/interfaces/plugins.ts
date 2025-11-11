@@ -6,6 +6,6 @@ export interface StatusMonitorPlugin {
 }
 
 export interface SDKDMAPlugin {
-    getButtonReadersInRange(options: { codeInvitacion: string }): Promise<{ buttonReaderIds: any }>,
+    getButtonReadersInRange(options: { owner: string }): Promise<{ buttonReaderIds: any }>,
     open(options: { id: string }): Promise<{ result: any }>
 }

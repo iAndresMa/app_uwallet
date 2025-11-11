@@ -3,7 +3,7 @@
     <ion-buttons slot="start" (click)="volver()">
       <ion-icon name="chevron-back-outline"></ion-icon>
     </ion-buttons>
-    <ion-title>Eventos inscritos</ion-title>
+    <ion-title>Eventos pre-inscritos</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -14,7 +14,7 @@
     <ion-progress-bar type="indeterminate" color="naranjaE"></ion-progress-bar>
     <ion-label>Se estan cargando sus eventos.</ion-label>
   </ion-list>
-  
+
   <ion-list *ngIf="eventoInscrito && arrayEventos.length == 0" class="ion-text-center">
     <p>No se ha inscrito a ningun evento.</p>
   </ion-list>

@@ -204,6 +204,12 @@ export interface RespEvento {
   msg: string;
 }
 
+export interface RespAsistenciaEvento {
+  process: boolean;
+  process_record_key: boolean;
+  message: string;
+}
+
 export interface validarAdmin {
   resp: boolean;
   correo: string;

@@ -15,9 +15,18 @@
       </div>
       <p>Coloca el código QR dentro del área de escaneo</p>
     </div>
-    <zxing-scanner class="scanner" (scanSuccess)="onCodeResult($event)"></zxing-scanner>
+    <zxing-scanner
+      class="scanner"
+      (scanSuccess)="onCodeResult($event)"
+    ></zxing-scanner>
     <div *ngIf="scanningCode" class="scanning-overlay">
       <p>Escaneando...</p>
     </div>
+    <ion-button color="naranjaE" expand="block" (click)="enableToScanner()" *ngIf="!enableScanner">
+      Escanear
+    </ion-button>
+    <ion-button disabled="true" color="naranjaE" expand="block" (click)="enableToScanner()" *ngIf="enableScanner">
+      Escaneando
+    </ion-button>
   </div>
 </ion-content>

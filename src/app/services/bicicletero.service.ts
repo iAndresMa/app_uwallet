@@ -13,7 +13,7 @@ export class BicicleteroService {
     private http: HttpClient
   ) { }
 
-  postCrearUsuario(doc: any, correo: any, rol: any, sede: any, rectoria: any, cn: any, nombre: any, apellido: any){ 
+  postCrearUsuario(doc: any, correo: any, rol: any, sede: any, rectoria: any, cn: any, nombre: any, apellido: any){
     return this.http.get<solicitudBici>(`${this.url}/bAddRequest.php?doc=${doc}&correo=${correo}&rol=${rol}&sede=${sede}&rectoria=${rectoria}&cn=${cn}&nombre=${nombre}&apellido=${apellido}`);
   }
 
