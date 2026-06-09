@@ -3,6 +3,7 @@ import { NavController, Platform } from '@ionic/angular';
 import { MessageService } from '../../services/message.service';
 import { LocalService } from '../../services/local.service';
 import { UniminutoService } from '../../services/uniminuto.service';
+import { UwalletService } from 'src/app/services/uwallet.service';
 
 @Component({
   selector: 'app-home',
@@ -96,12 +97,6 @@ export class HomePage implements OnInit {
           if (dataUser.id == '999' || dataUser.Id == '999') {
             this.msgToast.presentToastMsg('Contraseña incorrecta', 'danger');
           } else {
-            this.uniminutoService
-              .getInfoUser(dataUser.Pager)
-              .subscribe(({ sede, rectoria, idUniminuto }) => {
-                this.local.crearLlave('sede', sede);
-                this.local.crearLlave('rectoria', rectoria);
-              });
             this.local.crearLlave('correo', this.usuario.correoInstitucional);
             this.local.crearLlave('firstname', dataUser.FirstName);
             this.local.crearLlave('lastname', dataUser.LastName);

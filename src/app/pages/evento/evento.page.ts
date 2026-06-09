@@ -99,6 +99,7 @@ export class EventoPage implements OnInit {
     this.cargarImagenAleatoria();
     this.msgService.presentLoading(2000);
     this.extraerDatos().then(() => {
+      this.tipoParticipante = this.descripcion;
       this.llamarEvento('consultaEventoDetalle', this.evento, this.pager);
     });
     this.consultarTipoDocumento();
@@ -176,51 +177,63 @@ export class EventoPage implements OnInit {
   registrar() {
     let infoParticipante: any = [];
     if (this.descripcion == 'ADMINISTRATIVO' || this.descripcion == 'DOCENTE') {
-      infoParticipante = [
-        {
-          idInstancia: this.evento,
-          tipoUsuario: '2',
-          tipo_participante:
-            this.descripcion == 'DOCENTE' ? 'PROFESOR' : this.descripcion,
-          tipoDocumento: this.tipoDocumento,
-          correo: this.correo,
-          edad: this.edad,
-          dependencia: this.dependencia,
-          EstadoAsist: '1',
-          notificaciones: 'Si',
-        },
-      ];
+      infoParticipante = {
+        participantes: [
+          {
+            Evento: this.evento,
+            tipoUsuario: '2',
+            tipoParti:
+              this.descripcion == 'DOCENTE' ? 'PROFESOR' : this.descripcion,
+            TipoDocumento: this.tipoDocumento,
+            Correo: this.correo,
+            edad: this.edad,
+            dependencia: this.dependencia,
+            EstadoAsist: '1',
+            notificaciones: 'Si',
+          },
+        ],
+      };
     } else {
-      infoParticipante = [
-        {
-          idInstancia: this.evento,
-          tipoUsuario: '1',
-          tipo_participante: this.descripcion,
-          tipoDocumento: this.tipoDocumento,
-          correo: this.correo,
-          EstadoAsist: '1',
-          notificaciones: 'Si',
-          rol: this.descripcion,
-        },
-      ];
+      infoParticipante = {
+        participantes: [
+          {
+            Evento: this.evento,
+            tipoUsuario: '1',
+            tipoParti: this.tipoParticipante,
+            TipoDocumento: this.tipoDocumento,
+            Correo: this.correo,
+            EstadoAsist: '1',
+            notificaciones: 'Si',
+            rol: this.tipoParticipante,
+          },
+        ],
+      };
     }
     // se envia la informacion para el registro
     this.cargando = true;
-    this.softService.postEvento(infoParticipante).subscribe((resultado) => {
-      this.cargando = false;
-      const { resp } = resultado[0];
-      if (resp) {
+    this.softService.postEvento(infoParticipante).subscribe({
+      next: (resultado) => {
+        const { resp } = resultado[0];
+        if (resp) {
+          this.msgService.presentToastMsg(
+            `Se ha registrado con éxito al evento: ${this.arrayEvento.actividad}`,
+            'success'
+          );
+          this.navCtrl.navigateForward(`/tabs/eventos`);
+        } else {
+          this.msgService.presentToastMsg(
+            'No se ha podido registrar el evento en uwallet',
+            'danger'
+          );
+        }
+      },
+      error: (error) => {
         this.msgService.presentToastMsg(
-          `Se ha registrado con éxito al evento: ${this.arrayEvento.actividad}`,
-          'success'
-        );
-        this.navCtrl.navigateForward(`/tabs/eventos`);
-      } else {
-        this.msgService.presentToastMsg(
-          'No se ha podido registrar el evento en uwallet',
+          'Hubo un error, contactese con el administrador',
           'danger'
         );
-      }
+      },
+      complete: () => (this.cargando = false),
     });
   }
 

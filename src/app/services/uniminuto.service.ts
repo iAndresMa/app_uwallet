@@ -76,12 +76,6 @@ export class UniminutoService {
     );
   }
 
-  getInfoUser(documento: string) {
-    return this.http.get<userInfo>(
-      `${environment.urlapieventos}/select/index.php?fn=infoUser&documento=${documento}`
-    );
-  }
-
   getAreas() {
     return this.http.get<arrayAreas>(
       `${environment.urlapieventos}/select/index.php?fn=consultarArea`

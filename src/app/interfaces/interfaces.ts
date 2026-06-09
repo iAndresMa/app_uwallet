@@ -284,3 +284,22 @@ export interface ButtonReader {
   name: string;
   id: string;
 }
+
+export interface RectoriaEstudiante {
+  id: string;
+  programaAcademico: string;
+  programaAcademicoId: string;
+  facultad: string;
+  modalidad: string;
+  semestre: string;
+  sede: string;
+  sedeId: string;
+  descRectoria: string;
+  promedioAcumulado: string;
+  promedioPeriodoActual: string;
+  periodoPrograma: string;
+  CodeNivelAcademico: string;
+  descripcionNivel: string;
+  resultado: string;
+  descResult: string;
+}

@@ -10,16 +10,16 @@
 <ion-content>
   <ion-item>
     <ion-select name="rectoria" [placeholder]="getPlaceholderRectory()" aria-label="Rectoria"
-      (ionChange)="setRectory($event)" [disabled]="disabledRectory">
+      (ionChange)="setRectory($event)" [disabled]="disabledRectory" [value]="selectedRectory">
       <ion-select-option value="" *ngIf="rectorias.length == 0">Se estan cargando las rectorias</ion-select-option>
       <ion-select-option *ngFor="let rectoria of rectorias"
-        [value]="rectoria.CODIGO">{{rectoria.DESCRIPCION}}</ion-select-option>
+        [value]="rectoria">{{rectoria}}</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-select name="sede" [placeholder]="getPLaceholderCampus()" aria-label="Sede" (ionChange)="changeSede($event)" [disabled]="disabledSede">
+    <ion-select name="sede" [placeholder]="getPLaceholderCampus()" aria-label="Sede" (ionChange)="changeSede($event)" [value]="selectedSede">
       <ion-select-option value="" *ngIf="sedes.length == 0">Se estan cargando las sedes</ion-select-option>
-      <ion-select-option *ngFor="let sede of sedes" [value]="sede.CODIGO">{{sede.DESCRIPCION}}</ion-select-option>
+      <ion-select-option *ngFor="let sede of sedes" [value]="sede">{{sede}}</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>

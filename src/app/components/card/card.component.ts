@@ -7,13 +7,10 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-
   @Input() imageUrl: any = [];
   arrayMenu: any = [];
 
-  constructor(
-    private navCtrl: NavController,
-  ) { }
+  constructor(private navCtrl: NavController) {}
 
   ngOnInit() {
     this.arrayMenu = this.imageUrl;
@@ -54,7 +51,9 @@ export class CardComponent implements OnInit {
       case 'lector-qr':
         this.navCtrl.navigateRoot('/lector-qr');
         break;
+      case 'parqueadero':
+        this.navCtrl.navigateRoot('/parqueadero');
+        break;
     }
   }
-
 }

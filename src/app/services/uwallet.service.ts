@@ -15,6 +15,7 @@ import {
   sedeRectoria,
   arraySedeEstudiante,
   RespAsistenciaEvento,
+  RectoriaEstudiante,
 } from '../interfaces/interfaces';
 
 @Injectable({
@@ -115,7 +116,7 @@ export class UwalletService {
   }
 
   consultarRectoriaEstudiante(idEstudiante: string) {
-    return this.http.get<any>(
+    return this.http.get<RectoriaEstudiante[]>(
       `${environment.urlEstudiantes}/Estudiantes/ProgramasAll/${idEstudiante}`
     );
   }

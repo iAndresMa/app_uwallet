@@ -76,6 +76,13 @@ export class CarnetPage implements OnInit {
       zona: 1,
       abierto: 'GENERAL',
     },
+    {
+      nombre: 'parqueadero',
+      descripcion: 'Parking',
+      icon: '/assets/icon/estacionamiento.png',
+      zona: 1,
+      abierto: 'GENERAL',
+    },
   ];
 
   lector: {
