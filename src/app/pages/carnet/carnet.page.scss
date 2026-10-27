@@ -18,6 +18,11 @@
   --border-width: 0;
   --min-height: auto;
   padding: 16px 0;
+  /* Empuja el logo/tarjeta por debajo del notch/Dynamic Island en iOS,
+     sumado al espaciado de diseño original de 16px. !important porque
+     el padding-top nativo de ion-toolbar (ion-header ion-toolbar:first-of-type)
+     tiene más especificidad que esta clase. */
+  padding-top: calc(var(--ion-safe-area-top) + 16px) !important;
 }
 
 .header-content {
@@ -330,4 +335,27 @@ ion-content {
 
 .main-footer {
   margin-top: 40px;
+}
+
+/* Modo oscuro - alineado con la paleta de theme/variables.scss (azulW) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dark-text: #F3F4F6;
+    --medium-text: #9CA3AF;
+    --light-bg: #121212;
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  }
+
+  .profile-card {
+    background: rgba(30, 32, 38, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .module-section {
+    background: #1e2026;
+  }
+
+  .module-section:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  }
 }

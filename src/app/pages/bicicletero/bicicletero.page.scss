@@ -3,3 +3,320 @@ ion-header > ion-toolbar > ion-img{
     display:block;
     margin:auto;
 }
+
+.solicitud,
+.cupos,
+.vacio {
+  --texto-apoyo: #5b6275;
+  --borde: #c9ccd6;
+
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px 16px 24px;
+  color: var(--ion-color-azulW);
+}
+
+.solicitud__titulo,
+.cupos__titulo,
+.vacio__titulo {
+  margin: 0;
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.solicitud__intro,
+.cupos__intro {
+  margin: 6px 0 20px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--texto-apoyo);
+}
+
+.solicitud__subtitulo {
+  margin: 28px 0 12px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+// Talón del carnet: datos de solo lectura del usuario
+.talon {
+  position: relative;
+  padding: 18px 18px 16px 22px;
+  border-radius: 14px;
+  background: var(--ion-color-azulW);
+  color: #fff;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 6px;
+    background: var(--ion-color-amarilloW);
+  }
+}
+
+.talon__nombre {
+  margin: 0;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-transform: capitalize;
+}
+
+.talon__rol {
+  display: inline-block;
+  margin: 8px 0 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--ion-color-amarilloW);
+  color: var(--ion-color-azulW);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.talon__datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.28);
+
+  dt {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  dd {
+    margin: 2px 0 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+}
+
+.talon__ancho {
+  grid-column: 1 / -1;
+}
+
+.campo {
+  --border-radius: 12px;
+  --border-color: #c9ccd6;
+  --highlight-color-focused: var(--ion-color-azulW);
+  margin-bottom: 14px;
+}
+
+// Fila de términos: abre el modal de políticas
+.terminos {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px 16px;
+  border: 1px solid #c9ccd6;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  > ion-icon {
+    flex-shrink: 0;
+    font-size: 1.375rem;
+    color: var(--texto-apoyo);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ion-color-azulW);
+    outline-offset: 2px;
+  }
+}
+
+.terminos__texto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.terminos__titulo {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.terminos__estado {
+  font-size: 0.8125rem;
+  color: var(--texto-apoyo);
+}
+
+.terminos--aceptados {
+  border-color: var(--ion-color-success);
+  background: rgba(var(--ion-color-success-rgb), 0.08);
+
+  > ion-icon,
+  .terminos__estado {
+    color: var(--ion-color-success-shade);
+  }
+}
+
+.acciones ion-toolbar {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+}
+
+.acciones ion-button {
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  --border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+// Cupos asignados
+.cupos__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cupo {
+  display: flex;
+  gap: 14px;
+  padding: 16px 0;
+  border-top: 1px solid var(--borde);
+
+  &:last-child {
+    border-bottom: 1px solid var(--borde);
+  }
+}
+
+// Marca del puesto, como la numeración pintada en el piso del bicicletero
+.cupo__puesto {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 10px;
+  background: var(--ion-color-amarilloW);
+  color: var(--ion-color-azulW);
+  font-size: 1.375rem;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  overflow-wrap: anywhere;
+
+  ion-icon {
+    font-size: 2rem;
+  }
+}
+
+.cupo__info {
+  flex: 1;
+  min-width: 0;
+}
+
+:where(.cupo__info p) {
+  margin: 0;
+}
+
+.cupo__cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cupo__lugar {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.cupo__estado {
+  flex-shrink: 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #e3f4ea;
+  color: #1c6b3c;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.cupo__sede {
+  margin-top: 2px;
+  font-size: 0.875rem;
+  color: var(--texto-apoyo);
+}
+
+.cupo__horario {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+
+  ion-icon {
+    font-size: 1rem;
+    color: var(--texto-apoyo);
+  }
+}
+
+.cupo__detalle {
+  margin-top: 6px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--texto-apoyo);
+}
+
+.cupo--inactivo {
+  .cupo__puesto {
+    background: #e4e6ec;
+    color: var(--texto-apoyo);
+  }
+
+  .cupo__estado {
+    background: #e4e6ec;
+    color: var(--texto-apoyo);
+  }
+}
+
+// Sin cupos
+.vacio {
+  padding-top: 56px;
+  text-align: center;
+
+  > ion-icon {
+    font-size: 3.5rem;
+    color: var(--ion-color-azulW);
+  }
+}
+
+.vacio__titulo {
+  margin-top: 12px;
+  font-size: 1.375rem;
+}
+
+.vacio__texto {
+  max-width: 32ch;
+  margin: 8px auto 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--texto-apoyo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminos {
+    transition: none;
+  }
+}

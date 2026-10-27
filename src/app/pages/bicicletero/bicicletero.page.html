@@ -9,94 +9,122 @@
 
 <ion-content>
 
-  <ion-card-content *ngIf=" boton === 2 ">
-    <ion-label>Cupo(s) aprobado(s)</ion-label>
-    <ion-item *ngFor="let cupo of dataCupos">
-      <ion-label class="ion-text-wrap">
-        <ion-text color="primary">
-          <h3>Cupo {{cupo.cupo}}</h3>
-        </ion-text>
-        <p>
-          <b>Día</b> {{cupo.dia}}<br>
-          <b>Jornada</b> {{cupo.jornada}}<br>
-          <b>Espacio</b> {{cupo.lugar}}
-        </p>
-      </ion-label>
-      <ion-icon name="bicycle-outline" slot="end"></ion-icon>
-    </ion-item>
-  </ion-card-content>
+  <section class="cupos" *ngIf="boton === 2 && !formulario">
+    <h1 class="cupos__titulo">Tus cupos</h1>
+    <p class="cupos__intro">{{ dataCupos.length === 1 ? 'Tienes 1 cupo asignado' : 'Tienes ' + dataCupos.length + ' cupos asignados' }}</p>
 
-  <ion-card-content *ngIf="formulario">
-    <form #formulario="ngForm" (ngSubmit)="enviarSolicitud()">
+    <ul class="cupos__lista">
+      <li class="cupo" *ngFor="let cupo of dataCupos" [class.cupo--inactivo]="!esActivo(cupo)">
+        <div class="cupo__puesto" [attr.aria-label]="cupo.codigolugar ? 'Puesto ' + cupo.codigolugar : 'Sin puesto asignado'">
+          <span *ngIf="cupo.codigolugar">{{cupo.codigolugar}}</span>
+          <ion-icon *ngIf="!cupo.codigolugar" name="bicycle" aria-hidden="true"></ion-icon>
+        </div>
 
-      <ion-item>
-        <ion-label position="stacked">Id</ion-label>
-        <ion-input [(ngModel)]="id" name="id" type="text" required disabled>
-        </ion-input>
-      </ion-item>
+        <div class="cupo__info">
+          <div class="cupo__cabecera">
+            <p class="cupo__lugar">{{ sinAsignar(cupo.nombrelugar) ? 'Puesto por asignar' : cupo.nombrelugar }}</p>
+            <span class="cupo__estado">{{cupo.estadoasignacion}}</span>
+          </div>
+          <p class="cupo__sede" *ngIf="!sinAsignar(cupo.nombresede)">{{cupo.nombresede}}</p>
+          <p class="cupo__horario">
+            <ion-icon name="calendar-clear-outline" aria-hidden="true"></ion-icon>
+            {{cupo.nombredia | titlecase}}, jornada {{cupo.jornada | lowercase}}
+          </p>
+          <p class="cupo__detalle" *ngIf="tieneDetalle(cupo)">{{cupo.detalleasignacion}}</p>
+        </div>
+      </li>
+    </ul>
+  </section>
 
-      <ion-item>
-          <ion-label position="stacked">Correo</ion-label>
-          <ion-input [(ngModel)]="correo" name="correo" type="text" required disabled>
-          </ion-input>
-      </ion-item>
+  <section class="vacio" *ngIf="boton === 1 && !formulario">
+    <ion-icon name="bicycle-outline" aria-hidden="true"></ion-icon>
+    <h1 class="vacio__titulo">Aún no tienes cupo</h1>
+    <p class="vacio__texto">Solicita uno para guardar tu bicicleta en la sede. Cuando te lo asignen, aquí verás el puesto, el día y la jornada.</p>
+  </section>
 
-      <ion-item>
-          <ion-label position="stacked">Documento</ion-label>
-          <ion-input [(ngModel)]="pager" name="documento" type="text" required disabled>
-          </ion-input>
-      </ion-item>
+  <section class="solicitud" *ngIf="formulario">
+    <h1 class="solicitud__titulo">Solicitar cupo</h1>
+    <p class="solicitud__intro">Tus datos vienen de tu carnet. Solo elige dónde vas a guardar la bicicleta.</p>
 
-      <ion-item>
-        <ion-label position="stacked">Tipo</ion-label>
-        <ion-input [(ngModel)]="descripcion" name="tipo" type="text" required disabled>
-        </ion-input>
-      </ion-item>
+    <div class="talon">
+      <p class="talon__nombre">{{firstname}} {{lastname}}</p>
+      <p class="talon__rol">{{descripcion}}</p>
+      <dl class="talon__datos">
+        <div>
+          <dt>Documento</dt>
+          <dd>{{pager}}</dd>
+        </div>
+        <div>
+          <dt>Id</dt>
+          <dd>{{id}}</dd>
+        </div>
+        <div class="talon__ancho">
+          <dt>Correo</dt>
+          <dd>{{correo}}</dd>
+        </div>
+      </dl>
+    </div>
 
-      <ion-item>
-        <ion-label>Rectoría</ion-label>
-        <ion-select [(ngModel)]="rectoria" name="rectoria" required value="rectoria" placeholder="Seleccione su rectoría" (ionChange)="verSede($event)">
-          <ion-select-option *ngFor="let rect of rectorias" [value]="rect.nombre">{{rect.nombre}}</ion-select-option>
-        </ion-select>
-      </ion-item>
+    <h2 class="solicitud__subtitulo">¿Dónde la vas a guardar?</h2>
 
-      <ion-item>
-        <ion-label>Sede</ion-label>
-        <ion-select [(ngModel)]="sede" name="sede" required value="sede" placeholder="Seleccione su rectoría">
-          <ion-select-option *ngFor="let sed of sedes" [value]="sed.nombre">{{sed.nombre}}</ion-select-option>
-        </ion-select>
-      </ion-item>
+    <ion-select
+      class="campo"
+      [(ngModel)]="rectoria"
+      label="Rectoría"
+      label-placement="stacked"
+      fill="outline"
+      interface="action-sheet"
+      placeholder="Elige tu rectoría"
+      cancel-text="Cancelar"
+      (ionChange)="verSede($event)">
+      <ion-select-option *ngFor="let rect of rectorias" [value]="rect.idrectoria">{{rect.nombrerectoria}}</ion-select-option>
+    </ion-select>
 
-      <ion-item (click)="openModal()" detail="true">
-        <ion-label>Términos y condiciones</ion-label>
-        <ion-badge slot="end">{{textoTerminos}}</ion-badge>
-      </ion-item>
+    <ion-select
+      class="campo"
+      [(ngModel)]="sede"
+      label="Sede"
+      label-placement="stacked"
+      fill="outline"
+      interface="action-sheet"
+      cancel-text="Cancelar"
+      [disabled]="!rectoria || sedes.length === 0"
+      [placeholder]="!rectoria ? 'Primero elige la rectoría' : (sedes.length === 0 ? 'Esta rectoría no tiene sedes con bicicletero' : 'Elige tu sede')">
+      <ion-select-option *ngFor="let sed of sedes" [value]="sed.idsede">{{sed.nombresede}}</ion-select-option>
+    </ion-select>
 
-      <ion-button expand="full" type="submit" shape="round" color="azulW" [disabled]="formulario.invalid" class="color-boton">
-          Solicitar
-      </ion-button> 
-
-      <ion-button expand="full" shape="round" color="danger" class="color-boton" (click)="cancelarCupo()">
-        Cancelar
-      </ion-button> 
-
-    </form>
-  </ion-card-content>
+    <button type="button" class="terminos" [class.terminos--aceptados]="terminos" (click)="openModal()">
+      <ion-icon [name]="terminos ? 'checkmark-circle' : 'document-text-outline'" aria-hidden="true"></ion-icon>
+      <span class="terminos__texto">
+        <span class="terminos__titulo">Términos y condiciones</span>
+        <span class="terminos__estado">{{ terminos ? 'Aceptados' : 'Toca para leerlos y aceptarlos' }}</span>
+      </span>
+      <ion-icon name="chevron-forward" aria-hidden="true" *ngIf="!terminos"></ion-icon>
+    </button>
+  </section>
 
 </ion-content>
 
-<ion-footer *ngIf="boton === 1">
+<ion-footer *ngIf="boton === 1 && !formulario" class="acciones">
   <ion-toolbar>
-    <ion-button (click)="cuposAbiertos()" expand="block" fill="clear" shape="round">
+    <ion-button (click)="cuposAbiertos()" expand="block" color="azulW">
       Solicitar cupo
     </ion-button>
   </ion-toolbar>
 </ion-footer>
 
-<ion-footer *ngIf="boton === 2">
+<ion-footer *ngIf="formulario" class="acciones">
   <ion-toolbar>
-    <ion-button (click)="eliminarCupo()" expand="block" fill="clear" shape="round">
-      Eliminar cupo
+    <ion-button
+      expand="block"
+      color="azulW"
+      [disabled]="!sede || !terminos || enviando"
+      (click)="enviarSolicitud()">
+      <ion-spinner name="crescent" *ngIf="enviando"></ion-spinner>
+      <span *ngIf="!enviando">Solicitar cupo</span>
+    </ion-button>
+    <ion-button expand="block" fill="clear" color="medium" [disabled]="enviando" (click)="cancelarCupo()">
+      Cancelar
     </ion-button>
   </ion-toolbar>
-</ion-footer> 
+</ion-footer>

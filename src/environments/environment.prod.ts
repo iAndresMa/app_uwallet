@@ -8,7 +8,7 @@ export const environment = {
   urlEstudiantes: 'https://comunidad.uniminuto.edu/estudiantes',
   urlDorlet: 'http://10.0.26.189:8081/DASS',
   urlFotografia: 'https://fotografias.uniminuto.edu',
-  urlParqueadero: 'http://10.0.36.220:9400',
+  urlParqueadero: 'https://pk-bello.uniminuto.edu',
   urlSoftexpert:
     'https://uniminuto.softexpert.com/apigateway/v1/dataset-integration',
   apiKeySoftexpert:

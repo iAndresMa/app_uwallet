@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "ionic-app-development": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "skillPath": "skills/ionic-app-development/SKILL.md",
+      "computedHash": "ba15c900a69044ec6089a23a79a8e8fda3d5b7efe294914ed3f21d0a36d8a484"
+    }
+  }
+}

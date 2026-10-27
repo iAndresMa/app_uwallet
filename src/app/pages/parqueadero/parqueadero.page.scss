@@ -444,3 +444,29 @@ ion-button {
     margin-right: 0;
   }
 }
+
+/* Modo oscuro - el .qr-frame se mantiene claro a propósito para que el QR siga siendo legible */
+@media (prefers-color-scheme: dark) {
+  .improved-content {
+    --background: #121212;
+  }
+
+  .card-improved {
+    background: #1e2026;
+  }
+
+  .user-details {
+    background: #26282e;
+  }
+
+  .loading-text h3,
+  .user-name,
+  .detail-text {
+    color: #F3F4F6;
+  }
+
+  .loading-text p,
+  .qr-refresh-hint {
+    color: #9CA3AF;
+  }
+}

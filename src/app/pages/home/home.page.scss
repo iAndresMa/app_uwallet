@@ -12,6 +12,14 @@
   --shadow-medium: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
+/* Esta página no usa ion-header, así que el propio ion-content debe
+   respetar el notch (antes lo cubría el contentInset nativo de iOS;
+   ahora el WebView es full-bleed, ver capacitor.config.ts). El
+   ion-footer de abajo ya maneja su propio safe-area-bottom. */
+ion-content {
+  --padding-top: env(safe-area-inset-top);
+}
+
 /* Contenedor principal - Estilo Neumórfico Sutil */
 .container {
   background: var(--primary-gradient) !important;

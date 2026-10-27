@@ -309,23 +309,27 @@ ion-button:active {
   font-weight: 500;
 }
 
-/* Título mejorado */
-.title-container {
+/* Título mejorado
+   ion-title es position:absolute con altura 100% del toolbar (estilo nativo
+   de Ionic), así que el subtítulo debe ir DENTRO de <ion-title> (proyectado
+   a su slot) en vez de como hermano fuera de él: si queda afuera, no ocupa
+   espacio en el flujo y termina superpuesto sobre "QR Acceso". */
+.title-custom {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 0;
 }
 
-.title-custom {
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  padding: 0;
+.title-row {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .title-icon {
@@ -404,19 +408,45 @@ ion-button {
 
 /* Responsividad para dispositivos más pequeños */
 @media (max-width: 340px) {
-  .title-custom {
+  .title-row {
     font-size: 1.2rem;
   }
-  
+
   .title-subtext {
     display: none;
   }
-  
+
   .button-text {
     display: none;
   }
   
   .button-icon {
     margin-right: 0;
+  }
+}
+
+/* Modo oscuro - el .qr-frame se mantiene claro a propósito para que el QR siga siendo legible */
+@media (prefers-color-scheme: dark) {
+  .improved-content {
+    --background: #121212;
+  }
+
+  .card-improved {
+    background: #1e2026;
+  }
+
+  .user-details {
+    background: #26282e;
+  }
+
+  .loading-text h3,
+  .user-name,
+  .detail-text {
+    color: #F3F4F6;
+  }
+
+  .loading-text p,
+  .qr-refresh-hint {
+    color: #9CA3AF;
   }
 }

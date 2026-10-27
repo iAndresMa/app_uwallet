@@ -1,32 +1,43 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { cupoBici, cupoUsuario, solicitudBici } from '../interfaces/interfaces';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import {
+  AsignacionesBicicletero,
+  RectoriasBicicletero,
+  SedesBicicletero,
+  SolicitudBicicletero,
+  SolicitudBicicleteroBody
+} from '../interfaces/bicicletero';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BicicleteroService {
 
-  url = "https://bicicletero.uniminuto.edu/api";
-  // url = "http://localhost/BicicleteroV2/api";
+  url = `${environment.urlapiwallet}/modules/bicicletero.php`;
+  headers: HttpHeaders = new HttpHeaders({
+    Authorization: 'Basic dzRsMTN0Ondfd2ExbGxlM3Qq',
+    'Content-Type': 'application/json',
+  });
+
   constructor(
     private http: HttpClient
   ) { }
 
-  postCrearUsuario(doc: any, correo: any, rol: any, sede: any, rectoria: any, cn: any, nombre: any, apellido: any){
-    return this.http.get<solicitudBici>(`${this.url}/bAddRequest.php?doc=${doc}&correo=${correo}&rol=${rol}&sede=${sede}&rectoria=${rectoria}&cn=${cn}&nombre=${nombre}&apellido=${apellido}`);
+  consultarRectorias(){
+    return this.http.get<RectoriasBicicletero>(`${this.url}?fn=rectorias`, { headers: this.headers });
   }
 
-  getVerificarCupo(sede: any, rectoria: any, rol: any){
-    return this.http.get<cupoBici>(`${this.url}/bGetCuposSede.php?sede=${sede}&rectoria=${rectoria}&rol=${rol}`);
+  consultarSedes(rectoria: string){
+    return this.http.get<SedesBicicletero>(`${this.url}?fn=sedes&rectoria=${encodeURIComponent(rectoria)}`, { headers: this.headers });
   }
 
-  getConsultaCupoUsuario(documento: any){
-    return this.http.get<cupoUsuario>(`${this.url}/bGetCupoCedula.php?id=${documento}`);
+  consultarAsignaciones(documento: string){
+    return this.http.get<AsignacionesBicicletero>(`${this.url}?fn=asignaciones&documento=${encodeURIComponent(documento)}`, { headers: this.headers });
   }
 
-  getEliminarCupo(rol: any, documento: any){
-    return this.http.get(`${this.url}/bDeleteSolicitud.php?cedula=${documento}&rol=${rol}`);
+  crearSolicitud(solicitud: Omit<SolicitudBicicleteroBody, 'fn'>){
+    const body: SolicitudBicicleteroBody = { fn: 'solicitud', ...solicitud };
+    return this.http.post<SolicitudBicicletero>(this.url, body, { headers: this.headers });
   }
 }
-

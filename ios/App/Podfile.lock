@@ -54,16 +54,16 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/status-bar"
 
 SPEC CHECKSUMS:
-  Capacitor: 8a9db42d105f55843cd8ed2a3cb54e2b78e7f102
-  CapacitorApp: 024e1b1bea5f883d79f6330d309bc441c88ad04a
-  CapacitorBrowser: 7a0fb6a1011abfaaf2dfedfd8248f942a8eda3d6
-  CapacitorCommunityBarcodeScanner: 7feb206489c8555a8ca0c74c57ddf49ead774eb8
-  CapacitorCommunityPrivacyScreen: f9d98275ba27167f88fb50dfd50ebc563dad1f8b
+  Capacitor: ce9953f8ea41eb874d9eaa77557861999e17d1ac
+  CapacitorApp: 3bef09d0bbb9698fd1766398499f306647156bbf
+  CapacitorBrowser: 1b806c749bdb6e35087aa61d19ef440d95276d9c
+  CapacitorCommunityBarcodeScanner: 100051f49caad62966f331cbdf6844a3e51db8e9
+  CapacitorCommunityPrivacyScreen: 7d5262a2a1a4e529ad8606af357e0fcfb4aeb24b
   CapacitorCordova: cfcc06b698481da655415985eeb2b8da363f8451
-  CapacitorHaptics: 1fffc1217c7e64a472d7845be50fb0c2f7d4204c
-  CapacitorKeyboard: b978154b024a5f65e044908e37d15b7de58b9d12
-  CapacitorPreferences: f03954bcb0ff09c792909e46bff88e3183c16b10
-  CapacitorStatusBar: 565c0a1ebd79bb40d797606a8992b4a105885309
+  CapacitorHaptics: c56885bd07919be808b38db507507919ce4d1b09
+  CapacitorKeyboard: 673a4a303383a61f4d360c871f121f8bbaa745b6
+  CapacitorPreferences: f78fba9eb9a2c3bd6d7014c1cfa4174e53832caa
+  CapacitorStatusBar: f7e05ad7e5fb1a1cdacd2f0b55d488550ca07c41
 
 PODFILE CHECKSUM: 9fa86cd420ad38d1d96e5ca01a0bc871f03cf27f
 

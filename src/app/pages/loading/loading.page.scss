@@ -1,3 +1,11 @@
+/* Sin ion-header/ion-footer: el propio ion-content debe respetar el
+   notch y el home indicator (antes lo cubría el contentInset nativo
+   de iOS; ahora el WebView es full-bleed, ver capacitor.config.ts) */
+ion-content {
+    --padding-top: var(--ion-safe-area-top);
+    --padding-bottom: var(--ion-safe-area-bottom);
+}
+
 .container {
     background-color: #FBD342 !important;
     display: flex;

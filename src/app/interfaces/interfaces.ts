@@ -41,15 +41,6 @@ export interface bytte {
   body: string;
 }
 
-export interface cupoUsuario {
-  documento: string;
-  lugar: string;
-  cupo: string;
-  dia: string;
-  jornada: string;
-  message: string;
-}
-
 export interface rectoria {
   rectorias: rectoriaDatos;
 }
@@ -67,19 +58,6 @@ export interface sede {
 interface sedeDatos {
   id: string;
   nombre: string;
-}
-
-export interface cupoBici {
-  respuesta: string;
-}
-
-export interface solicitudBici {
-  '1': datosSolicitud;
-}
-
-interface datosSolicitud {
-  response_code: string;
-  message: string;
 }
 
 export interface eventos {
