@@ -160,8 +160,8 @@ export class CarnetPage implements OnInit {
           }
 
           this.accesos.push({
-            nombre: 'qr-perdomo',
-            descripcion: 'QR Perdomo',
+            nombre: 'qr-acceso',
+            descripcion: 'QR Acceso',
             icon: '/assets/icon/3d/qr-perdomo.svg',
             zona: 1,
             abierto: 'GENERAL',
@@ -201,8 +201,8 @@ export class CarnetPage implements OnInit {
           console.error('Error al obtener datos', error);
           this.accesos.push(
             {
-              nombre: 'qr-perdomo',
-              descripcion: 'QR Perdomo',
+              nombre: 'qr-acceso',
+              descripcion: 'QR Acceso',
               icon: '/assets/icon/3d/qr-perdomo.svg',
               zona: 1,
               abierto: 'GENERAL',
