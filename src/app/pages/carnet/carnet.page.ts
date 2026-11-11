@@ -33,6 +33,10 @@ export class CarnetPage implements OnInit {
   headquarters: any = [];
   loading: boolean = true;
 
+  // Imagen promocional: se muestra 15 segundos al entrar al carnet
+  mostrarImagenPromo: boolean = false;
+  private timerImagenPromo: any;
+
   //datos de usuario
   srcImage: any;
 
@@ -122,7 +126,25 @@ export class CarnetPage implements OnInit {
 
   ngOnInit() {}
 
+  ionViewWillLeave() {
+    this.ocultarImagenPromo();
+  }
+
+  mostrarImagenPromocional() {
+    this.ocultarImagenPromo();
+    this.mostrarImagenPromo = true;
+    this.timerImagenPromo = setTimeout(() => {
+      this.mostrarImagenPromo = false;
+    }, 15000);
+  }
+
+  ocultarImagenPromo() {
+    clearTimeout(this.timerImagenPromo);
+    this.mostrarImagenPromo = false;
+  }
+
   ionViewWillEnter() {
+    this.mostrarImagenPromocional();
     this.extraerDatos().finally(() => {
       const observables = [
         this.uniminutoSerive.getActiveModules(),

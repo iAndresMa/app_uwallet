@@ -87,3 +87,21 @@
     </ion-card>
   </div>
 </ion-content>
+
+<!-- Modal con imagen informativa: se cierra solo con el botón -->
+<ion-modal
+  [isOpen]="mostrarModalImagen"
+  [backdropDismiss]="false"
+  (didDismiss)="cerrarModalImagen()"
+  class="modal-imagen-promo"
+>
+  <ng-template>
+    <div class="modal-imagen-contenido">
+      <img src="/assets/X360.png" alt="Imagen informativa UNIMINUTO" />
+      <ion-button expand="block" color="amarilloW" class="modal-imagen-boton" (click)="cerrarModalImagen()">
+        <ion-icon name="close-outline" slot="start"></ion-icon>
+        Cerrar y ver mi QR
+      </ion-button>
+    </div>
+  </ng-template>
+</ion-modal>

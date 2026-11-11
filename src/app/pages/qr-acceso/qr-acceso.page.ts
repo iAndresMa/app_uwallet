@@ -30,6 +30,9 @@ export class QrAccesoPage implements OnInit {
   mensajeLento: string;
   qrError: boolean;
 
+  // Modal con imagen informativa: el usuario debe cerrarlo para ver el QR
+  mostrarModalImagen: boolean = false;
+
   constructor(
     private navCtrl: NavController,
     private local: LocalService,
@@ -51,7 +54,15 @@ export class QrAccesoPage implements OnInit {
 
   ngOnInit() {}
 
+  ionViewWillEnter() {
+    this.mostrarModalImagen = true;
+  }
+
   ionViewDidEnter() {}
+
+  cerrarModalImagen() {
+    this.mostrarModalImagen = false;
+  }
 
   async crearQr() {
     if (this.pager) {

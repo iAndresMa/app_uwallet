@@ -48,6 +48,10 @@
 </ion-header>
 
 <ion-content class="main-content">
+  <div *ngIf="mostrarImagenPromo" class="imagen-promo">
+    <img src="/assets/X360.png" alt="Imagen informativa UNIMINUTO" />
+  </div>
+
   <ion-list *ngIf="loading" class="loading-container">
     <div class="loading-wrapper">
       <ion-progress-bar type="indeterminate" color="amarilloW" class="loading-bar"></ion-progress-bar>
