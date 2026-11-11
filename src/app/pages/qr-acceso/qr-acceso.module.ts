@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { QrPerdomoPageRoutingModule } from './qr-perdomo-routing.module';
+import { QrAccesoPageRoutingModule } from './qr-acceso-routing.module';
 
-import { QrPerdomoPage } from './qr-perdomo.page';
+import { QrAccesoPage } from './qr-acceso.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    QrPerdomoPageRoutingModule,
+    QrAccesoPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [QrPerdomoPage]
+  declarations: [QrAccesoPage]
 })
-export class QrPerdomoPageModule {}
+export class QrAccesoPageModule {}

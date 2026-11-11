@@ -109,10 +109,10 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'qr-perdomo',
+    path: 'qr-acceso',
     loadChildren: () =>
-      import('./pages/qr-perdomo/qr-perdomo.module').then(
-        (m) => m.QrPerdomoPageModule
+      import('./pages/qr-acceso/qr-acceso.module').then(
+        (m) => m.QrAccesoPageModule
       ),
   },
   {

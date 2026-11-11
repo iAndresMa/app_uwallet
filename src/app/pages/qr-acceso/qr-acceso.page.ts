@@ -9,11 +9,11 @@ import { catchError, of, tap } from 'rxjs';
 declare var QRious: any;
 
 @Component({
-  selector: 'app-qr-perdomo',
-  templateUrl: './qr-perdomo.page.html',
-  styleUrls: ['./qr-perdomo.page.scss'],
+  selector: 'app-qr-acceso',
+  templateUrl: './qr-acceso.page.html',
+  styleUrls: ['./qr-acceso.page.scss'],
 })
-export class QrPerdomoPage implements OnInit {
+export class QrAccesoPage implements OnInit {
   qrCode: any = '';
   hoy: Date = new Date();
   fechaExpiracionQr: any | undefined;
