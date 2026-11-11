@@ -5,6 +5,7 @@ import { LocalService } from '../../services/local.service';
 import { UwalletService } from '../../services/uwallet.service';
 import { MessageService } from 'src/app/services/message.service';
 import { Browser } from '@capacitor/browser';
+import { ModoTema, TemaService } from 'src/app/services/tema.service';
 
 @Component({
   selector: 'app-configuracion',
@@ -25,10 +26,17 @@ export class ConfiguracionPage implements OnInit {
   descripcion : any;
   cn          : any;
 
+  readonly opcionesTema: { valor: ModoTema; texto: string }[] = [
+    { valor: 'sistema', texto: 'Según el sistema' },
+    { valor: 'claro',   texto: 'Claro' },
+    { valor: 'oscuro',  texto: 'Oscuro' },
+  ];
+
   constructor(
     private route       : ActivatedRoute,
     private navCtrl     : NavController,
     private local       : LocalService,
+    public  tema        : TemaService,
   ) {
     this.correo = this.route.snapshot.paramMap.get('data');
     this.extraerDatos();
@@ -40,8 +48,14 @@ export class ConfiguracionPage implements OnInit {
     this.navCtrl.navigateForward(`/carnet`);
   }
 
-  cerrarSesion(){
-    this.local.limpiarLlaves();
+  cambiarTema(evento: any){
+    this.tema.establecer(evento.detail.value as ModoTema);
+  }
+
+  async cerrarSesion(){
+    await this.local.limpiarLlaves();
+    // El tema es una preferencia del dispositivo, no de la sesión: se conserva al salir
+    await this.tema.guardar();
     this.navCtrl.navigateRoot('loading');
   }
 

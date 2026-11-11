@@ -15,7 +15,7 @@
     </ion-item-divider>
 
     <ion-item mode="ios" (click)="openWebPage()">
-      <ion-icon name="image" color="azulClaroUW"></ion-icon>
+      <img class="icono-3d" src="/assets/icon/3d/foto.svg" alt="" />
       <ion-label>Actualizar Fotografía</ion-label>
       <ion-badge slot="end" mode="ios">subir</ion-badge>
     </ion-item>
@@ -28,13 +28,27 @@
       <ion-label>Aplicación</ion-label>
     </ion-item-divider>
 
+    <ion-item mode="ios" class="item-tema">
+      <img class="icono-3d" src="/assets/icon/3d/tema.svg" alt="" />
+      <ion-select
+        label="Tema"
+        interface="action-sheet"
+        [interfaceOptions]="{ header: 'Tema de la app' }"
+        cancelText="Cancelar"
+        [value]="tema.modoActual"
+        (ionChange)="cambiarTema($event)"
+      >
+        <ion-select-option *ngFor="let opcion of opcionesTema" [value]="opcion.valor">{{ opcion.texto }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
     <ion-item mode="ios" routerLink="/mesa">
-      <ion-icon name="information-circle-outline" color="azulClaroUW"></ion-icon>
+      <img class="icono-3d" src="/assets/icon/3d/ayuda.svg" alt="" />
       <ion-label>Ayuda</ion-label>
     </ion-item>
 
     <ion-item mode="ios" (click)="cerrarSesion()">
-      <ion-icon name="exit" color="azulClaroUW"></ion-icon>
+      <img class="icono-3d" src="/assets/icon/3d/salir.svg" alt="" />
       <ion-label>Cerrar sesión</ion-label>
     </ion-item>
 

@@ -1,0 +1,21 @@
+/* Pestañas: inactiva en gris accesible, activa en naranja de marca oscurecido
+   (#ff6d00 sobre blanco solo da 2.8:1). */
+ion-tab-button {
+  --color: var(--uw-texto-terciario);
+  --color-selected: var(--uw-naranja-tab);
+}
+
+ion-tab-button.tab-seleccionado {
+  --color: var(--uw-naranja-tab);
+  font-weight: 600;
+}
+
+:host {
+  --uw-naranja-tab: #c2410c; /* 5.2:1 sobre blanco */
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --uw-naranja-tab: #ff8a3d; /* 7.0:1 sobre #1f1f1f */
+  }
+}

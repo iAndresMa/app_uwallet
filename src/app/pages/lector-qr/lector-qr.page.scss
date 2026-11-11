@@ -16,9 +16,14 @@
 }
 
 .scan-icon {
-    font-size: 3rem;
-    color: #007bff;
     margin-bottom: 10px;
+
+    img {
+        display: block;
+        width: 72px;
+        height: 72px;
+        margin: 0 auto;
+    }
 }
 
 .scanner {
@@ -82,4 +87,13 @@ ion-card{
 
 p > span {
     font-size:xx-small !important;
+}
+
+/* Modo oscuro: .scan-box e ion-card tienen fondo blanco fijo, el texto debe seguir oscuro */
+@media (prefers-color-scheme: dark) {
+  .scan-box,
+  ion-card {
+    --color: #1F2937;
+    color: #1F2937;
+  }
 }

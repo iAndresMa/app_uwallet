@@ -16,9 +16,14 @@
 }
 
 .scan-icon {
-    font-size: 3rem;
-    color: #007bff;
     margin-bottom: 10px;
+
+    img {
+        display: block;
+        width: 72px;
+        height: 72px;
+        margin: 0 auto;
+    }
 }
 
 .scanner {
@@ -39,4 +44,11 @@
     padding: 10px;
     border-radius: 5px;
     text-align: center;
+}
+
+/* Modo oscuro: .scan-box tiene fondo blanco fijo, el texto debe seguir oscuro */
+@media (prefers-color-scheme: dark) {
+  .scan-box {
+    color: #1F2937;
+  }
 }

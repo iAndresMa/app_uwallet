@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<defs><radialGradient id="evt-s1"><stop offset="0" stop-color="#000" stop-opacity=".38"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><linearGradient id="evt-g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e4e8f1"/></linearGradient><linearGradient id="evt-b3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="evt-g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffa24d"/><stop offset="1" stop-color="#ff6d00"/></linearGradient><linearGradient id="evt-g5" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a4a74"/><stop offset="1" stop-color="#141c30"/></linearGradient><linearGradient id="evt-g6" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a4a74"/><stop offset="1" stop-color="#141c30"/></linearGradient><linearGradient id="evt-g7" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe680"/><stop offset="1" stop-color="#fbc531"/></linearGradient><linearGradient id="evt-b8" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+<ellipse cx="32" cy="57" rx="20" ry="3.6" fill="url(#evt-s1)"/>
+<rect x="8" y="16" width="48" height="42" rx="7" fill="#b8c0d2"/>
+<rect x="8" y="12" width="48" height="42" rx="7" fill="url(#evt-g2)"/>
+<rect x="9.5" y="13.2" width="45" height="17.64" rx="5.5" fill="url(#evt-b3)" opacity=".7"/>
+<path d="M8 19a7 7 0 0 1 7-7h34a7 7 0 0 1 7 7v6H8Z" fill="url(#evt-g4)"/>
+<path d="M10 18a5 5 0 0 1 5-4.5h34a5 5 0 0 1 5 4.5" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.4"/>
+<rect x="17.4" y="6" width="5.2" height="12" rx="2.6" fill="#0b1020" transform="translate(0 1.2)"/>
+<rect x="17.4" y="6" width="5.2" height="12" rx="2.6" fill="url(#evt-g5)"/>
+<rect x="41.4" y="6" width="5.2" height="12" rx="2.6" fill="#0b1020" transform="translate(0 1.2)"/>
+<rect x="41.4" y="6" width="5.2" height="12" rx="2.6" fill="url(#evt-g6)"/>
+<path d="M32 28.5 L34.88 35.54 L42.46 36.1 L36.66 41.01 L38.47 48.4 L32 44.4 L25.53 48.4 L27.34 41.01 L21.54 36.1 L29.12 35.54Z" transform="translate(0 2)" fill="#c98f00" stroke="#c98f00" stroke-width="2" stroke-linejoin="round"/>
+<path d="M32 28.5 L34.88 35.54 L42.46 36.1 L36.66 41.01 L38.47 48.4 L32 44.4 L25.53 48.4 L27.34 41.01 L21.54 36.1 L29.12 35.54Z" fill="url(#evt-g7)" stroke="#fbc531" stroke-width="2" stroke-linejoin="round"/>
+<path d="M32 28.5 L34.88 35.54 L42.46 36.1 L36.66 41.01 L38.47 48.4 L32 44.4 L25.53 48.4 L27.34 41.01 L21.54 36.1 L29.12 35.54Z" fill="url(#evt-b8)" opacity=".55" transform="translate(32 39.5) scale(.55) translate(-32 -41)"/>
+</svg>

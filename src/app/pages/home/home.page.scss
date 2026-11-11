@@ -362,16 +362,55 @@ a:hover {
   }
 }
 
+/* Nota: las variables declaradas en `:root` dentro de un componente con
+   encapsulación emulada compilan a `[_ngcontent-xxx]:root` y nunca aplican,
+   por eso el modo oscuro se define con reglas explícitas en vez de redefinir
+   esas variables. */
 /* Modo oscuro automático */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --card-bg: rgba(30, 30, 36, 0.95);
-    --text-primary: #F3F4F6;
-    --text-secondary: #9CA3AF;
+  ion-card {
+    background: rgba(30, 30, 36, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.12);
   }
-  
+
+  /* El logo es azul oscuro: se le da una franja clara para que no se pierda */
+  ion-card-header {
+    background: #F3F4F6;
+  }
+
+  ion-card-header::after {
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  ion-label {
+    color: #F3F4F6 !important;
+  }
+
+  .nombreRol {
+    color: #F3F4F6 !important;
+  }
+
+  .tituloLogin {
+    color: #C4C8CE;
+  }
+
+  ion-card .button {
+    --color: #C4C8CE;
+  }
+
+  a,
+  a:hover {
+    color: #80ABFB;
+  }
+
   ion-item {
-    --background: rgba(30, 30, 36, 0.8);
+    --background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  ion-item.item-has-focus {
+    --background: rgba(128, 171, 251, 0.12);
+    border-color: #80ABFB;
   }
   
   .button {

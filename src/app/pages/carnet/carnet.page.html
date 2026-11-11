@@ -82,22 +82,22 @@
     <div class="modules-container">
       <div class="module-section">
         <ion-note class="section-label">Accesos</ion-note>
-        <app-card [imageUrl]="accesos" class="module-card"></app-card>
+        <app-card [imageUrl]="accesos" tono="acceso" class="module-card"></app-card>
       </div>
 
       <div class="module-section">
         <ion-note class="section-label">Servicios</ion-note>
-        <app-card [imageUrl]="serviciosApp" class="module-card"></app-card>
+        <app-card [imageUrl]="serviciosApp" tono="servicio" class="module-card"></app-card>
       </div>
 
       <div class="module-section" *ngIf="lector.length">
         <ion-note class="section-label">Lector</ion-note>
-        <app-card [imageUrl]="lector" class="module-card"></app-card>
+        <app-card [imageUrl]="lector" tono="lector" class="module-card"></app-card>
       </div>
 
       <div class="module-section">
         <ion-note class="section-label">Soporte</ion-note>
-        <app-card [imageUrl]="componentes" class="module-card"></app-card>
+        <app-card [imageUrl]="componentes" tono="soporte" class="module-card"></app-card>
       </div>
     </div>
   </div>

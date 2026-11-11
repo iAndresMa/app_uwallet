@@ -338,12 +338,25 @@ ion-content {
 }
 
 /* Modo oscuro - alineado con la paleta de theme/variables.scss (azulW) */
+/* Nota: las variables declaradas en `:root` dentro de un componente con
+   encapsulación emulada compilan a `[_ngcontent-xxx]:root` y nunca aplican,
+   por eso el modo oscuro se define con reglas explícitas en vez de redefinir
+   esas variables. */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --dark-text: #F3F4F6;
-    --medium-text: #9CA3AF;
-    --light-bg: #121212;
-    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  .main-content {
+    --background: #121212;
+  }
+
+  .profile-name,
+  .detail-value,
+  .section-label {
+    color: #F3F4F6 !important;
+  }
+
+  .profile-text,
+  .profile-detail,
+  .loading-text {
+    color: #C4C8CE;
   }
 
   .profile-card {

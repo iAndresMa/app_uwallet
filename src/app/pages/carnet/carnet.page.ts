@@ -58,28 +58,28 @@ export class CarnetPage implements OnInit {
     {
       nombre: 'bicicletero',
       descripcion: 'Bicicletero',
-      icon: '/assets/icon/bicicletero.png',
+      icon: '/assets/icon/3d/bicicletero.svg',
       zona: 1,
       abierto: 'GENERAL',
     },
     {
       nombre: 'prestamos',
       descripcion: 'Biblioteca',
-      icon: '/assets/icon/biblioteca.png',
+      icon: '/assets/icon/3d/biblioteca.svg',
       zona: 1,
       abierto: 'GENERAL',
     },
     {
       nombre: 'prestamos',
       descripcion: 'Equipos',
-      icon: '/assets/icon/prestamo.png',
+      icon: '/assets/icon/3d/equipos.svg',
       zona: 1,
       abierto: 'GENERAL',
     },
     {
       nombre: 'parqueadero',
       descripcion: 'Parking',
-      icon: '/assets/icon/estacionamiento.png',
+      icon: '/assets/icon/3d/parqueadero.svg',
       zona: 1,
       abierto: 'GENERAL',
     },
@@ -103,7 +103,7 @@ export class CarnetPage implements OnInit {
     {
       nombre: 'configuracion',
       descripcion: 'Configuración',
-      icon: '/assets/icon/configuracion.png',
+      icon: '/assets/icon/3d/configuracion.svg',
       zona: 1,
       abierto: 'GENERAL',
     },
@@ -141,8 +141,8 @@ export class CarnetPage implements OnInit {
               if (nombre == 'qr_provisional') {
                 this.accesos.push({
                   nombre: 'qr-provisional',
-                  descripcion: '',
-                  icon: '/assets/icon/qr.png',
+                  descripcion: 'QR provisional',
+                  icon: '/assets/icon/3d/qr-provisional.svg',
                   zona: 1,
                   abierto: 'GENERAL',
                 });
@@ -151,7 +151,7 @@ export class CarnetPage implements OnInit {
                 this.serviciosApp.push({
                   nombre: 'tabs',
                   descripcion: 'Eventos',
-                  icon: '/assets/icon/eventos.png',
+                  icon: '/assets/icon/3d/eventos.svg',
                   zona: 1,
                   abierto: 'GENERAL',
                 });
@@ -161,8 +161,8 @@ export class CarnetPage implements OnInit {
 
           this.accesos.push({
             nombre: 'qr-perdomo',
-            descripcion: '',
-            icon: '/assets/icon/perdomo.png',
+            descripcion: 'QR Perdomo',
+            icon: '/assets/icon/3d/qr-perdomo.svg',
             zona: 1,
             abierto: 'GENERAL',
           });
@@ -179,7 +179,7 @@ export class CarnetPage implements OnInit {
                 this.lector.push({
                   nombre: 'lector-evento',
                   descripcion: 'Lector',
-                  icon: '/assets/icon/scanner.png',
+                  icon: '/assets/icon/3d/lector-evento.svg',
                   zona: 1,
                   abierto: 'GENERAL',
                 });
@@ -188,7 +188,7 @@ export class CarnetPage implements OnInit {
                 this.lector.push({
                   nombre: 'lector-qr',
                   descripcion: 'Lector QR',
-                  icon: '/assets/icon/scanner.png',
+                  icon: '/assets/icon/3d/lector-qr.svg',
                   zona: 1,
                   abierto: 'GENERAL',
                 });
@@ -202,8 +202,8 @@ export class CarnetPage implements OnInit {
           this.accesos.push(
             {
               nombre: 'qr-perdomo',
-              descripcion: '',
-              icon: '/assets/icon/perdomo.png',
+              descripcion: 'QR Perdomo',
+              icon: '/assets/icon/3d/qr-perdomo.svg',
               zona: 1,
               abierto: 'GENERAL',
             },

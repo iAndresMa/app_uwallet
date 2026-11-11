@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<defs><radialGradient id="sal-s1"><stop offset="0" stop-color="#000" stop-opacity=".38"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><linearGradient id="sal-g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e4e8f1"/></linearGradient><linearGradient id="sal-b3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="sal-g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffa24d"/><stop offset="1" stop-color="#ff6d00"/></linearGradient><linearGradient id="sal-g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe680"/><stop offset="1" stop-color="#fbc531"/></linearGradient></defs>
+<ellipse cx="28" cy="57" rx="20" ry="3.6" fill="url(#sal-s1)"/>
+<rect x="9" y="11.5" width="30" height="46" rx="4" fill="#b8c0d2"/>
+<rect x="9" y="8" width="30" height="46" rx="4" fill="url(#sal-g2)"/>
+<rect x="10.5" y="9.2" width="27" height="19.32" rx="2.5" fill="url(#sal-b3)" opacity=".7"/>
+<rect x="13" y="12" width="22" height="42" rx="2" fill="#0b1020"/>
+<path d="M13 12 27 16.5v40L13 54Z" fill="url(#sal-g4)"/>
+<path d="M14.5 14.5 25.5 18v8" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1.4" stroke-linecap="round"/>
+<circle cx="23.5" cy="36" r="1.6" fill="#fbc531"/>
+<path d="M34 33h20M47 25.5l7.5 7.5-7.5 7.5" transform="translate(0 2)" fill="none" stroke="#c98f00" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M34 33h20M47 25.5l7.5 7.5-7.5 7.5" fill="none" stroke="url(#sal-g5)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

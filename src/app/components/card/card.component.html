@@ -1,10 +1,14 @@
-<div class="horizontal-cards-container">
-  <ion-card
-    class="horizontal-card no-shadow-card custom-background-card"
+<div class="horizontal-cards-container" [ngClass]="'tono-' + tono">
+  <button
+    type="button"
+    class="horizontal-card modulo"
     *ngFor="let item of arrayMenu"
+    [attr.aria-label]="item.descripcion"
     (click)="servicios(item.nombre, item.descripcion)"
   >
-    <ion-img [src]="item.icon"></ion-img>
-    <label class="textoButton">{{ item.descripcion }}</label>
-  </ion-card>
+    <span class="modulo__mosaico">
+      <img class="modulo__icono" [src]="item.icon" alt="" />
+    </span>
+    <span class="textoButton">{{ item.descripcion }}</span>
+  </button>
 </div>

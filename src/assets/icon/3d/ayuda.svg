@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<defs><radialGradient id="ayd-s1"><stop offset="0" stop-color="#000" stop-opacity=".38"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><linearGradient id="ayd-g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9d1ff"/><stop offset="1" stop-color="#5f8ff0"/></linearGradient><linearGradient id="ayd-b3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+<ellipse cx="32" cy="57" rx="17" ry="3.6" fill="url(#ayd-s1)"/>
+<circle cx="32" cy="33.5" r="21" fill="#3456a8"/>
+<circle cx="32" cy="29" r="21" fill="url(#ayd-g2)"/>
+<ellipse cx="27.38" cy="19.549999999999997" rx="13.02" ry="7.56" fill="url(#ayd-b3)" opacity=".8"/>
+<path d="M25.5 24a6.5 6.5 0 1 1 9.4 5.8c-1.8.9-2.9 2.2-2.9 4.2v1.2" transform="translate(.6 1.4)" fill="none" stroke="#3456a8" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M25.5 24a6.5 6.5 0 1 1 9.4 5.8c-1.8.9-2.9 2.2-2.9 4.2v1.2" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="32.6" cy="43.6" r="3" fill="#3456a8"/><circle cx="32" cy="42.4" r="3" fill="#fff"/>
+</svg>

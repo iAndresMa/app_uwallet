@@ -74,7 +74,7 @@
 
 .time-icon {
   font-size: 1.2rem;
-  color: var(--footer-accent);
+  color: var(--uw-enlace);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -92,12 +92,12 @@
 .date-text {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--footer-text);
+  color: var(--uw-texto);
   letter-spacing: 0.5px;
 }
 
 .time-separator {
-  color: var(--footer-accent);
+  color: var(--uw-enlace);
   font-weight: bold;
   animation: blink 2s infinite;
 }
@@ -114,11 +114,7 @@
 .time-text {
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--footer-text);
-  background: linear-gradient(135deg, var(--footer-accent), #1E40AF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--uw-texto);
   padding: 2px 0;
 }
 
@@ -195,10 +191,10 @@
 
 /* Modo oscuro automático */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --footer-text: #F9FAFB;
+  .time-display::after {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
   }
-  
+
   .time-display {
     background: rgba(30, 30, 36, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -234,7 +230,7 @@
 
 /* Mejora de accesibilidad */
 .time-display:focus {
-  outline: 2px solid var(--footer-accent);
+  outline: 2px solid var(--uw-enlace);
   outline-offset: 2px;
 }
 

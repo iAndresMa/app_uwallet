@@ -4,6 +4,20 @@
 /** Ionic CSS Variables **/
 :root {
 
+  /*
+   * Tokens semánticos U'Wallet (contraste verificado WCAG 2.1 AA).
+   * Usar estos en vez de colores sueltos en las páginas; cambian solos en modo oscuro.
+   * Ratios indicados sobre blanco (claro) y sobre #1e2026 (oscuro).
+   */
+  --uw-texto: #1f2937;              /* 14.7:1 */
+  --uw-texto-secundario: #4b5563;   /*  7.6:1 */
+  --uw-texto-terciario: #6b7280;    /*  4.8:1 (mínimo para texto normal) */
+  --uw-enlace: #2f5fc4;             /*  5.9:1, azul de la familia azulClaroUW */
+  --uw-exito: #15803d;              /*  texto blanco encima: 5.0:1 */
+  --uw-exito-oscuro: #166534;       /*  texto blanco encima: 7.1:1 */
+  --uw-peligro-texto: #c8102e;      /*  5.7:1 */
+  --uw-naranja-texto: #b33f00;      /*  5.3:1 sobre #fff3e0 */
+
   /** naranjaE **/
   --ion-color-naranjaE: #ff6d00;
   --ion-color-naranjaE-rgb: 255, 109, 0;
@@ -30,7 +44,7 @@
 
   /** amarilloW **/
   --ion-color-amarilloW: #FBD342;
-  --ion-color-amarilloW-rgb: 255, 205, 2;
+  --ion-color-amarilloW-rgb: 251, 211, 66;
   --ion-color-amarilloW-contrast: #000000;
   --ion-color-amarilloW-contrast-rgb: 0, 0, 0;
   --ion-color-amarilloW-shade: #e0b402;
@@ -132,6 +146,16 @@
    */
 
   body {
+    /* Tokens semánticos U'Wallet - modo oscuro */
+    --uw-texto: #f3f4f6;
+    --uw-texto-secundario: #c4c8ce;   /* 9.7:1 */
+    --uw-texto-terciario: #9ca3af;    /* 6.5:1 */
+    --uw-enlace: #80abfb;             /* 7.1:1 (azulClaroUW) */
+    --uw-exito: #15803d;
+    --uw-exito-oscuro: #166534;
+    --uw-peligro-texto: #ff7a8a;      /* 5.7:1 */
+    --uw-naranja-texto: #ffb74d;
+
     --ion-color-primary: #428cff;
     --ion-color-primary-rgb: 66, 140, 255;
     --ion-color-primary-contrast: #ffffff;
@@ -290,38 +314,60 @@
 
 .ion-color-naranjaE {
   --ion-color-base: var(--ion-color-naranjaE) !important;
-  --ion-color-naranjaE-rgb: var(--ion-color-naranjaE-rgb) !important;
-  --ion-color-naranjaE-contrast: var(--ion-color-naranjaE-contrast) !important;
-  --ion-color-naranjaE-contrast-rgb: var(--ion-naranjaE-azulA-contrast-rgb) !important;
-  --ion-color-naranjaE-shade: var(--ion-color-naranjaE-shade) !important;
-  --ion-color-naranjaE-tint: var(--ion-color-naranjaE-tint) !important;
+  --ion-color-base-rgb: var(--ion-color-naranjaE-rgb) !important;
+  --ion-color-contrast: var(--ion-color-naranjaE-contrast) !important;
+  --ion-color-contrast-rgb: var(--ion-color-naranjaE-contrast-rgb) !important;
+  --ion-color-shade: var(--ion-color-naranjaE-shade) !important;
+  --ion-color-tint: var(--ion-color-naranjaE-tint) !important;
 }
 
 .ion-color-azulA {
   --ion-color-base: var(--ion-color-azulA) !important;
-  --ion-color-azulA-rgb: var(--ion-color-azulA-rgb) !important;
-  --ion-color-azulA-contrast: var(--ion-color-azulA-contrast) !important;
-  --ion-color-azulA-contrast-rgb: var(--ion-color-azulA-contrast-rgb) !important;
-  --ion-color-azulA-shade: var(--ion-color-azulA-shade) !important;
-  --ion-color-azulA-tint: var(--ion-color-azulA-tint) !important;
+  --ion-color-base-rgb: var(--ion-color-azulA-rgb) !important;
+  --ion-color-contrast: var(--ion-color-azulA-contrast) !important;
+  --ion-color-contrast-rgb: var(--ion-color-azulA-contrast-rgb) !important;
+  --ion-color-shade: var(--ion-color-azulA-shade) !important;
+  --ion-color-tint: var(--ion-color-azulA-tint) !important;
 }
 
 .ion-color-azulW {
   --ion-color-base: var(--ion-color-azulW) !important;
-  --ion-color-azulW-rgb: var(--ion-color-azulW-rgb) !important;
-  --ion-color-azulW-contrast: var(--ion-color-azulW-contrast) !important;
-  --ion-color-azulW-contrast-rgb: var(--ion-color-azulW-contrast-rgb) !important;
-  --ion-color-azulW-shade: var(--ion-color-azulW-shade) !important;
-  --ion-color-azulW-tint: var(--ion-color-azulW-tint) !important;
+  --ion-color-base-rgb: var(--ion-color-azulW-rgb) !important;
+  --ion-color-contrast: var(--ion-color-azulW-contrast) !important;
+  --ion-color-contrast-rgb: var(--ion-color-azulW-contrast-rgb) !important;
+  --ion-color-shade: var(--ion-color-azulW-shade) !important;
+  --ion-color-tint: var(--ion-color-azulW-tint) !important;
 }
 
 .ion-color-amarilloW {
   --ion-color-base: var(--ion-color-amarilloW) !important;
-  --ion-color-amarilloW-rgb: var(--ion-color-amarilloW-rgb) !important;
-  --ion-color-amarilloW-contrast: var(--ion-color-amarilloW-contrast) !important;
-  --ion-color-amarilloW-contrast-rgb: var(--ion-color-amarilloW-contrast-rgb) !important;
-  --ion-color-amarilloW-shade: var(--ion-color-amarilloW-shade) !important;
-  --ion-color-amarilloW-tint: var(--ion-color-amarilloW-tint) !important;
+  --ion-color-base-rgb: var(--ion-color-amarilloW-rgb) !important;
+  --ion-color-contrast: var(--ion-color-amarilloW-contrast) !important;
+  --ion-color-contrast-rgb: var(--ion-color-amarilloW-contrast-rgb) !important;
+  --ion-color-shade: var(--ion-color-amarilloW-shade) !important;
+  --ion-color-tint: var(--ion-color-amarilloW-tint) !important;
+}
+
+/*
+ * En modo oscuro azulW (#141c30) es casi igual al fondo de la app, así que los
+ * botones azulW pasan a azulClaroUW. Las toolbars azulW se mantienen (su texto
+ * blanco sí contrasta).
+ */
+@media (prefers-color-scheme: dark) {
+  ion-button.ion-color-azulW {
+    --ion-color-base: var(--ion-color-azulClaroUW) !important;
+    --ion-color-base-rgb: var(--ion-color-azulClaroUW-rgb) !important;
+    --ion-color-contrast: var(--ion-color-azulClaroUW-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-azulClaroUW-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-azulClaroUW-shade) !important;
+    --ion-color-tint: var(--ion-color-azulClaroUW-tint) !important;
+  }
+}
+
+/* Indicador de campo obligatorio y textos en danger: el danger de Ionic (#eb445a)
+   solo llega a 3.7:1 como texto; se usa el token accesible. */
+ion-text.ion-color-danger {
+  --ion-color-base: var(--uw-peligro-texto) !important;
 }
 
 .ion-color-rojoUniapp {

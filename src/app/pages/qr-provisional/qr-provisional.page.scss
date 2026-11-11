@@ -40,3 +40,18 @@ ion-card {
 p>span {
     font-size: xx-small !important;
 }
+
+/* Modo oscuro: la tarjeta se mantiene blanca para que el QR sea legible,
+   así que su texto debe seguir siendo oscuro (si no, hereda el gris claro del tema). */
+@media (prefers-color-scheme: dark) {
+  ion-card {
+    --color: #4B5563;
+    color: #4B5563;
+  }
+
+  ion-card h1,
+  ion-card h2,
+  ion-card h3 {
+    color: #111827;
+  }
+}

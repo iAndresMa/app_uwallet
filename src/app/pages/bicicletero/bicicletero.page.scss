@@ -296,9 +296,11 @@ ion-header > ion-toolbar > ion-img{
   padding-top: 56px;
   text-align: center;
 
-  > ion-icon {
-    font-size: 3.5rem;
-    color: var(--ion-color-azulW);
+  .vacio__icono {
+    display: block;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto;
   }
 }
 
@@ -318,5 +320,58 @@ ion-header > ion-toolbar > ion-img{
 @media (prefers-reduced-motion: reduce) {
   .terminos {
     transition: none;
+  }
+}
+
+// Modo oscuro: azulW (#141c30) como color de texto/acento es casi invisible
+// sobre el fondo oscuro, así que se reemplaza por texto claro y amarilloW.
+@media (prefers-color-scheme: dark) {
+  .solicitud,
+  .cupos,
+  .vacio {
+    --texto-apoyo: #A8AEBD;
+    --borde: #3A3F4B;
+
+    color: #F3F4F6;
+  }
+
+  .talon {
+    background: var(--ion-color-azulW-tint);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .campo {
+    --border-color: var(--borde);
+    --highlight-color-focused: var(--ion-color-amarilloW);
+  }
+
+  .terminos {
+    border-color: var(--borde);
+
+    &:focus-visible {
+      outline-color: var(--ion-color-amarilloW);
+    }
+  }
+
+  .terminos--aceptados {
+    border-color: var(--ion-color-success);
+
+    > ion-icon,
+    .terminos__estado {
+      color: var(--ion-color-success);
+    }
+  }
+
+  .cupo__estado {
+    background: rgba(var(--ion-color-success-rgb), 0.16);
+    color: #7EE2A8;
+  }
+
+  .cupo--inactivo {
+    .cupo__puesto,
+    .cupo__estado {
+      background: #2A2E38;
+      color: var(--texto-apoyo);
+    }
   }
 }
