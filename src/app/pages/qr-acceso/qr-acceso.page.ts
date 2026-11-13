@@ -5,6 +5,7 @@ import { MessageService } from '../../services/message.service';
 import { BytteService } from '../../services/bytte.service';
 import { DasnetService } from 'src/app/services/dasnet.service';
 import { catchError, of, tap } from 'rxjs';
+import { imagenPromoVigente } from 'src/app/constants/imagen-promo';
 
 declare var QRious: any;
 
@@ -55,7 +56,7 @@ export class QrAccesoPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
-    this.mostrarModalImagen = true;
+    this.mostrarModalImagen = imagenPromoVigente();
   }
 
   ionViewDidEnter() {}

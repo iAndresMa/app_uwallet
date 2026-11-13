@@ -5,6 +5,7 @@ import { MessageService } from 'src/app/services/message.service';
 import { UniminutoService } from 'src/app/services/uniminuto.service';
 import { FormBuilder } from '@angular/forms';
 import { forkJoin, timeout } from 'rxjs';
+import { imagenPromoVigente } from 'src/app/constants/imagen-promo';
 
 @Component({
   selector: 'app-carnet',
@@ -132,6 +133,9 @@ export class CarnetPage implements OnInit {
 
   mostrarImagenPromocional() {
     this.ocultarImagenPromo();
+    if (!imagenPromoVigente()) {
+      return;
+    }
     this.mostrarImagenPromo = true;
     this.timerImagenPromo = setTimeout(() => {
       this.mostrarImagenPromo = false;
